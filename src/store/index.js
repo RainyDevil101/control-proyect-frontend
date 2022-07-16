@@ -1,14 +1,13 @@
 import { createStore } from 'vuex'
 
+import auth from './modules/auth';
+import home from './modules/home';
+import materials from './modules/material';
+
 export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
+    auth,
+    home,
+    materials,
   }
 })

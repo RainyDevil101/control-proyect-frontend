@@ -1,25 +1,55 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from "vue-router";
+
+import auth from "../modules/auth/router";
+import home from "../modules/home/router";
+import loading from "../modules/load/router";
+import authGuard from "../modules/auth/router/auth-guard";
+import redirect from "../modules/auth/router/redirect";
+import adminSelector from "../modules/adminSelect/router";
+import admin from "../modules/auth/router/admin-guard";
+import register from "../modules/register/router";
+import material from "../modules/material/router";
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/",
+    ...auth,
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
-]
+    path: "/home",
+    beforeEnter: [authGuard],
+    // beforeEnter: [supervisor],
+    ...home,
+  },
+  {
+    path: "/load",
+    beforeEnter: [authGuard],
+    beforeEnter: [redirect],
+    ...loading,
+  },
+  {
+    path: "/select",
+    beforeEnter: [authGuard],
+    beforeEnter: [admin],
+    ...adminSelector,
+  },
+  {
+    path: "/register",
+    beforeEnter: [authGuard],
+    beforeEnter: [admin],
+    ...register,
+  },
+  {
+    path: "/material",
+    beforeEnter: [authGuard],
+    beforeEnter: [admin],
+    ...material,
+  },
+];
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes
-})
+  history: createWebHistory(),
+  routes,
+});
 
-export default router
+export default router;
