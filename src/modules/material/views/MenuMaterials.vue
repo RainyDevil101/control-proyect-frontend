@@ -12,6 +12,12 @@
           <div @click="$router.push({ name: 'get-material' })" class="categories-item">
             <p>Pendientes</p>
           </div>
+          <div @click="$router.push({ name: 'get-completed-material' })" class="categories-item">
+            <p>Completadas</p>
+          </div>
+          <div @click="$router.push({ name: 'get-all-material' })" class="categories-item">
+            <p>Todas</p>
+          </div>
         </div>
         <div class="footer">
           <button type="button" @click="$router.push({ name: 'front-home' })" class="btn btn-warning back">

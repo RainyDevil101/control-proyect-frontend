@@ -26,7 +26,7 @@
         </button>
       </div>
     </div>
-    <div class="create-wrapper">
+    <!-- <div class="create-wrapper">
       <div class="create">
         <form @submit.prevent="onSubmit">
           <div class="form form-name">
@@ -104,7 +104,7 @@
           </div>
         </form>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -190,121 +190,46 @@ p {
   margin: 0;
   padding: 0;
 }
+
 .wrapper {
-  width: 100vw;
-  height: 100vh;
-  padding-top: 6rem;
-  padding-bottom: 5rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  display: grid;
+  display: block;
+  width: 90vw;
   margin: auto;
-  grid-gap: 20px;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, auto);
-
-  grid-template-areas:
-    "users users"
-    "create create";
-}
-.users {
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border-radius: 4px;
-  grid-area: users;
-  height: 100%;
-}
-
-.create-wrapper {
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border-radius: 4px;
-  grid-area: create;
-  height: 100%;
+  padding: 5rem 0 3rem 0;
 }
 
 .button-wrapper {
-  padding: 4px 0 4px 0;
+  margin-top: 20px;
+  padding-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.header {
-  color: #fff;
-  padding: 15px;
-  text-align: center;
-}
-
-.form {
-  padding: 10px;
-}
-
-.form p {
-  color: #fff;
-  margin-bottom: 6px;
-}
-
-.form input {
-  width: 100%;
-}
-
-.button-create {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.button-forum {
-  margin: 4px;
+.users {
+  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
   border-radius: 4px;
-  width: 70px;
 }
 
 .body {
-  height: 30vh;
+  height: 65vh;
   overflow: auto;
 }
 
-.no-registers {
-  display: flex;
-  height: 100%;
-  align-content: center;
-  justify-content: center;
-}
-
-.no-registers h1 {
-  margin: auto;
-  text-align: center;
-  color: #fff;
-}
-
-.form select {
-  width: 100%;
-}
-
-input[type="text"] {
-  border-radius: 4px;
+.header h1 {
+  color: white;
+  padding: 10px;
 }
 
 @media screen and (min-width: 768px) {
   .wrapper {
-    grid-template-areas:
-      "users create"
-      "users create";
+    display: flex;
+    width: 90vw;
+  };
+
+  .users {
+
   }
 
-  .body {
-    height: 80%;
-  }
-
-  .create-wrapper {
-    // height: 70%;
-    width: 60%;
-  }
-
-  .wrapper {
-    padding-left: 4rem;
-    padding-right: 4rem;
-    grid-gap: 4rem;
-  }
 }
 </style>

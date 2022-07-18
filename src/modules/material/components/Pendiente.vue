@@ -1,6 +1,6 @@
 <template>
   <div class="pendiente-wrapper"
-  @click="$router.push({ name : 'dispath-material', params: { id: pendiente.id } })"
+  @click="$router.push({ name : 'dispatch-material', params: { id: pendiente.id } })"
   >
     <span>ID: <b>{{pendiente.id}}</b> | </span>
     <span>FECHA DE REGISTRO: <b>{{pendiente.date_in}}</b> | </span>

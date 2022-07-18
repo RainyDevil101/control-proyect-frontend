@@ -1,44 +1,44 @@
 <template>
-  <Loader v-if="materialIdStatus === 'CARGANDO'" />
+  <Loader v-if="materialPendingIdStatus === 'CARGANDO'" />
 
   <div v-else class="wrapper">
     <div class="wrapper-form">
-      <div v-if="materialId !== 'none'">
+      <div v-if="materialPendingId !== 'none'">
         <form @submit.prevent="onSubmit">
           <div class="forum-data">
             <p>Fecha de ingreso:</p>
             <p>
-              <b>{{ materialId.date_in }}</b>
+              <b>{{ materialPendingId.date_in }}</b>
             </p>
           </div>
           <div class="forum-data">
             <p>Número de transporte:</p>
             <p>
-              <b>{{ materialId.transport_number }}</b>
+              <b>{{ materialPendingId.transport_number }}</b>
             </p>
           </div>
           <div class="forum-data">
             <p>Código:</p>
             <p>
-              <b>{{ materialId.code }}</b>
+              <b>{{ materialPendingId.code }}</b>
             </p>
           </div>
           <div class="forum-data">
             <p>Cantidad:</p>
             <p>
-              <b>{{ materialId.cantidad }}</b>
+              <b>{{ materialPendingId.cantidad }}</b>
             </p>
           </div>
           <div class="forum-data">
             <p>Cantidad de bultos:</p>
             <p>
-              <b>{{ materialId.cantidad_bultos }}</b>
+              <b>{{ materialPendingId.cantidad_bultos }}</b>
             </p>
           </div>
           <div class="forum-data">
             <p>Destino:</p>
             <p>
-              <b>{{ materialId.destination }}</b>
+              <b>{{ materialPendingId.destination }}</b>
             </p>
           </div>
           <div class="forum-data">
@@ -116,13 +116,13 @@ export default {
 
     const { dispatchMaterial } = updateMaterial();
 
-    const { getMaterial, materialId, materialIdStatus, pendiente } =
+    const { getMaterialPending, materialPendingId, materialPendingIdStatus, pendiente } =
       useMaterials();
 
     onUpdated(() => {
-      getMaterial(route.params.id);
+      getMaterialPending(route.params.id);
     });
-    getMaterial(route.params.id);
+    getMaterialPending(route.params.id);
 
     watch(
       () => localImageTwo.value,
@@ -132,9 +132,9 @@ export default {
     const { uploadImageTwo } = uploadTwo();
 
     return {
-      getMaterial,
-      materialId,
-      materialIdStatus,
+      getMaterialPending,
+      materialPendingId,
+      materialPendingIdStatus,
       pendiente,
       materialForm,
       localImageTwo,
