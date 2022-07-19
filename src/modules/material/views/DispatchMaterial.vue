@@ -69,16 +69,16 @@
           </div>
           <div class="forum-button">
             <button class="btn btn-warning">Registrar</button>
-          </div>
-        </form>
-        <div class="back-button">
           <button
             @click="$router.push({ name: 'get-material' })"
             class="btn btn-primary"
           >
             Volver
           </button>
-        </div>
+          </div>
+
+
+        </form>
       </div>
       <div v-else>
         <div class="not-wrapper">
@@ -180,8 +180,7 @@ export default {
           })
         } else {
 
-          const resp = await store.dispatch("materials/updateMaterial", route.params.id);
-
+          await store.dispatch("materials/loadMaterials");
 
           Swal.fire(
             "Guardado",
@@ -232,8 +231,7 @@ h1 {
 .wrapper-form {
   background-color: #fff;
   margin: auto;
-  height: 80%;
-  width: 100%;
+  // width: 100%;
   border-radius: 4px;
   max-width: 400px;
   display: flex;
@@ -243,23 +241,23 @@ h1 {
 
 .forum-item {
   display: grid;
-  width: 100%;
+  width: 80%;
   margin: auto;
 }
 
-.forum-button,
-.back-button {
+.forum-button {
   margin-top: 10px;
+  margin-bottom: 10px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
 .forum-data {
-  width: 100%;
-  // margin: 5px;
-  padding: 20px;
-  flex-grow: 1;
+  margin: 5px;
+  padding: 10px;
+  // flex-grow: 1;
+  width: 21rem;
   display: flex;
   justify-content: space-between;
 }

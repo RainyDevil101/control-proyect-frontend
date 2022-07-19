@@ -1,7 +1,7 @@
 <template>
-  <div class="division-container">
-    <span class="division"
-      >{{ division.name }}
+  <div class="location-container">
+    <span class="location"
+      >{{ location.name }}
       </span><p class="delete" @click="onDelete">Eliminar</p>
   </div>
 </template>
@@ -9,25 +9,25 @@
 <script>
 import { ref } from "@vue/reactivity";
 import Swal from "sweetalert2";
-import deleteDivision from "../composables/deleteDivision";
+import deleteLocation from "../composables/deleteLocation";
 
-const { delDivision } = deleteDivision();
+const { delLocation } = deleteLocation();
 
 export default {
   props: {
-    division: {
+    location: {
       type: Object,
       required: true,
     },
   },
 
   setup(props) {
-    const division = ref(props.division);
-    const toDelete = ref(props.division.id);
+    const location = ref(props.location);
+    const toDelete = ref(props.location.id);
 
     return {
-      division,
-      delDivision,
+      location,
+      delLocation,
 
       onDelete: async () => {
         const { isConfirmed } = await Swal.fire({
@@ -44,7 +44,7 @@ export default {
           });
           Swal.showLoading();
 
-          const { nice } = await delDivision(toDelete.value);
+          const { nice } = await delLocation(toDelete.value);
 
           if (nice.value === true) {
 
@@ -71,7 +71,7 @@ p {
   padding: 0;
 }
 
-.division-container {
+.location-container {
   background-color: white;
   margin: 5px;
   padding: 3px;
@@ -96,7 +96,7 @@ p {
   }
 }
 
-.division {
+.location {
   display: flex;
   align-content: center;
   justify-content: space-between;

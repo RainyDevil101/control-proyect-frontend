@@ -12,7 +12,7 @@
           <div @click="$router.push({ name: 'register-division' })" class="categories-item">
             <p>División</p>
           </div>
-          <div class="categories-item">
+          <div @click="$router.push({ name: 'register-location' })" class="categories-item">
             <p>Ubicación</p>
           </div>
         </div>
@@ -27,11 +27,9 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router';
 export default {
   setup() {
 
-    const router = useRouter();
     
     return {
       

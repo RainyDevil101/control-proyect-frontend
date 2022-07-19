@@ -14,6 +14,11 @@ export default {
             component: () => import(/* webpackChunkName: "register-division" */ '@/modules/register/views/RegistDivision.vue'),
         },
         {
+            path: 'register-location',
+            name: 'register-location',
+            component: () => import(/* webpackChunkName: "register-location" */ '@/modules/register/views/RegistLocation.vue'),
+        },
+        {
             path: 'register-user',
             name: 'register-user',
             component: () => import(/* webpackChunkName: "register-user" */ '@/modules/register/views/RegistUser.vue'),

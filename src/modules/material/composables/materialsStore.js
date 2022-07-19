@@ -22,7 +22,7 @@ const useMaterials = () => {
         status: computed(() => store.getters['materials/statusState']),
         pendientes: computed(() => store.getters['materials/getPendientes']),
         completas: computed(() => store.getters['materials/getCompletas']),
-        allMaterials: computed(() => store.getters['materials/allMaterials']),
+        allMaterials: computed(() => store.getters['materials/getAllMaterials']),
         completedPendiente: computed(() => store.getters['materials/getCompletedPendiente']),
         imageOneCompleted: computed(() => store.getters['materials/getCompletedImageOne']),
         imageTwoCompleted: computed(() => store.getters['materials/getCompletedImageTwo']),

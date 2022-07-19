@@ -1,47 +1,80 @@
 <template>
-  <div class="completa-wrapper"
-  @click="$router.push({ name : 'all-material', params: { id: completa.id } })"
+  <div
+    class="allMaterial-wrapper"
+    :class="[allMaterial.date_out === 'PENDIENTE' ? pending : completed]"
+    @click="
+      [
+        allMaterial.date_out === 'PENDIENTE'
+          ? $router.push({
+              name: 'dispatch-material',
+              params: { id: allMaterial.id },
+            })
+          : $router.push({
+              name: 'completed-material',
+              params: { id: allMaterial.id },
+            }),
+      ]
+    "
   >
-    <span>ID: <b>{{completa.id}}</b> | </span>
-    <span>FECHA DE REGISTRO: <b>{{completa.date_in}}</b> | </span>
-    <span>FECHA DE DESPACHO <b>{{completa.date_out}}</b></span>
-    <span>ESTADO: <b>{{completa.date_out}}</b></span>
+    <span
+      >ID: <b>{{ allMaterial.id }}</b> |
+    </span>
+    <span
+      >FECHA DE REGISTRO: <b>{{ allMaterial.date_in }}</b> |
+    </span>
+    <span
+      >FECHA DE DESPACHO <b>{{ allMaterial.date_out }}</b></span
+    >
+    <!-- <span
+      >ESTADO: <b>{{ allMaterial.date_out }}</b></span
+    > -->
   </div>
 </template>
 
 <script>
-import { ref } from '@vue/reactivity';
+import { ref } from "@vue/reactivity";
 export default {
   props: {
-    completa: {
+    allMaterial: {
       type: Object,
       required: true,
     },
   },
 
   setup(props) {
-
-    const completa = ref(props.completa);
+    const allMaterial = ref(props.allMaterial);
+    const pending = ref("pending");
+    const completed = ref("completed");
 
     return {
-        completa,
+      allMaterial,
+      pending,
+      completed,
     };
   },
 };
 </script>
 
 <style lang="postcss" scoped>
-
-.completa-wrapper {
-    background-color: rgb(201, 201, 201);
-    padding: 10px;
-    margin: 4px;
-    border-radius: 4px;
-    transition: all .2s ease-in-out;
+.allMaterial-wrapper {
+  background-color: rgb(201, 201, 201);
+  padding: 10px;
+  margin: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
 }
 
-.completa-wrapper:hover {
-        background-color: rgb(155, 155, 155);
-    }
+.allMaterial-wrapper:hover {
+  background-color: rgb(155, 155, 155);
+}
+
+.pending {
+  background-color: tomato;
+
+}
+
+.pending:hover {
+    background-color: rgb(255, 83, 52);
+}
 
 </style>

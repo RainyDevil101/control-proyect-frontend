@@ -11,19 +11,19 @@ const getDestinations = () => {
 
         const {data} = await backendConnect.get('/api/destination ', {
             headers: { 'x-token': localStorage.getItem('token') }
-        })
-        const destinationsArray = []
-        const destinationsDB = data.destinations
+        });
+        const destinationsArray = [];
+        const destinationsDB = data.destinations;
         for(const destination of destinationsDB) {
             destinationsArray.push(destination)
-            destinations.value = destinationsArray
-            status.value = 'RECIBIDO'
-            secondStatus.value = 'RECIBIDO'
-        }
-        return {destinations, ok: true}
+        };
+        destinations.value = destinationsArray;
+        status.value = 'RECIBIDO';
+        secondStatus.value = 'RECIBIDO';
+        return {destinations, ok: true};
     }
     
-    searchDestinations()
+    searchDestinations();
 
     return {
         destinations,
@@ -33,4 +33,4 @@ const getDestinations = () => {
     }
 }
 
-export default getDestinations
+export default getDestinations;

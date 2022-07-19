@@ -4,7 +4,6 @@
   >
     <span>ID: <b>{{pendiente.id}}</b> | </span>
     <span>FECHA DE REGISTRO: <b>{{pendiente.date_in}}</b> | </span>
-    <span>ESTADO: <b>{{pendiente.date_out}}</b></span>
   </div>
 </template>
 
@@ -32,7 +31,7 @@ export default {
 <style lang="postcss" scoped>
 
 .pendiente-wrapper {
-    background-color: rgb(201, 201, 201);
+    background-color: tomato;
     padding: 10px;
     margin: 4px;
     border-radius: 4px;
@@ -40,7 +39,7 @@ export default {
 }
 
 .pendiente-wrapper:hover {
-        background-color: rgb(155, 155, 155);
+        background-color: rgb(255, 83, 52);
     }
 
 </style>

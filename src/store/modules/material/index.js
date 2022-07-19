@@ -24,8 +24,19 @@ const state = {
 
 const getters = {
 
+    // TODAS
+
     getAllMaterials(state) {
-        return state.allMaterials;
+
+        if (state.allMaterials === '') return '';
+
+        const allMaterials = state.allMaterials;
+
+        const allMaterialsSort = allMaterials.sort((a, b) => {
+            return b.pendiente - a.pendiente;
+        })
+
+        return allMaterialsSort;
     },
     statusState(state) {
         return state.status;
@@ -102,8 +113,8 @@ const mutations = {
         localStorage.removeItem('mC');
         localStorage.removeItem('aM');
 
-        const materialsPending   = materials.filter(pending => pending.date_out === 'PENDIENTE');
-        const materialsCompleted = materials.filter(pending => pending.date_out !== 'PENDIENTE');
+        const materialsPending   = materials.filter(x => x.pendiente === 1);
+        const materialsCompleted = materials.filter(x => x.pendiente === 0);
 
         localStorage.setItem('aM', JSON.stringify(materials));
 

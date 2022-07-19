@@ -1,5 +1,16 @@
 <template>
-    <div class="wrapper">
-        <h1>hellow</h1>
+    <div class="home-wrapper">
+
     </div>
 </template>
+
+<style lang="scss" scoped>
+
+.home-wrapper {
+    height: 100%;
+    min-height: 100vh;
+    width: 100%;
+    max-width: 100vw;
+}
+
+</style>

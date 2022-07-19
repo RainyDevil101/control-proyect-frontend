@@ -10,30 +10,30 @@ const getUsers = () => {
 
         const {data} = await backendConnect.get('/api/user', {
             headers: { 'x-token': localStorage.getItem('token') }
-        })
+        });
 
         
         if (data.users.length === 0) {
 
             console.log('asdas');
-            users.value = ""
-            status.value = 'RECIBIDO'
+            users.value = "";
+            status.value = 'RECIBIDO';
 
         } else {
 
-            const usersArray = []
-            const usersDB = data.users
+            const usersArray = [];
+            const usersDB = data.users;
             for(const user of usersDB) {
-                usersArray.push(user)
-                users.value = usersArray
-                status.value = 'RECIBIDO'
-            }
+            };
+            usersArray.push(user);
+            users.value = usersArray;
+            status.value = 'RECIBIDO';
         }
 
-        return {users, ok: true}
+        return {users, ok: true};
     }
     
-    searchUsers()
+    searchUsers();
 
 
     return {
@@ -43,4 +43,4 @@ const getUsers = () => {
     }
 }
 
-export default getUsers
+export default getUsers;

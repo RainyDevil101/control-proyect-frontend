@@ -4,10 +4,10 @@
 
   <div v-else class="wrapper">
     <div class="alarm-wrapper">
-      <div class="header">
+      <div v-if="pendientes.length > 0" class="header">
         <h1>PENDIENTES</h1>
       </div>
-      <div class="body-wrapper">
+      <div v-if="pendientes.length > 0" class="body-wrapper">
         <div class="pendiente-wrapper">
           <pendiente
           v-for="pendiente of pendientes"
@@ -16,6 +16,11 @@
         />
         </div>
       </div>
+
+      <div v-else class="not-registers">
+        <h1>NO HAY REGISTROS</h1>
+      </div>
+
     </div>
   </div>
 </template>
@@ -62,6 +67,8 @@ h1 {
   margin: auto;
   background-color: #fff;
   border-radius: 4px;
+    width: 90vw;
+  min-width: 338px;
 }
 
 .header {
@@ -76,6 +83,17 @@ h1 {
   margin: auto;
 }
 
-@media screen and (mind-width: 768px) {
+.not-registers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+
+  .alarm-wrapper {
+    max-width: 600px;
+  }
+
 }
 </style>

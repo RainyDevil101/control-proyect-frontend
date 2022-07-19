@@ -4,10 +4,10 @@
 
   <div v-else class="wrapper">
     <div class="alarm-wrapper">
-      <div class="header">
+      <div v-if="completas.length > 0" class="header">
         <h1>COMPLETAS</h1>
       </div>
-      <div class="body-wrapper">
+      <div v-if="completas.length > 0" class="body-wrapper">
         <div class="pendiente-wrapper">
           <completa
           v-for="completa of completas"
@@ -16,6 +16,11 @@
         />
         </div>
       </div>
+
+            <div v-else class="not-registers">
+        <h1>NO HAY REGISTROS</h1>
+      </div>
+
     </div>
   </div>
 </template>
@@ -30,7 +35,6 @@ import Completa from "../components/Completa.vue";
 export default {
   components: { Completa, Loader },
   setup() {
-    const store = useStore();
 
     const { completas, status } = useMaterials();
 
@@ -60,6 +64,8 @@ h1 {
   margin: auto;
   background-color: #fff;
   border-radius: 4px;
+    width: 90vw;
+  min-width: 338px;
 }
 
 .header {
@@ -74,6 +80,17 @@ h1 {
   margin: auto;
 }
 
-@media screen and (mind-width: 768px) {
+.not-registers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+
+  .alarm-wrapper {
+    max-width: 600px;
+  }
+
 }
 </style>

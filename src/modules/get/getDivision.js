@@ -16,10 +16,10 @@ const getDivisions = () => {
         const divisionsDB = data.divisions
         for(const division of divisionsDB) {
             divisionsArray.push(division)
-            divisions.value = divisionsArray
-            status.value = 'RECIBIDO'
-            secondStatus.value = 'RECIBIDO'
         }
+        divisions.value = divisionsArray
+        status.value = 'RECIBIDO'
+        secondStatus.value = 'RECIBIDO'
         return {divisions, ok: true}
     }
     

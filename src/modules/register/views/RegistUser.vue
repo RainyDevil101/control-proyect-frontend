@@ -1,13 +1,13 @@
 <template>
   <loader v-if="status === 'CARGANDO' || secondStatus === 'CARGANDO'" />
 
-  <div v-else class="wrapper">
+  <div v-else class="wrapper-users">
     <div class="users">
       <div class="header">
         <h1>Usuarios</h1>
       </div>
 
-      <div class="body">
+      <div class="body-user">
         <users
           v-if="users.length > 0"
           v-for="user of users"
@@ -26,9 +26,12 @@
         </button>
       </div>
     </div>
-    <!-- <div class="create-wrapper">
+    <div class="create-wrapper">
       <div class="create">
         <form @submit.prevent="onSubmit">
+          <div class="header">
+            <h1>Registrar usuario</h1>
+          </div>
           <div class="form form-name">
             <p>Nombre</p>
             <input
@@ -99,12 +102,12 @@
               </option>
             </select>
           </div>
-          <div class="button-create">
-            <button type="submit" class="button-forum">CREAR</button>
+          <div class="button-wrapper">
+            <button type="submit" class="btn btn-warning back">CREAR</button>
           </div>
         </form>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -186,16 +189,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p {
-  margin: 0;
+p, h1 {
+  margin: 4px 0 4px 0;
   padding: 0;
 }
 
-.wrapper {
+p {
+  color: white;
+}
+
+.wrapper-users {
   display: block;
+  min-height: 100vh;
   width: 90vw;
   margin: auto;
-  padding: 5rem 0 3rem 0;
+  padding: 4rem 0 10px 0;
 }
 
 .button-wrapper {
@@ -209,27 +217,65 @@ p {
 .users {
   background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
   border-radius: 4px;
+  min-width: 300px;
+  padding: 4px;
 }
 
-.body {
-  height: 65vh;
+.body-user {
+  height: 74vh;
   overflow: auto;
 }
 
 .header h1 {
+  text-align: center;
   color: white;
   padding: 10px;
 }
 
+.create-wrapper {
+  margin-top: 20px;
+  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+  min-width: 300px;
+  border-radius: 4px;
+  display: flex;
+  padding: 4px;
+}
+
+.create {
+  margin: auto;
+  height: 90.5vh;
+}
+
+.form {
+  display: block;
+  margin: auto;
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type=""] {
+  width: 100%;
+}
+
+select {
+  width: 100%;
+}
+
 @media screen and (min-width: 768px) {
-  .wrapper {
+  .wrapper-users {
     display: flex;
-    width: 90vw;
+    justify-content: space-around;
+    align-items: center;
+      padding: 4rem 0 10px 0;
   };
 
-  .users {
+  .create {
+  margin: auto;
+  height: 100%;
+}
 
-  }
+.body-user {
+  height: 60vh;
+  overflow: auto;
+}
 
 }
 </style>

@@ -16,11 +16,11 @@ const getPendientes = () => {
         const materialsDB = data.materials
         for(const material of materialsDB) {
             materialsArray.push(material)
-            pendientes.value = materialsArray
-            status.value = 'RECIBIDO'
-            secondStatus.value = 'RECIBIDO'
-        }
-        return {pendientes, ok: true}
+        };
+        pendientes.value = materialsArray;
+        status.value = 'RECIBIDO';
+        secondStatus.value = 'RECIBIDO';
+        return {pendientes, ok: true};
     }
     
     searchPendientes()
