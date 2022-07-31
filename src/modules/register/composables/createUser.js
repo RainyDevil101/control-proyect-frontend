@@ -8,7 +8,7 @@ const createUser = () => {
 
   const postUser = async (userForm) => {
 
-    if (userForm.fullname === "" || userForm.rut === "" || userForm.email === "" || userForm.users_divisions === "" || userForm.passwordT  === "" || userForm.confirmPassword === "" || userForm.position === "" || userForm.role === "" ) {
+    if (userForm.fullname === "" || userForm.fulllastname === "" || userForm.rut === "" || userForm.email === "" || userForm.users_divisions === "" || userForm.passwordT  === "" || userForm.confirmPassword === "" || userForm.position === "" || userForm.role === "" ) {
       errors.value = "Debe llenar los campos";
       return {
         errors,
@@ -30,21 +30,21 @@ const createUser = () => {
       
     } else {
 
-     const fullname = userForm.fullname
-     const passwordT = userForm.passwordT
-     const email = userForm.email
-     const rut = userForm.rut
-     const users_divisions = userForm.users_divisions
-     const position = userForm.position
-     const role = userForm.role
-
-     console.log(position);
+     const fullname = userForm.fullname;
+     const fulllastname = userForm.fulllastname;
+     const passwordT = userForm.passwordT;
+     const email = userForm.email;
+     const rut = userForm.rut;
+     const users_divisions = userForm.users_divisions;
+     const position = userForm.position;
+     const role = userForm.role;
 
       try {
         const resp = await backendConnect.post(
           "/api/user",
           { 
             fullname,
+            fulllastname,
             rut,
             email,
             users_divisions,
@@ -61,8 +61,6 @@ const createUser = () => {
 
         return { errors, nice, user };
       } catch (error) {
-
-        console.log(error.response.data);
 
         if (error.response.data.msg) {
           errors.value = error.response.data.msg;

@@ -13,6 +13,9 @@ const getters = {
   getUser(state) {
     return state.user;
   },
+  getUserDivision(state) {
+    return state.user[0].users_divisions;
+  }
 };
 
 const mutations = {
@@ -26,12 +29,13 @@ const mutations = {
     state.status = "authenticated";
   },
   logOut(state) {
-    (state.user = "null"),
-      (state.token = null),
-      (state.status = "AUTHENTICATING"),
+      state.user = null,
+      state.token = null,
+      state.status = "AUTHENTICATING",
       localStorage.removeItem("token");
       localStorage.removeItem('mP');
       localStorage.removeItem('mC');
+      localStorage.removeItem('aDi');
   },
 };
 
@@ -44,6 +48,7 @@ const actions = {
         rut,
         passwordT,
       });
+
       const { user, token } = data;
 
       delete user[0].password;
@@ -51,7 +56,8 @@ const actions = {
       commit("loginUser", { user, token });
 
       return { ok: true };
-    } catch (error) {
+    } catch (errors) {
+
       return { ok: false };
     }
   },
@@ -59,6 +65,9 @@ const actions = {
     if (!localStorage.getItem("token")) {
       commit("logOut");
       commit("materials/logOut", null, { root: true });
+      commit("destinations/logOut", null, { root: true });
+      commit("users/logOut", null, { root: true });
+      commit("locations/logOut", null, { root: true });
       return { ok: false, message: "No hay token" };
     }
 

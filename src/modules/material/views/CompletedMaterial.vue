@@ -40,18 +40,33 @@
             <b>{{ materialIdCompleted.cantidad }}</b>
           </p>
         </div>
+        <hr>
         <div class="body-item">
           <p>Fecha de ingreso:</p>
           <p>
-            <b>{{ materialIdCompleted.date_in }}</b>
+            <b>{{ materialIdCompletedDate.date }}</b>
           </p>
         </div>
         <div class="body-item">
-          <p>Fecha de despacho:</p>
+          <p>Hora de ingreso:</p>
           <p>
-            <b>{{ materialIdCompleted.date_out }}</b>
+            <b>{{ materialIdCompletedDate.hour }}</b>
           </p>
         </div>
+        <hr>
+        <div class="body-item">
+          <p>Fecha de despacho:</p>
+          <p>
+            <b>{{ materialIdCompletedDate.outDate }}</b>
+          </p>
+        </div>
+        <div class="body-item">
+          <p>Hora de despacho:</p>
+          <p>
+            <b>{{ materialIdCompletedDate.outHour }}</b>
+          </p>
+        </div>
+        <hr>
         <div class="body-item">
           <p>Cantidad de bultos:</p>
           <p>
@@ -112,6 +127,7 @@ export default {
     const {
       getMaterialCompleted,
       materialIdCompleted,
+      materialIdCompletedDate,
       materialCompletedIdStatus,
       completedPendiente,
       imageOneCompleted,
@@ -128,6 +144,7 @@ export default {
     return {
       getMaterialCompleted,
       materialIdCompleted,
+      materialIdCompletedDate,
       materialCompletedIdStatus,
       completedPendiente,
       imageOneCompleted,

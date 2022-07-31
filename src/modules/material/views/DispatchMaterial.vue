@@ -1,5 +1,5 @@
 <template>
-  <Loader v-if="materialPendingIdStatus === 'CARGANDO'" />
+  <Loader v-if="materialPendingIdStatus === 'CARGANDO'" class="loader-wrapper"/>
 
   <div v-else class="wrapper">
     <div class="wrapper-form">
@@ -8,7 +8,13 @@
           <div class="forum-data">
             <p>Fecha de ingreso:</p>
             <p>
-              <b>{{ materialPendingId.date_in }}</b>
+              <b>{{ materialPendingIdDate.date }}</b>
+            </p>
+          </div>
+          <div class="forum-data">
+            <p>Hora de ingreso:</p>
+            <p>
+              <b>{{ materialPendingIdDate.hour }}</b>
             </p>
           </div>
           <div class="forum-data">
@@ -68,8 +74,10 @@
             <p>{{ imgTwoName }}</p>
           </div>
           <div class="forum-button">
-            <button class="btn btn-warning">Registrar</button>
+            <button
+            type="submit" class="btn btn-warning">Registrar</button>
           <button
+          type="button"
             @click="$router.push({ name: 'get-material' })"
             class="btn btn-primary"
           >
@@ -116,7 +124,7 @@ export default {
 
     const { dispatchMaterial } = updateMaterial();
 
-    const { getMaterialPending, materialPendingId, materialPendingIdStatus, pendiente } =
+    const { getMaterialPending, materialPendingId, materialPendingIdStatus, pendiente, materialPendingIdDate } =
       useMaterials();
 
     onUpdated(() => {
@@ -136,6 +144,7 @@ export default {
       materialPendingId,
       materialPendingIdStatus,
       pendiente,
+      materialPendingIdDate,
       materialForm,
       localImageTwo,
       imgTwoName,
@@ -283,6 +292,11 @@ input[type="file"] {
   height: 100%;
 }
 
+.loader-wrapper {
+  width: 100vw;
+  height: 100vh;
+}
+
 .not-wrapper h1 {
   margin: auto;
 }
@@ -299,7 +313,7 @@ input[type="file"] {
 }
 
 label {
-  width: 120px;
+  width: 100%;
   height: 30px;
   font-size: 12px;
   color: white;

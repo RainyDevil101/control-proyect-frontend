@@ -1,5 +1,5 @@
 <template>
-  <loader v-if="status === 'CARGANDO'" />
+  <loader v-if="status === 'CARGANDO'" class="loader-wrapper"/>
 
   <div v-else class="wrapper">
     <div class="material-form">
@@ -32,12 +32,11 @@
             <p>Destino</p>
             <select v-model="materialForm.destination">
               <option
-                @click="test"
                 v-for="destination of destinations"
-                :key="destination.Nombre"
-                :value="destination.Cliente"
+                :key="destination.nombre"
+                :value="destination.id"
               >
-                {{ destination.Nombre }}
+                {{ destination.nombre }}
               </option>
             </select>
           </div>
@@ -46,8 +45,7 @@
               type="file"
               @change="onImageOne"
               id="imageOne"
-              accept="image/png, image/jpg, image/ jpeg"
-            />
+              accept="image/png, image/jpg, image/ jpeg"/>
             <div class="image-label">
               <label for="imageOne">Seleccione la imagen</label>
             </div>
@@ -56,7 +54,8 @@
             </div>
           </div>
           <div class="submit-button">
-            <button type="submit">Registrar</button>
+            <button class="btn btn-warning" type="submit">Registrar</button>
+            <button class="btn btn-primary" @click="$router.push({ name: 'menu-materials' })" type="button">Volver</button>
           </div>
         </form>
       </div>
@@ -65,7 +64,6 @@
 </template>
 
 <script>
-import { useStore } from "vuex";
 import { ref } from "@vue/reactivity";
 import Swal from "sweetalert2";
 import Loader from "@/modules/components/Loader.vue";
@@ -73,11 +71,11 @@ import getDestination from "../../get/getDestination";
 import uploadOne from "../helpers/imageOne";
 import sendMaterial from "../composables/createMaterial";
 import { watch } from "@vue/runtime-core";
+import useAuth from '@/modules/auth/composables/useAuth';
 
 export default {
   components: { Loader },
   setup() {
-    const store = useStore();
 
     const localImageOne = ref();
     const imgOneName = ref();
@@ -90,6 +88,8 @@ export default {
       cantidad_bultos: "",
       destination: "",
     });
+
+    const { userDivision } = useAuth();
 
     const { destinations, searchDestinations, status, secondStatus } =
       getDestination();
@@ -149,7 +149,8 @@ export default {
 
         const { errors, nice, materialId } = await sendForum(
           materialForm.value,
-          pictureOne
+          pictureOne,
+          userDivision.value
         );
 
         if (nice.value === false) {
@@ -237,13 +238,18 @@ h1 {
 
 .submit-button {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin: 8px;
 }
 
 .submit-button button {
   border-radius: 4px;
+}
+
+.loader-wrapper {
+  width: 100vw;
+  height: 100vh;
 }
 
 input[type="file"] {
@@ -273,7 +279,7 @@ input[type="file"] {
 }
 
 label {
-  width: 120px;
+  width: 100%;
   height: 30px;
   font-size: 12px;
   color: white;

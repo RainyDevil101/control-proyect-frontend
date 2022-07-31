@@ -6,9 +6,12 @@ const sendMaterial = () => {
   const materialId = ref(null);
   const nice = ref(false);
 
-  const sendForum = async (materialForm, imgOne) => {
+  const sendForum = async (materialForm, imgOne, userDivision) => {
 
-    console.log(materialForm, imgOne);
+    if (!userDivision) {
+      errors.value = "Error usuario logeado";
+      return { errors, nice, materialId };
+    }
 
     if (
       materialForm.transport_number === "" ||
@@ -25,7 +28,7 @@ const sendMaterial = () => {
 
         const resp = await backendConnect.post(
           "/api/material",
-          { materialForm, imgOne },
+          { materialForm, imgOne, userDivision },
           { headers: { "x-token": localStorage.getItem("token") } }
         );
 

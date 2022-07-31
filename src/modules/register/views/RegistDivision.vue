@@ -1,5 +1,9 @@
 <template>
-  <loader v-if="status === 'CARGANDO'" />
+  <div v-if="divisionUpdate === true" class="update-division">
+    <update-division @on:close="onShowUpdateDivision"/>
+  </div>
+
+  <loader class="loader-wrapper" v-if="getStatusDivision === 'CARGANDO'" />
 
   <div v-else class="wrapper">
     <div class="divisions">
@@ -19,13 +23,16 @@
           </div>
         </form>
       </div>
-      <div class="body">
+      <div v-if="showDivisions === true" class="body">
         <divisions
-          v-if="divisions.length > 0"
           v-for="division of divisions"
           :key="division"
           :division="division"
+          @on:open="onShowUpdateDivision"
         />
+      </div>
+      <div v-else class="not-register">
+        <h1>NO HAY REGISTROS</h1>
       </div>
       <div class="button-wrapper">
         <button
@@ -41,32 +48,57 @@
 </template>
 
 <script>
-import Loader from "@/modules/components/Loader.vue";
 import { useStore } from "vuex";
-import getDivision from "../../get/getDivision";
-import divisions from "../components/divisions.vue";
-import createDivision from "../composables/createDivision";
-import Swal from "sweetalert2";
 import { ref } from "@vue/reactivity";
+import { watch } from "@vue/runtime-core";
+import Swal from "sweetalert2";
+import Loader from "@/modules/components/Loader.vue";
+
+import divisions from "../components/divisions.vue";
+import divisionsCommand from "../composables/divisionsCommand";
+import getTerm from "@/helpers/searchByTerm";
+import UpdateDivision from "../components/update-division.vue";
+import useAuth from '@/modules/auth/composables/useAuth';
 
 export default {
-  components: { divisions, Loader },
+  components: { divisions, Loader, UpdateDivision },
   setup() {
     const store = useStore();
 
-    const { divisions, searchDivisions, status } = getDivision();
+    const term = ref("");
+
+    const { getDivisions } = useAuth();
+    const { postDivision } = divisionsCommand();
+
+    const {
+      divisionTerm,
+      getStatusDivision,
+      divisions,
+      divisionUpdate,
+      divisionIdStatus,
+      showDivisions,
+    } = getTerm(term.value);
+
     const divisionForm = ref({
       name: "",
     });
 
-    const { postDivision } = createDivision();
+    watch(
+      () => term.value,
+      () => divisionTerm(term.value)
+    );
+
 
     return {
-      divisions,
-      searchDivisions,
-      status,
       divisionForm,
       postDivision,
+      term,
+      divisionTerm,
+      getStatusDivision,
+      divisions,
+      divisionUpdate,
+      divisionIdStatus,
+      showDivisions,
 
       onSubmit: async () => {
         new Swal({
@@ -74,25 +106,37 @@ export default {
           allowOutsideClick: false,
         });
         Swal.showLoading();
-        const { division, nice, errors } = await postDivision(
+        const { errorsPost, divisions, nicePost } = await postDivision(
           divisionForm.value
         );
 
-        if (nice.value === false) {
-          Swal.fire("Error", `${errors.value}.`, "error");
+        if (nicePost.value === false) {
+          Swal.fire("Error", `${errorsPost.value}.`, "error");
           return;
         } else {
-          Swal.fire(
-            "Guardado",
-            "División registrada con éxito",
-            "success"
-          ).then(function (result) {
-            if (true) {
-              location.reload();
-            } else {
-              window.alert("Error, intente nuevamente");
+          
+          await store.dispatch("divisions/loadDivisions");
+
+          Swal.fire("Guardado", "Destino registrada con éxito", "success").then(
+            function (result) {
+              if (true) {
+                location.reload();
+              } else {
+                window.alert("Error, intente nuevamente");
+              }
             }
-          });
+          );
+        }
+      },
+      onShowUpdateDivision: (id) => {
+        if (divisionUpdate.value === false) {
+          store.dispatch("divisions/changeDivisionId", id);
+          store.dispatch("divisions/changeDivisionUpdate", true);
+          return;
+        } else {
+          getDivisions();
+          store.dispatch("divisions/changeDivisionUpdate", false);
+          return;
         }
       },
     };
@@ -113,6 +157,13 @@ p {
   min-height: 100vh;
   justify-content: center;
   align-items: center;
+}
+
+.loader-wrapper {
+  width: 100%;
+  min-width: 100vw;
+  height: 100%;
+  min-height: 100vh;
 }
 
 .create {
@@ -152,12 +203,25 @@ p {
   width: 70px;
 }
 
+.not-register {
+  width: 30vw;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
 .body {
   display: block;
   margin: auto;
-  max-height: 35rem;
+  max-height: 32rem;
   min-height: 25rem;
   overflow: auto;
+}
+
+.search {
+  margin: 10px 0 10px 0;
 }
 
 input[type="text"] {
@@ -177,7 +241,7 @@ input[type="text"] {
 
 @media screen and (min-width: 1024px) {
   .divisions {
-    width: 30%;
+    width: 40%;
   }
 
   .body {

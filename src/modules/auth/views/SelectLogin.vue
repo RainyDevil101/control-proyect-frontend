@@ -4,8 +4,8 @@
       <div class="selector">
         <h4>BIENVENIDO</h4>
       </div>
-      <div class="mt-5">
-        <!-- <img src="../../../assets/logocacciuttolo.png" alt="Logo"> -->
+      <div class="image-wrapper">
+        <img src="../../../assets/logocacciuttolo.png" alt="Logo">
       </div>
       <div class="choose">
         <button @click="onSupervisores" class="login-boton">INGRESAR</button>
@@ -42,12 +42,17 @@ export default {
   align-items: center;
 }
 
+.image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .login {
-  width: 90%;
-  height: 30%;
   background-color: #fff;
   display: block;
   border-radius: 4px;
+  padding: 10px;
 }
 
 .selector {
@@ -99,9 +104,10 @@ export default {
 }
 
 @media screen and (min-width: 768px) {
-  .login {
-    width: 40%;
-    height: 30%;
-  }
+
+.login {
+  padding: 2rem;
+}
+
 }
 </style>

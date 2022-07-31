@@ -1,25 +1,37 @@
 import backendConnect from '../../../api/backend';
+import convertDate from '@/helpers/convertDate';
 
 const state = {
     status: 'CARGANDO',
+    statusCharts: 'CARGANDO',
     imageOne: '',
     imageTwo: '',
     //MATERIALES PENDIENTES
     materialsPending: '',
     // TODOS LOS MATERIALES
     allMaterials: '',
-    // MATERIALES COMPLETOS
+    // MATERIALES COMPLETOS, SE BUSCA EL ID
     materialsCompleted: '',
     materialCompletedNeeded: '',
+    materialCompletedNeededDate: '',
+    materialCompletedNeededHour: '',
+    materialCompletedNeededOutDate: '',
+    materialCompletedNeededOutHour: '',
+    materialCompletedIdStatus: 'CARGANDO',
     completedPendiente: '',
     completedImageOne: false,
     completedImageTwo: false,
     // MATERIAL PARA SER USADO, SE BUSCA EL ID PENDIENTE
     materialPendingNeeded: '',
+    materialPendingNeededDate: '',
+    materialPendingNeededHour: '',
     materialPendingIdStatus: 'CARGANDO',
     pendiente: '',
     pendingImageOne: false,
     pendingImageTwo: false,
+
+    // GRÁFICOS
+
 };
 
 const getters = {
@@ -50,6 +62,13 @@ const getters = {
     getMaterialCompletedNeeded(state) {
         return state.materialCompletedNeeded;
     },
+    getMaterialCompletedNeededDate(state) {
+        const date = state.materialCompletedNeededDate;
+        const hour = state.materialCompletedNeededHour;
+        const outDate = state.materialCompletedNeededOutDate;
+        const outHour = state.materialCompletedNeededOutHour;
+        return { date, hour, outDate, outHour };
+    },
     getMaterialCompletedIdStatus(state) {
         return state.materialCompletedIdStatus;
     },
@@ -77,6 +96,11 @@ const getters = {
     getMaterialPendingNeeded(state) {
         return state.materialPendingNeeded;
     },
+    getMaterialPendingNeededDate(state) {
+        const date = state.materialPendingNeededDate;
+        const hour = state.materialPendingNeededHour;
+        return { date, hour };
+    },
     getMaterialPendingIdStatus(state) {
         return state.materialPendingIdStatus;
     },
@@ -89,6 +113,63 @@ const getters = {
     getPendingImageTwo(state) {
         return state.pendingImageTwo;
     },
+
+    // GRÁFICOS
+    gettingData: (state) => (dateFormated) => {
+
+        if(state.allMaterials.length === 0) {
+            const allMaterialsFiltered = '';
+            return { allMaterialsFiltered };
+        }
+
+        const getMaterialsByDate = state.allMaterials;
+
+        let filters = {};
+        
+        for(const keys in dateFormated) {
+            
+            if( (dateFormated[keys].constructor === Object) || (dateFormated[keys].constructor === String && dateFormated[keys].length > 0) || (dateFormated[keys].constructor === Number)) {
+                filters[keys] = dateFormated[keys];
+            };
+        };
+        
+        const keysInitFin = [
+            'date_in',
+        ];
+        
+        const filteredData = getMaterialsByDate.filter((item) => {
+            
+            for (const key in filters) {
+                if (item[key] === undefined) {
+                    return false;
+                }
+                else if (keysInitFin.includes(key)) {
+                    if (filters[key]['initDate'] !== '' && item[key] < filters[key]['initDate']) {
+                        return false;
+                    }
+                    if (filters[key]['finDate'] !== '' && item[key] >= filters[key]['finDate']) {
+                        return false;
+                    }
+                }
+                else if (filters[key] !== item[key]) {
+                    return false;
+                }
+            };
+            return true
+        });
+
+        console.log(filteredData);
+        
+        // const allMaterialsFiltered = filteredData;
+        const allMaterialsFiltered = 'filteredData';
+
+        return { allMaterialsFiltered };
+
+    },
+    getStatusCharts(state) {
+        return state.statusCharts;
+    }
+
 };
 
 const mutations = {
@@ -98,6 +179,28 @@ const mutations = {
     saveMaterials(state, { materials }) {
 
         state.status = 'CARGANDO';
+        state.statusCharts = 'CARGANDO';
+        state.imageOne = '';
+        state.imageTwo = '';
+        state.materialsPending = '';
+        state.allMaterials = '';
+        state.materialsCompleted = '';
+        state.materialCompletedNeeded = '';
+        state.materialCompletedNeededDate = '';
+        state.materialCompletedNeededHour = '';
+        state.materialCompletedNeededOutDate = '';
+        state.materialCompletedNeededOutHour = '';
+        state.materialCompletedIdStatus = 'CARGANDO';
+        state.completedPendiente = '';
+        state.completedImageOne = false;
+        state.completedImageTwo = false;
+        state.materialPendingNeeded = '';
+        state.materialPendingNeededDate = '';
+        state.materialPendingNeededHour = '';
+        state.materialPendingIdStatus = 'CARGANDO';
+        state.pendiente = '';
+        state.pendingImageOne = false;
+        state.pendingImageTwo = false;
 
         if (!materials) return;
         
@@ -109,8 +212,6 @@ const mutations = {
             return;
         };
         
-        localStorage.removeItem('mP');
-        localStorage.removeItem('mC');
         localStorage.removeItem('aM');
 
         const materialsPending   = materials.filter(x => x.pendiente === 1);
@@ -122,6 +223,7 @@ const mutations = {
         state.materialsCompleted = materialsCompleted;
         state.allMaterials       = materials;
         state.status             = 'RECIBIDOS';
+        state.statusCharts       = 'RECIBIDOS';
         return;
 
 
@@ -160,7 +262,13 @@ const mutations = {
         } else {
             state.pendiente = 'Completado';
         };
-        
+
+        const neededDate = materialPending[0].date_in;
+
+        const { converTime, convertHour } = convertDate(neededDate);
+
+        state.materialPendingNeededHour = convertHour;
+        state.materialPendingNeededDate = converTime;
         state.imageOne = materialPending[0].image_one;
         state.imageTwo = materialPending[0].image_two;
         state.materialPendingNeeded = materialPending[0];
@@ -177,15 +285,15 @@ const mutations = {
     getMaterialCompletedById(state, { id }) {
 
         if (id === null) {
-            state.materialPendingNeeded = '';
+            state.materialCompletedNeeded = '';
             return;
         }
         
-        if (state.materialsPending === '') {
+        if (state.materialsCompleted === '') {
             return;
         }
         
-        if (state.materialsPending.length === 0) {
+        if (state.materialsCompleted.length === 0) {
             return;
         }
 
@@ -203,6 +311,16 @@ const mutations = {
             state.completedPendiente = 'Completado';
         };
 
+        const neededDate = materialCompleted[0].date_in;
+        const neededOutDate = materialCompleted[0].date_out;
+
+        const getNeededDate = convertDate(neededDate);
+        const getNeededOutDate = convertDate(neededOutDate);
+
+        state.materialCompletedNeededHour = getNeededDate.convertHour;
+        state.materialCompletedNeededDate = getNeededDate.converTime;
+        state.materialCompletedNeededOutHour = getNeededOutDate.convertHour;
+        state.materialCompletedNeededOutDate = getNeededOutDate.converTime;
         state.imageOne = materialCompleted[0].image_one;
         state.imageTwo = materialCompleted[0].image_two;
         state.materialCompletedNeeded = materialCompleted[0];
@@ -228,8 +346,32 @@ const mutations = {
     },
     logOut(state) {
 
-        state.status = 'CARGANDO',
-        state.materialsPending = '',
+        state.status = 'CARGANDO';
+        state.statusCharts = 'RECIBIDOS';
+        state.imageOne = '';
+        state.imageTwo = '';
+        //MATERIALES PENDIENTES
+        state.materialsPending = '';
+        // TODOS LOS MATERIALES
+        state.allMaterials = '';
+        // MATERIALES COMPLETOS, SE BUSCA EL ID
+        state.materialsCompleted = '';
+        state.materialCompletedNeeded = '';
+        state.materialCompletedNeededDate = '';
+        state.materialPendingNeededHour = '';
+        state.completedPendiente = '';
+        state.completedImageOne = false;
+        state.completedImageTwo = false;
+        // MATERIAL PARA SER USADO, SE BUSCA EL ID PENDIENTE
+        state.materialPendingNeeded = '';
+        state.materialPendingNeededDate = '';
+        state.materialPendingNeededHour = '';
+        state.materialPendingNeededOutDate = '',
+        state.materialPendingNeededOutHour = '',
+        state.materialPendingIdStatus = 'CARGANDO';
+        state.pendiente = '';
+        state.pendingImageOne = false;
+        state.pendingImageTwo = false;
         localStorage.removeItem('aM');
         localStorage.removeItem('token');
 

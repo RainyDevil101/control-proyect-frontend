@@ -1,6 +1,5 @@
 <template>
-
-<loader v-if="status === 'CARGANDO'" />
+  <loader v-if="status === 'CARGANDO'" />
 
   <div v-else class="wrapper">
     <div class="alarm-wrapper">
@@ -10,17 +9,25 @@
       <div v-if="allMaterials.length > 0" class="body-wrapper">
         <div class="pendiente-wrapper">
           <all-material
-          v-for="allMaterial of allMaterials"
-          :key="allMaterial.id"
-          :allMaterial="allMaterial"
-        />
+            v-for="allMaterial of allMaterials"
+            :key="allMaterial.id"
+            :allMaterial="allMaterial"
+          />
         </div>
       </div>
 
       <div v-else class="not-registers">
         <h1>NO HAY REGISTROS</h1>
       </div>
-
+      <div class="back-button">
+        <button
+          @click="$router.push({ name: 'menu-materials' })"
+          type="buton"
+          class="btn btn-warning"
+        >
+          Volver
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -35,7 +42,6 @@ import AllMaterial from "../components/AllMaterial.vue";
 export default {
   components: { AllMaterial, Loader },
   setup() {
-
     const { allMaterials, status } = useMaterials();
 
     return {
@@ -47,7 +53,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 h1 {
   margin: 0;
   padding: 0;
@@ -80,17 +85,25 @@ h1 {
   margin: auto;
 }
 
+.back-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .not-registers {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: auto;
+  margin: auto;
+  height: 100%;
 }
 
 @media screen and (min-width: 768px) {
-
   .alarm-wrapper {
     max-width: 600px;
   }
-
 }
 </style>

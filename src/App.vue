@@ -3,15 +3,13 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity';
-
-import useAuth from './modules/auth/composables/useAuth';
 import { useStore } from 'vuex';
+import useAuth from './modules/auth/composables/useAuth';
 
 export default {
   setup() {
 
-    const { checkToken, reMaterials } = useAuth();
+    const { checkToken, reMaterials, reDestinations, reLocations, reDivisions, reUsers } = useAuth();
 
     const store = useStore();
 
@@ -21,11 +19,18 @@ export default {
 
     const materials = JSON.parse(localStorage.getItem('aM'));
     reMaterials(materials);
+    const destinations = JSON.parse(localStorage.getItem('aD'));
+    reDestinations(destinations);
+    const locations = JSON.parse(localStorage.getItem('aL'));
+    reLocations(locations);
+    const divisions = JSON.parse(localStorage.getItem('aDi'));
+    reDivisions(divisions);
+    const users = JSON.parse(localStorage.getItem('aU'));
+    reUsers(users);
 
     return {
       checkToken,
       status,
-
     };
   },
 };

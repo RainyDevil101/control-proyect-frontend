@@ -15,6 +15,9 @@
           <div @click="$router.push({ name: 'register-location' })" class="categories-item">
             <p>Ubicación</p>
           </div>
+          <div @click="$router.push({ name: 'register-destination' })" class="categories-item">
+            <p>Destino</p>
+          </div>
         </div>
         <div class="footer">
           <button type="button" @click="$router.push({ name: 'front-home' })" class="btn btn-warning back">

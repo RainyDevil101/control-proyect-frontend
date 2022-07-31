@@ -32,7 +32,9 @@ const useMaterials = () => {
 
 
         materialPendingId: computed(() => store.getters['materials/getMaterialPendingNeeded']),
+        materialPendingIdDate: computed(() => store.getters['materials/getMaterialPendingNeededDate']),
         materialIdCompleted: computed(() => store.getters['materials/getMaterialCompletedNeeded']),
+        materialIdCompletedDate: computed(() => store.getters['materials/getMaterialCompletedNeededDate']),
         materialPendingIdStatus: computed(() => store.getters['materials/getMaterialPendingIdStatus']),
         materialCompletedIdStatus: computed(() => store.getters['materials/getMaterialCompletedIdStatus']),
         pendiente: computed(() => store.getters['materials/getPendiente']),

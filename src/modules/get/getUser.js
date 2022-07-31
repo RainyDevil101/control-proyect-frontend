@@ -15,7 +15,6 @@ const getUsers = () => {
         
         if (data.users.length === 0) {
 
-            console.log('asdas');
             users.value = "";
             status.value = 'RECIBIDO';
 
@@ -24,8 +23,8 @@ const getUsers = () => {
             const usersArray = [];
             const usersDB = data.users;
             for(const user of usersDB) {
+                usersArray.push(user);
             };
-            usersArray.push(user);
             users.value = usersArray;
             status.value = 'RECIBIDO';
         }

@@ -14,7 +14,7 @@
             </a>
           </li>
           <li class="nav-item box-a">
-            <a @click="dashboard" class="nav-link active pointer">
+            <a @click="$router.push({ name: 'dashboard-view' })" class="nav-link active pointer">
               <b>Dashboard</b>
             </a>
           </li>

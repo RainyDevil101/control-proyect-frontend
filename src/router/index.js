@@ -9,6 +9,7 @@ import adminSelector from "../modules/adminSelect/router";
 import admin from "../modules/auth/router/admin-guard";
 import register from "../modules/register/router";
 import material from "../modules/material/router";
+import dashboard from "../modules/dashboard/router";
 
 const routes = [
   {
@@ -44,6 +45,12 @@ const routes = [
     beforeEnter: [authGuard],
     beforeEnter: [admin],
     ...material,
+  },
+  {
+    path: "/dashboard",
+    beforeEnter: [authGuard],
+    beforeEnter: [admin],
+    ...dashboard,
   },
 ];
 

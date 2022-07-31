@@ -3,7 +3,7 @@
   @click="$router.push({ name : 'dispatch-material', params: { id: pendiente.id } })"
   >
     <span>ID: <b>{{pendiente.id}}</b> | </span>
-    <span>FECHA DE REGISTRO: <b>{{pendiente.date_in}}</b> | </span>
+    <span>Número de transporte:<b> {{pendiente.transport_number}}</b></span>
   </div>
 </template>
 

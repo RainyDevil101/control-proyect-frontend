@@ -3,9 +3,7 @@
   @click="$router.push({ name : 'completed-material', params: { id: completa.id } })"
   >
     <span>ID: <b>{{completa.id}}</b> | </span>
-    <span>FECHA DE REGISTRO: <b>{{completa.date_in}}</b> | </span>
-    <span>FECHA DE DESPACHO <b>{{completa.date_out}}</b></span>
-    <span>ESTADO: <b>{{completa.date_out}}</b></span>
+    <span>Número de transporte: <b>{{completa.transport_number}}</b></span>
   </div>
 </template>
 

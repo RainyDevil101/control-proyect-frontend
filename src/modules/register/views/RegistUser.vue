@@ -1,21 +1,29 @@
 <template>
-  <loader v-if="status === 'CARGANDO' || secondStatus === 'CARGANDO'" />
+  <div v-if="userUpdate === true" class="update-user">
+    <update-user @on:close="onShowUpdateUser"/>
+  </div>
+
+  <div v-if="getStatusUser === 'CARGANDO'" class="loader-wrapper">
+    <loader />
+  </div>
 
   <div v-else class="wrapper-users">
+
     <div class="users">
+      
       <div class="header">
         <h1>Usuarios</h1>
       </div>
 
-      <div class="body-user">
+      <div v-if="showUsers === true" class="body-user">
         <users
-          v-if="users.length > 0"
           v-for="user of users"
           :key="user"
           :user="user"
+          @on:open="onShowUpdateUser"
         />
-        <div v-else class="no-registers"><h1>No hay registros</h1></div>
       </div>
+        <div v-else class="not-register"><h1>NO HAY REGISTROS</h1></div>
       <div class="button-wrapper">
         <button
           type="button"
@@ -41,11 +49,20 @@
               maxlength="60"
             />
           </div>
+          <div class="form form-name">
+            <p>Nombre</p>
+            <input
+              type="text"
+              placeholder="Apellido"
+              v-model="userForm.fulllastname"
+              maxlength="60"
+            />
+          </div>
           <div class="form form-rut">
             <p>Rut</p>
             <input
               type="text"
-              placeholder="Ej: 12345678k"
+              placeholder="Ej: 12.345.678-k"
               v-model="userForm.rut"
               maxlength="11"
             />
@@ -115,49 +132,62 @@
 import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import Swal from "sweetalert2";
-
 import Loader from "@/modules/components/Loader.vue";
-import getUser from "../../get/getUser";
+
 import users from "../components/users.vue";
-import createUser from "../composables/createUser";
-import getDivisions from "@/modules/get/getDivision";
+import usersCommand from "../composables/usersCommand";
+import getTerm from "@/helpers/searchByTerm";
+import UpdateUser from "../components/update-user.vue";
+import useAuth from '../../auth/composables/useAuth';
 
 export default {
-  components: { users, Loader },
+  components: { users, Loader, UpdateUser },
   setup() {
     const store = useStore();
 
+    const { getUsers } = useAuth();
+    const { postUser } = usersCommand();
+  
     const roles = ref([
       { name: "ADMIN_ROLE" },
       { name: "OPERATOR_ROLE" },
       { name: "PLANNER_ROLE" },
     ]);
-    const { users, searchUsers, status } = getUser();
+
+    const {
+      userTerm,
+      getStatusUser,
+      divisions,
+      users,
+      userUpdate,
+      userIdStatus,
+      showUsers,
+    } = getTerm();
 
     const userForm = ref({
-      fullname: "Alexis Herrera",
+      fullname: "TESTTTT",
+      fulllastname: "TESTING",
       passwordT: "testing",
       confirmPassword: "testing",
-      rut: "19268695-4",
+      rut: "14.279.370-9",
       email: "testing@gmail.com",
       users_divisions: "1000",
       role: "ADMIN_ROLE",
       position: "Test",
     });
 
-    const { postUser } = createUser();
-    const { divisions, searchDivisions, secondStatus } = getDivisions();
 
     return {
-      users,
-      searchUsers,
-      status,
       userForm,
       postUser,
       divisions,
-      searchDivisions,
-      secondStatus,
+      users,
       roles,
+      getStatusUser,
+      userTerm,
+      userUpdate,
+      userIdStatus,
+      showUsers,
 
       onSubmit: async () => {
         new Swal({
@@ -166,10 +196,10 @@ export default {
         });
         Swal.showLoading();
 
-        const { user, nice, errors } = await postUser(userForm.value);
+        const { errorsPost, user, nicePost } = await postUser(userForm.value);
 
-        if (nice.value === false) {
-          Swal.fire("Error", `${errors.value}.`, "error");
+        if (nicePost.value === false) {
+          Swal.fire("Error", `${errorsPost.value}.`, "error");
           return;
         } else {
           Swal.fire("Guardado", "Usuario registrado con éxito", "success").then(
@@ -183,13 +213,26 @@ export default {
           );
         }
       },
+      onShowUpdateUser: (id) => {
+        
+        if (userUpdate.value === false) {
+          store.dispatch("users/changeUserId", id);
+          store.dispatch("users/changeUserUpdate", true);
+          return;
+        } else {
+          getUsers();
+          store.dispatch("users/changeUserUpdate", false);
+          return;
+        }
+      },
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-p, h1 {
+p,
+h1 {
   margin: 4px 0 4px 0;
   padding: 0;
 }
@@ -203,7 +246,7 @@ p {
   min-height: 100vh;
   width: 90vw;
   margin: auto;
-  padding: 4rem 0 10px 0;
+  padding: 4rem 0 20px 0;
 }
 
 .button-wrapper {
@@ -218,12 +261,13 @@ p {
   background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
   border-radius: 4px;
   min-width: 300px;
-  padding: 4px;
+  padding: 15px;
 }
 
 .body-user {
-  height: 74vh;
+  height: 70vh;
   overflow: auto;
+  width: 100%;
 }
 
 .header h1 {
@@ -238,12 +282,26 @@ p {
   min-width: 300px;
   border-radius: 4px;
   display: flex;
-  padding: 4px;
+  padding: 15px;
+}
+
+.loader-wrapper {
+  width: 100vw;
+  height: 100vh;
 }
 
 .create {
   margin: auto;
-  height: 90.5vh;
+  width: 100%;
+}
+
+.not-register {
+  width: 30vw;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
 }
 
 .form {
@@ -251,7 +309,10 @@ p {
   margin: auto;
 }
 
-input[type="text"], input[type="email"], input[type="password"], input[type=""] {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type=""] {
   width: 100%;
 }
 
@@ -259,23 +320,26 @@ select {
   width: 100%;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 948px) {
   .wrapper-users {
     display: flex;
     justify-content: space-around;
     align-items: center;
-      padding: 4rem 0 10px 0;
-  };
+  }
 
   .create {
-  margin: auto;
-  height: 100%;
-}
+    margin: auto;
+    height: 100%;
+    min-width: 400px;
+  }
 
-.body-user {
-  height: 60vh;
-  overflow: auto;
-}
+  .users {
+    min-width: 400px;
+  }
 
+  .body-user {
+    height: 60vh;
+    overflow: auto;
+  }
 }
 </style>

@@ -16,17 +16,25 @@ export default {
 
   setup() {
 
-    // const { getForums } = useAuth();
-    // const { statusState } = getTerm();
+    const { getDestinations, getLocations, getDivisions, getUsers } = useAuth();
 
-    // onActivated(() => {
-    //   getForums();
-    // })
 
-    // getForums();
+    onActivated(() => {
+      getDestinations();
+      getLocations();
+      getDivisions();
+      getUsers();
+    })
+
+    getLocations();
+    getDestinations();
+    getDivisions();
+    getUsers();
 
     return { 
-
+      getDestinations,
+      getLocations,
+      getDivisions,
      };
   },
 };
