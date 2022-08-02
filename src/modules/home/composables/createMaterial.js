@@ -6,7 +6,9 @@ const sendMaterial = () => {
   const materialId = ref(null);
   const nice = ref(false);
 
-  const sendForum = async (materialForm, imgOne, userDivision) => {
+  const sendForum = async (materialForm, imgOne, userDivision, id) => {
+
+    console.log(id);
 
     if (!userDivision) {
       errors.value = "Error usuario logeado";
@@ -28,7 +30,7 @@ const sendMaterial = () => {
 
         const resp = await backendConnect.post(
           "/api/material",
-          { materialForm, imgOne, userDivision },
+          { materialForm, imgOne, userDivision, id },
           { headers: { "x-token": localStorage.getItem("token") } }
         );
 

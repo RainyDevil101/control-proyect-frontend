@@ -68,32 +68,6 @@
         />
         <no-data v-else />
       </div>
-      <div class="averageCompleted">
-        <pie v-if="forthChart" :key="forthChart" :forthChart="forthChart" />
-        <no-data v-else />
-      </div>
-      <div class="rcPrevented">
-        <line-pre
-          v-if="fifthChart"
-          @on:Rqsv="onRqsvShow"
-          :key="fifthChart"
-          :fifthChart="fifthChart"
-        />
-        <no-data v-else />
-      </div>
-      <div class="noPerAnswer">
-        <answers-no
-          v-if="sixChart"
-          @on:Questions="onQuestionsShow"
-          :key="sixChart"
-          :sixChart="sixChart"
-        />
-        <no-data v-else />
-      </div>
-      <div class="cuantityfaena">
-        <faenas v-if="sevenChart" :key="sevenChart" :sevenChart="sevenChart" />
-        <no-data v-else />
-      </div>
     </div>
   </div>
 </template>
@@ -147,8 +121,6 @@ export default {
         chartValues,
         statusCharts } = getMaterialsCharts(filters.value);
     const { divisions } = getTerm();
-
-    console.log(firstChart.value);
 
     watch(
       () => [

@@ -9,11 +9,6 @@ export default {
             component: () => import(/* webpackChunkName: "menu-materials" */ '@/modules/material/views/MenuMaterials.vue'),
         },
         {
-            path: 'create-material',
-            name: 'create-material',
-            component: () => import(/* webpackChunkName: "create-material" */ '@/modules/material/views/CreateMaterial.vue'),
-        },
-        {
             path: 'get-material',
             name: 'get-material',
             component: () => import(/* webpackChunkName: "get-pendientes" */ '@/modules/material/views/GetMaterial.vue'),

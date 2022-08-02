@@ -115,7 +115,7 @@ import { onUpdated, ref } from "@vue/runtime-core";
 import useMaterials from "../composables/materialsStore";
 import { useRoute } from "vue-router";
 import Loader from "@/modules/components/Loader.vue";
-import ImgOne from "../components/ImgOne.vue";
+import ImgOne from "../../home/components/ImgOne.vue";
 import ImgTwo from "../components/ImgTwo.vue";
 import { useStore } from "vuex";
 export default {

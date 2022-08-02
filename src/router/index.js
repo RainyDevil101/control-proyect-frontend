@@ -5,11 +5,11 @@ import home from "../modules/home/router";
 import loading from "../modules/load/router";
 import authGuard from "../modules/auth/router/auth-guard";
 import redirect from "../modules/auth/router/redirect";
-import adminSelector from "../modules/adminSelect/router";
 import admin from "../modules/auth/router/admin-guard";
 import register from "../modules/register/router";
 import material from "../modules/material/router";
 import dashboard from "../modules/dashboard/router";
+import planner from "../modules/auth/router/planner-verification";
 
 const routes = [
   {
@@ -19,7 +19,6 @@ const routes = [
   {
     path: "/home",
     beforeEnter: [authGuard],
-    // beforeEnter: [supervisor],
     ...home,
   },
   {
@@ -29,21 +28,15 @@ const routes = [
     ...loading,
   },
   {
-    path: "/select",
-    beforeEnter: [authGuard],
-    beforeEnter: [admin],
-    ...adminSelector,
-  },
-  {
     path: "/register",
     beforeEnter: [authGuard],
-    beforeEnter: [admin],
+    beforeEnter: [planner],
     ...register,
   },
   {
     path: "/material",
     beforeEnter: [authGuard],
-    beforeEnter: [admin],
+    beforeEnter: [planner],
     ...material,
   },
   {

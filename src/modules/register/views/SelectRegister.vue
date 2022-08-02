@@ -9,9 +9,6 @@
           <div @click="$router.push({ name: 'register-user' })" class="categories-item">
             <p>Usuarios</p>
           </div>
-          <div @click="$router.push({ name: 'register-division' })" class="categories-item">
-            <p>División</p>
-          </div>
           <div @click="$router.push({ name: 'register-location' })" class="categories-item">
             <p>Ubicación</p>
           </div>
@@ -20,7 +17,7 @@
           </div>
         </div>
         <div class="footer">
-          <button type="button" @click="$router.push({ name: 'front-home' })" class="btn btn-warning back">
+          <button type="button" @click="$router.push({ name: 'create-material' })" class="btn btn-warning back">
             Volver
           </button>
         </div>

@@ -63,6 +63,7 @@ const useAuth = () => {
     return {
 
         userDivision: computed(() => store.getters['auth/getUserDivision']),
+        userId: computed(() => store.getters['auth/getUserId']),
 
         checkToken,
         loginUser,

@@ -15,10 +15,6 @@ const getMaterialsCharts = (dates = {
     const firstChart = ref(null);
     const secondChart = ref(null);
     const thirdChart = ref(null);
-    const forthChart = ref(null);
-    const fifthChart = ref(null);
-    const sixChart = ref(null);
-    const sevenChart = ref(null);
     const errorMessage = ref(false);
 
     const chartValues = (gettingDate) => {
@@ -31,17 +27,12 @@ const getMaterialsCharts = (dates = {
 
         const { allMaterialsFiltered } = data.value;
         
-        const { firstChartValue, secondChartValue, thirdChartValue, forthChartValue, fifthChartValue, sixChartValue, sevenChartValue, errorMessages } = chartData(allMaterialsFiltered);
+        const { firstChartValue, secondChartValue, thirdChartValue, errorMessages } = chartData(allMaterialsFiltered);
 
-        console.log(secondChartValue.value);
-        
         firstChart.value = firstChartValue.value;
         secondChart.value = secondChartValue.value;
         thirdChart.value = thirdChartValue.value;
-        forthChart.value = forthChartValue.value;
-        fifthChart.value = fifthChartValue.value;
-        sixChart.value = sixChartValue.value;
-        sevenChart.value = sevenChartValue.value;
+
         errorMessage.value = errorMessages.value;
 
         return;
@@ -55,11 +46,6 @@ const getMaterialsCharts = (dates = {
         firstChart,
         secondChart,
         thirdChart,
-        forthChart,
-        fifthChart,
-        gettingDate,
-        sixChart,
-        sevenChart,
         errorMessage,
 
         statusCharts: computed(() => store.getters['materials/statusCharts']),

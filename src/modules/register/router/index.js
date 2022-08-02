@@ -8,11 +8,11 @@ export default {
             name: 'select-register',
             component: () => import(/* webpackChunkName: "select-register" */ '@/modules/register/views/SelectRegister.vue'),
         },
-        {
-            path: 'register-division',
-            name: 'register-division',
-            component: () => import(/* webpackChunkName: "register-division" */ '@/modules/register/views/RegistDivision.vue'),
-        },
+        // {
+        //     path: 'register-division',
+        //     name: 'register-division',
+        //     component: () => import(/* webpackChunkName: "register-division" */ '@/modules/register/views/RegistDivision.vue'),
+        // },
         {
             path: 'register-location',
             name: 'register-location',

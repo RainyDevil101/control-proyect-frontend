@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 txt-c">
           <li class="nav-item box-a">
-            <a @click="$router.push({ name: 'front-home' })" class="nav-link active pointer">
+            <a @click="$router.push({ name: 'create-material' })" class="nav-link active pointer">
               <b>Menu</b>
             </a>
           </li>

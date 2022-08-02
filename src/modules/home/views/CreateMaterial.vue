@@ -89,7 +89,7 @@ export default {
       destination: "",
     });
 
-    const { userDivision } = useAuth();
+    const { userDivision, userId } = useAuth();
 
     const { destinations, searchDestinations, status, secondStatus } =
       getDestination();
@@ -114,6 +114,7 @@ export default {
       materialForm,
       uploadImageOne,
       sendForum,
+      userId,
 
       onSubmit: async () => {
         new Swal({
@@ -150,7 +151,8 @@ export default {
         const { errors, nice, materialId } = await sendForum(
           materialForm.value,
           pictureOne,
-          userDivision.value
+          userDivision.value,
+          userId.value,
         );
 
         if (nice.value === false) {

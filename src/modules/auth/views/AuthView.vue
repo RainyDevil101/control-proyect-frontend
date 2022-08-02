@@ -63,7 +63,7 @@ export default {
         const { ok } = await loginUser(userForm.value);
 
         if (!ok) Swal.fire("Error", "Error al conectar al servidor", "error");
-        else router.push({ name: "loading" });
+        else router.push({ name: "create-material" });
       },
       onBack: async () => {
         router.push({ name: "select-login" });

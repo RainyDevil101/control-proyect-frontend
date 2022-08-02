@@ -15,6 +15,9 @@ const getters = {
   },
   getUserDivision(state) {
     return state.user[0].users_divisions;
+  },
+  getUserId(state) {
+    return state.user[0].id;
   }
 };
 
@@ -29,9 +32,9 @@ const mutations = {
     state.status = "authenticated";
   },
   logOut(state) {
-      state.user = null,
-      state.token = null,
-      state.status = "AUTHENTICATING",
+      state.user = null;
+      state.token = null;
+      state.status = "AUTHENTICATING";
       localStorage.removeItem("token");
       localStorage.removeItem('mP');
       localStorage.removeItem('mC');
