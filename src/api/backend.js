@@ -5,7 +5,7 @@ const backendConnect = axios.create({
 })
 
 // const backendConnect = axios.create({
-//    baseURL: 'https://forum-questionary.herokuapp.com'
+//    baseURL: 'https://material-db-be.herokuapp.com'
 // })
 
 export default backendConnect

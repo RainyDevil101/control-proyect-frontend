@@ -23,10 +23,6 @@ export default {
     const { materialId } = getMaterial();
     const { status } = useMaterials();
 
-    onUpdated(() => {
-      getMaterials();
-    });
-
     getMaterials();
 
     return {

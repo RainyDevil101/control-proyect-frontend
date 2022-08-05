@@ -55,7 +55,6 @@
           </div>
           <div class="submit-button">
             <button class="btn btn-warning" type="submit">Registrar</button>
-            <button class="btn btn-primary" @click="$router.push({ name: 'menu-materials' })" type="button">Volver</button>
           </div>
         </form>
       </div>
@@ -240,7 +239,7 @@ h1 {
 
 .submit-button {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin: 8px;
 }
