@@ -24,26 +24,6 @@ const getTerm = (term) => {
 
   destinationTerm(term);
 
-  //LOCACIONES
-  const locations = ref("");
-  const showLocations = ref(false);
-
-  const locationTerm = (term = "") => {
-    const resp = computed(() =>
-      store.getters["locations/getLocationsByTerm"](term)
-    );
-
-    locations.value = resp.value
-
-    if (locations.value.length > 0) {
-      showLocations.value = true;
-    }
-
-    return;
-  };
-
-  locationTerm(term);
-
   //USUARIOS
   const users = ref("");
   const showUsers = ref(false);
@@ -101,20 +81,6 @@ const getTerm = (term) => {
     ),
     destinationIdStatus: computed(
       () => store.getters["destinations/getDestinationIdStatus"]
-    ),
-
-    //LOCACIONES
-
-    locations,
-    showLocations,
-    locationTerm,
-    getStatusLocation: computed(() => store.getters["locations/getStatus"]),
-    locationUpdate: computed(
-      () => store.getters["locations/getUpdateLocation"]
-    ),
-    locationById: computed(() => store.getters["locations/changeLocationId"]),
-    locationIdStatus: computed(
-      () => store.getters["locations/getLocationIdStatus"]
     ),
 
     //USUARIOS

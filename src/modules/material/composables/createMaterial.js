@@ -8,8 +8,6 @@ const sendMaterial = () => {
 
   const sendForum = async (materialForm, imgOne, userDivision, id) => {
 
-    console.log(id);
-
     if (!userDivision) {
       errors.value = "Error usuario logeado";
       return { errors, nice, materialId };
@@ -20,7 +18,8 @@ const sendMaterial = () => {
       materialForm.code === "" ||
       materialForm.cantidad === "" ||
       materialForm.cantidad_bultos === "" ||
-      materialForm.destination === ""
+      materialForm.destination === "" ||
+      materialForm.ubication === ""
     ) {
       errors.value = "Debe llenar los campos";
       return {errors, materialId, nice};
@@ -34,12 +33,17 @@ const sendMaterial = () => {
           { headers: { "x-token": localStorage.getItem("token") } }
         );
 
+        console.log(resp);
+
         materialId.value = resp.data.id;
         nice.value = true;
         errors.value = false;
 
         return { errors, nice, materialId };
       } catch (error) {
+
+        console.log(error);
+
         if (error.response.data.msg) {
           errors.value = error.response.data.msg;
           materialId.value = null;

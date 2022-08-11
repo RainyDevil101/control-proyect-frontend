@@ -16,24 +16,21 @@ export default {
 
   setup() {
 
-    const { getDestinations, getLocations, getDivisions, getUsers } = useAuth();
+    const { getDestinations, getDivisions, getUsers } = useAuth();
 
 
     onActivated(() => {
       getDestinations();
-      getLocations();
       getDivisions();
       getUsers();
     })
 
-    getLocations();
     getDestinations();
     getDivisions();
     getUsers();
 
     return { 
       getDestinations,
-      getLocations,
       getDivisions,
      };
   },

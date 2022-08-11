@@ -16,6 +16,9 @@
       </div>
 
       <div v-if="showUsers === true" class="body-user">
+              <div class="search">
+        <input type="text" placeholder="Buscar usuario" v-model="term" />
+      </div>
         <users
           v-for="user of users"
           :key="user"
@@ -50,7 +53,7 @@
             />
           </div>
           <div class="form form-name">
-            <p>Nombre</p>
+            <p>Apellido</p>
             <input
               type="text"
               placeholder="Apellido"
@@ -130,6 +133,7 @@
 
 <script>
 import { ref } from "@vue/reactivity";
+import { watch } from '@vue/runtime-core';
 import { useStore } from "vuex";
 import Swal from "sweetalert2";
 import Loader from "@/modules/components/Loader.vue";
@@ -138,14 +142,14 @@ import users from "../components/users.vue";
 import usersCommand from "../composables/usersCommand";
 import getTerm from "@/helpers/searchByTerm";
 import UpdateUser from "../components/update-user.vue";
-import useAuth from '../../auth/composables/useAuth';
 
 export default {
   components: { users, Loader, UpdateUser },
   setup() {
     const store = useStore();
 
-    const { getUsers } = useAuth();
+    const term = ref("");
+
     const { postUser } = usersCommand();
   
     const roles = ref([
@@ -164,6 +168,11 @@ export default {
       showUsers,
     } = getTerm();
 
+    watch(
+      () => term.value,
+      () => userTerm(term.value)
+    );
+
     const userForm = ref({
       fullname: "TESTTTT",
       fulllastname: "TESTING",
@@ -178,6 +187,7 @@ export default {
 
 
     return {
+      term,
       userForm,
       postUser,
       divisions,
@@ -268,6 +278,16 @@ p {
   height: 70vh;
   overflow: auto;
   width: 100%;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="text"] {
+  border-radius: 4px;
 }
 
 .header h1 {

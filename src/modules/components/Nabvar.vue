@@ -9,13 +9,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 txt-c">
           <li class="nav-item box-a">
-            <a @click="$router.push({ name: 'create-material' })" class="nav-link active pointer">
+            <a @click="$router.push({ name: 'home-view' })" class="nav-link active pointer">
               <b>Menu</b>
             </a>
           </li>
           <li class="nav-item box-a">
-            <a @click="$router.push({ name: 'dashboard-view' })" class="nav-link active pointer">
-              <b>Dashboard</b>
+            <a @click="$router.push({ name: 'data-menu' })" class="nav-link active pointer">
+              <b>Datos</b>
             </a>
           </li>
           <li class="nav-item box-a">

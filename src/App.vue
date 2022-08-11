@@ -9,7 +9,7 @@ import useAuth from './modules/auth/composables/useAuth';
 export default {
   setup() {
 
-    const { checkToken, reMaterials, reDestinations, reLocations, reDivisions, reUsers } = useAuth();
+    const { checkToken, reMaterials, reDestinations, reDivisions, reUsers } = useAuth();
 
     const store = useStore();
 
@@ -21,8 +21,6 @@ export default {
     reMaterials(materials);
     const destinations = JSON.parse(localStorage.getItem('aD'));
     reDestinations(destinations);
-    const locations = JSON.parse(localStorage.getItem('aL'));
-    reLocations(locations);
     const divisions = JSON.parse(localStorage.getItem('aDi'));
     reDivisions(divisions);
     const users = JSON.parse(localStorage.getItem('aU'));

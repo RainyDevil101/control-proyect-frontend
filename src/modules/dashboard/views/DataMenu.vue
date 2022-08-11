@@ -2,18 +2,15 @@
   <div class="wrapper">
     <div class="menu">
       <div class="header">
-        <h1>Registrar</h1>
+        <h1>Menu materiales</h1>
       </div>
       <div class="body">
         <div class="categories">
-          <div @click="$router.push({ name: 'register-user' })" class="categories-item">
-            <p>Usuarios</p>
+          <div @click="$router.push({ name: 'dashboard-view' })" class="categories-item">
+            <p>Gráficos</p>
           </div>
-          <div @click="$router.push({ name: 'register-user-massive' })" class="categories-item">
-            <p>Carga de usuarios</p>
-          </div>
-          <div @click="$router.push({ name: 'register-destination' })" class="categories-item">
-            <p>Destino</p>
+          <div @click="$router.push({ name: 'get-completed-material' })" class="categories-item">
+            <p>Completadas</p>
           </div>
         </div>
         <div class="footer">
@@ -27,6 +24,7 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router';
 export default {
   setup() {
 

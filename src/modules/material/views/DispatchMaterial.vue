@@ -42,9 +42,15 @@
             </p>
           </div>
           <div class="forum-data">
+            <p>Ubicación:</p>
+            <p>
+              <b>{{ materialPendingId.ubication }}</b>
+            </p>
+          </div>
+          <div class="forum-data">
             <p>Destino:</p>
             <p>
-              <b>{{ materialPendingId.destination }}</b>
+              <b>{{ materialPendingId.destination_name }}</b>
             </p>
           </div>
           <div class="forum-data">
@@ -100,12 +106,12 @@
 <script>
 import { onUpdated, ref, watch } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
-import useMaterials from "../composables/materialsStore";
-import updateMaterial from "../composables/updateMaterial";
-import Loader from "@/modules/components/Loader.vue";
-import uploadTwo from "../helpers/imageTwo";
-import Swal from "sweetalert2";
 import { useStore } from 'vuex';
+import Swal from "sweetalert2";
+import Loader from "@/modules/components/Loader.vue";
+import useMaterials from "../composables/materialsStore";
+import updateMaterial from "@/modules/material/composables/updateMaterial";
+import uploadTwo from "@/modules/material/helpers/imageTwo";
 
 export default {
   components: { Loader },
@@ -232,8 +238,8 @@ h1 {
 }
 
 .wrapper {
-  width: 100vw;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   display: flex;
 }
 
@@ -265,10 +271,15 @@ h1 {
 .forum-data {
   margin: 5px;
   padding: 10px;
-  // flex-grow: 1;
+  
   width: 21rem;
   display: flex;
   justify-content: space-between;
+}
+
+.forum-data p {
+  word-wrap: break-word;
+  max-width: 10rem;
 }
 
 input[type="file"] {

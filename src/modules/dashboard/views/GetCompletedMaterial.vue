@@ -29,7 +29,6 @@
 <script>
 import Loader from "@/modules/components/Loader.vue";
 import useMaterials from "../composables/materialsStore";
-
 import Completa from "../components/Completa.vue";
 
 export default {

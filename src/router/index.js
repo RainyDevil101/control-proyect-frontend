@@ -30,19 +30,18 @@ const routes = [
   {
     path: "/register",
     beforeEnter: [authGuard],
-    beforeEnter: [planner],
+    beforeEnter: [admin],
     ...register,
   },
   {
     path: "/material",
     beforeEnter: [authGuard],
-    beforeEnter: [planner],
     ...material,
   },
   {
     path: "/dashboard",
     beforeEnter: [authGuard],
-    beforeEnter: [admin],
+    beforeEnter: [planner],
     ...dashboard,
   },
 ];

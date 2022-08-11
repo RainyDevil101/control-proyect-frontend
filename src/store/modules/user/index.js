@@ -20,7 +20,7 @@ const getters = {
       if (term.length === 0) return state.users;
 
       return state.users.filter((user) =>
-        user.nombre.toLowerCase().includes(term.toLocaleLowerCase())
+        user.fullname.toLowerCase().includes(term.toLocaleLowerCase()) || user.fulllastname.toLowerCase().includes(term.toLocaleLowerCase())
       );
     },
   getStatus(state) {

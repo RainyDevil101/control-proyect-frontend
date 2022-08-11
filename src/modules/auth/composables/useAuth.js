@@ -19,10 +19,6 @@ const useAuth = () => {
         const resp = await store.dispatch('destinations/renoveDestinations', destinations)
         return resp
     }
-    const reLocations = async (locations) => {
-        const resp = await store.dispatch('locations/renoveLocations', locations)
-        return resp
-    }
     const reDivisions = async (divisions) => {
         const resp = await store.dispatch('divisions/renoveDivisions', divisions)
         return resp
@@ -41,10 +37,6 @@ const useAuth = () => {
     }
     const getDestinations = async() => {
         const resp = await store.dispatch('destinations/loadDestinations');
-        return resp
-    }
-    const getLocations = async() => {
-        const resp = await store.dispatch('locations/loadLocations');
         return resp
     }
     const getDivisions = async() => {
@@ -70,12 +62,10 @@ const useAuth = () => {
         logOut,
         reMaterials,
         reDestinations,
-        reLocations,
         reDivisions,
         reUsers,
         getMaterials,
         getDestinations,
-        getLocations,
         getDivisions,
         getUsers,
     }

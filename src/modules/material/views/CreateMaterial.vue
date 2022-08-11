@@ -1,5 +1,5 @@
 <template>
-  <loader v-if="status === 'CARGANDO'" class="loader-wrapper"/>
+  <loader v-if="status === 'CARGANDO'" class="loader-wrapper" />
 
   <div v-else class="wrapper">
     <div class="material-form">
@@ -34,18 +34,26 @@
               <option
                 v-for="destination of destinations"
                 :key="destination.nombre"
-                :value="destination.id"
+                :value="destination"
               >
                 {{ destination.nombre }}
               </option>
             </select>
+          </div>
+          <div class="item-form">
+            <p>UBICACIÓN</p>
+            <textarea
+              v-model="materialForm.ubication"
+              maxlength="60"
+            ></textarea>
           </div>
           <div class="item-form image-form">
             <input
               type="file"
               @change="onImageOne"
               id="imageOne"
-              accept="image/png, image/jpg, image/ jpeg"/>
+              accept="image/png, image/jpg, image/ jpeg"
+            />
             <div class="image-label">
               <label for="imageOne">Seleccione la imagen</label>
             </div>
@@ -55,6 +63,13 @@
           </div>
           <div class="submit-button">
             <button class="btn btn-warning" type="submit">Registrar</button>
+            <button
+              type="button"
+              @click="$router.push({ name: 'menu-materials' })"
+              class="btn btn-warning back"
+            >
+              Volver
+            </button>
           </div>
         </form>
       </div>
@@ -67,15 +82,14 @@ import { ref } from "@vue/reactivity";
 import Swal from "sweetalert2";
 import Loader from "@/modules/components/Loader.vue";
 import getDestination from "../../get/getDestination";
-import uploadOne from "../helpers/imageOne";
-import sendMaterial from "../composables/createMaterial";
+import uploadOne from "@/modules/material/helpers/imageOne";
+import sendMaterial from "@/modules/material/composables/createMaterial";
 import { watch } from "@vue/runtime-core";
-import useAuth from '@/modules/auth/composables/useAuth';
+import useAuth from "@/modules/auth/composables/useAuth";
 
 export default {
   components: { Loader },
   setup() {
-
     const localImageOne = ref();
     const imgOneName = ref();
     const imgOne = ref(null);
@@ -86,6 +100,7 @@ export default {
       cantidad: "",
       cantidad_bultos: "",
       destination: "",
+      ubication: "",
     });
 
     const { userDivision, userId } = useAuth();
@@ -151,7 +166,7 @@ export default {
           materialForm.value,
           pictureOne,
           userDivision.value,
-          userId.value,
+          userId.value
         );
 
         if (nice.value === false) {
@@ -214,8 +229,8 @@ h1 {
 
 .wrapper {
   display: flex;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 .material-form {
@@ -239,7 +254,7 @@ h1 {
 
 .submit-button {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin: 8px;
 }
@@ -294,4 +309,16 @@ label {
     background-color: rgba(0, 0, 0, 0.827);
   }
 }
+
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+}
+
 </style>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const backendConnect = axios.create({
-    baseURL: 'http://localhost:6002'
+    baseURL: 'http://localhost:6003'
 })
 
 // const backendConnect = axios.create({

@@ -1,7 +1,7 @@
 <template>
   <div @click="$emit('on:open', { id })" class="user-container">
     <span class="user"
-      >{{ user.fullname }}
+      >{{ user.fullname }} {{user.fulllastname}}
       </span>
   </div>
 </template>
@@ -56,5 +56,10 @@ p {
   display: flex;
   align-content: center;
   justify-content: space-between;
+}
+
+span {
+    word-wrap: break-word;
+  max-width: 20rem;
 }
 </style>

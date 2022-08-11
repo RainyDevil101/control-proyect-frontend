@@ -74,6 +74,12 @@
           </p>
         </div>
         <div class="body-item">
+          <p>Ubication:</p>
+          <p>
+            <b>{{ materialIdCompleted.ubication }}</b>
+          </p>
+        </div>
+        <div class="body-item">
           <p>Destino:</p>
           <p>
             <b>{{ materialIdCompleted.destination }}</b>
@@ -111,13 +117,13 @@
 </template>
 
 <script>
-import { onUpdated, ref } from "@vue/runtime-core";
-import useMaterials from "../composables/materialsStore";
+import { onUpdated } from "@vue/runtime-core";
+import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import Loader from "@/modules/components/Loader.vue";
-import ImgOne from "../../home/components/ImgOne.vue";
+import useMaterials from "../composables/materialsStore";
+import ImgOne from "../components/ImgOne.vue";
 import ImgTwo from "../components/ImgTwo.vue";
-import { useStore } from "vuex";
 export default {
   components: { Loader, ImgOne, ImgTwo },
   setup() {
@@ -179,8 +185,8 @@ h1 {
 }
 
 .wrapper {
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  min-width: 100vw;
   display: flex;
 }
 
@@ -207,6 +213,11 @@ h1 {
   display: flex;
   justify-content: space-between;
   padding: 4px 8px 4px 8px;
+}
+
+.body-item p {
+  word-wrap: break-word;
+  max-width: 10rem;
 }
 
 .button-wrapper {
