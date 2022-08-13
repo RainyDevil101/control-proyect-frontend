@@ -44,15 +44,15 @@
     
 
     <div v-else class="dashboard-view">
-      <div class="totalAndReviewed">
-        <total-and-reviewed-forums
+      <div class="chart countDestinations">
+        <count-destinations
           v-if="firstChart"
           :key="firstChart"
           :firstChart="firstChart"
         />
         <no-data v-else />
       </div>
-      <div class="averageReviewed">
+      <div class="chart averageReviewed">
         <donut
           v-if="secondChart"
           :key="secondChart"
@@ -60,7 +60,7 @@
         />
         <no-data v-else />
       </div>
-      <div class="artToDate">
+      <div class="chart artToDate">
         <lines-art
           v-if="thirdChart"
           :key="thirdChart"
@@ -73,10 +73,9 @@
 </template>
 
 <script>
-import { useStore } from "vuex";
 import { ref, watch } from "vue";
 import Donut from "../components/Donut.vue";
-import TotalAndReviewedForums from "../components/TotalAndReviewedForums.vue";
+import countDestinations from "../components/countsDestinations.vue";
 import LinesArt from "../components/LinesArt.vue";
 import Pie from "../components/Pie.vue";
 import LinePre from "../components/LinePre.vue";
@@ -88,7 +87,7 @@ import NoData from "../components/NoData.vue";
 
 export default {
   components: {
-    TotalAndReviewedForums,
+    countDestinations,
     Donut,
     LinesArt,
     Pie,
@@ -99,7 +98,6 @@ export default {
   },
 
   setup() {
-    const store = useStore();
 
     const filters = ref({
       date_in: {
@@ -170,13 +168,10 @@ export default {
 }
 
 .dashboard-view {
-  grid-auto-flow: dense;
-  margin-top: 70px;
+  margin: auto;
   padding-bottom: 70px;
-  display: grid;
+  display: block;
   gap: 12px;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 500px),1fr));
-  grid-auto-rows: auto;
 }
 
 .button-color {
@@ -185,7 +180,6 @@ export default {
 }
 
 .filter-align {
-  // height: 35vh;
   padding-top: 6rem;
   margin-bottom: 30px;
 }
@@ -205,18 +199,11 @@ export default {
   justify-content: center;
 }
 
-// .task-width {
-//   width: 130px;
-// }
-
-.dashboard-view>div {
-  text-align: center;
-  margin: auto;
-  background-color: white;
-  padding: 10px;
-  width: 90%;
-  border-radius: 4px;
+.chart {
+  display: flex;
+  justify-content: center;
 }
+
 .noData>div {
   text-align: center;
   margin: auto;
@@ -256,7 +243,7 @@ h3 {
 
   .dashboard-view>div {
 
-    width: 300px;
+    min-width: 500px;
 
   }
 
@@ -266,14 +253,14 @@ h3 {
 
   .dashboard-view>div {
 
-    width: 500px;
+    min-width: 500px;
 
   }
 
-  .totalAndReviewed .averageReviewed .artToDate .averageCompleted .rcPrevented .noPerAnswer .cuantityfaena .questions {
-    grid-column-start: 1;
-    grid-column-end: -1;
-  }
+  // .countDestinations .averageReviewed .artToDate .averageCompleted .rcPrevented .noPerAnswer .cuantityfaena .questions {
+  //   grid-column-start: 1;
+  //   grid-column-end: -1;
+  // }
 }
 
 // Large devices (desktops, 992px and up)

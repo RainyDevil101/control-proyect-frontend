@@ -1,46 +1,60 @@
 import { ref } from "vue";
 
 const chartData = (data) => {
+  const firstChartValue = ref(null);
+  const secondChartValue = ref(null);
+  const thirdChartValue = ref(null);
+  const errorMessages = ref(false);
 
-    const firstChartValue = ref(null);
-    const secondChartValue = ref(null);
-    const thirdChartValue = ref(null);
-    const forthChartValue = ref(null);
-    const fifthChartValue = ref(null);
-    const sixChartValue = ref(null);
-    const sevenChartValue = ref(null);
-    const errorMessages = ref(false);
+  if (data.length > 0) {
+    //FirstChart
 
-    if (data.length > 0) {
+    console.log(data);
+    
+    const destinationsArray = [];
+    const counts = {};
+    const destinationsChart = [];
+    
+    for(let d of data) {
+        destinationsArray.push(d.destination_name);
+    };
 
-        //FirstChart
+    destinationsArray.forEach(function (x) {
+      counts[x] = (counts[x] || 0) + 1;
+    });
 
-        firstChartValue.value = '';
+    const destinationsName = Object.keys(counts);
+    const destinationsValue = Object.values(counts);
 
-        //SecondChart
+    destinationsChart.push(destinationsName,
+        destinationsValue);
 
-        secondChartValue.value = '';
+        console.log(destinationsChart);
 
-        //ThirdChart
+    firstChartValue.value = destinationsChart;
 
-        thirdChartValue.value = '';
+    //SecondChart
 
-        errorMessages.value = false
+    secondChartValue.value = "";
 
-    } else {
-        firstChartValue.value = null;
-        secondChartValue.value = null;
-        thirdChartValue.value = null;
-        errorMessages.value = true;
-    }
+    //ThirdChart
 
-    return {
-        firstChartValue,
-        secondChartValue,
-        thirdChartValue,
-        errorMessages,
-    }
+    thirdChartValue.value = "";
 
-}
+    errorMessages.value = false;
+  } else {
+    firstChartValue.value = null;
+    secondChartValue.value = null;
+    thirdChartValue.value = null;
+    errorMessages.value = true;
+  }
 
-export default chartData
+  return {
+    firstChartValue,
+    secondChartValue,
+    thirdChartValue,
+    errorMessages,
+  };
+};
+
+export default chartData;

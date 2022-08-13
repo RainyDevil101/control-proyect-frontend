@@ -25,7 +25,6 @@ import {
   CategoryScale,
   LinearScale,
 } from "chart.js";
-import { onDeactivated, ref } from "vue";
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
@@ -47,11 +46,11 @@ export default {
     },
     width: {
       type: Number,
-      default: 300,
+      default: 1200,
     },
     height: {
       type: Number,
-      default: 300,
+      default: 600,
     },
     cssClasses: {
       default: "",
@@ -67,30 +66,36 @@ export default {
     },
   },
   setup(props) {
-    const allCount = ref("");
-    allCount.value = props.firstChart;
+
+    const destinationsName = props.firstChart[0];
+    const destinationsCounts = props.firstChart[1];
 
     return {
-      allCount,
+      destinationsName,
+      destinationsCounts,
 
       chartData: {
-        labels: ["REGISTROS", "REGISTROS CHEQUEADOS"],
+        labels: destinationsName,
         datasets: [
           {
             label: "REGISTROS",
-            data: allCount.value,
-            backgroundColor: ["#B5D99C", "#B5D33C"],
+            data: destinationsCounts,
+            backgroundColor: ["#B5D99C"],
+          borderWidth: 1
           },
         ],
       },
       chartOptions: {
-        responsive: true,
+        responsive: false,
         maintainAspectRatio: false,
         scales: {
           x: {
             grid: {
               display: false,
             },
+          },
+          y: {
+            beginAtZero: true,
           },
         },
       },
@@ -99,4 +104,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .up {
+    background-color: white;
+    width: 100%;
+    max-width: 1200px;
+    min-width: 300px;
+    overflow: auto;
+  }
+</style>

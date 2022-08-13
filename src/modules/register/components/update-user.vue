@@ -26,7 +26,7 @@
             <input type="text" placeholder="Email" maxlength="60" v-model="user.email" />
           </div>
           <div class="input-change-name margin-item">
-            <input type="text" placeholder="Email" maxlength="60" v-model="user.position" />
+            <input type="text" placeholder="Cargo" maxlength="60" v-model="user.position" />
           </div>
           <div class="input-change-name margin-item">
             <input

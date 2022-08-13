@@ -230,7 +230,7 @@ export default {
           store.dispatch("users/changeUserUpdate", true);
           return;
         } else {
-          getUsers();
+          store.dispatch("users/loadUsers");
           store.dispatch("users/changeUserUpdate", false);
           return;
         }

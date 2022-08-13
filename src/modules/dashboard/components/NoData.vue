@@ -23,6 +23,7 @@ setup () {
     align-content: center;
     color: white;
     height: 300px;
+    width: 100%;
     border-radius: 4px;
     background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
 }

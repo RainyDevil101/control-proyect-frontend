@@ -157,11 +157,9 @@ const getters = {
             };
             return true
         });
-
-        console.log(filteredData);
         
         // const allMaterialsFiltered = filteredData;
-        const allMaterialsFiltered = 'filteredData';
+        const allMaterialsFiltered = filteredData;
 
         return { allMaterialsFiltered };
 
