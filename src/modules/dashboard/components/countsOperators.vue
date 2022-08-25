@@ -32,7 +32,7 @@ export default {
   name: "BarChart",
   components: { Bar },
   props: {
-    firstChart: {
+    secondChart: {
       type: Array,
       required: true,
     },
@@ -67,20 +67,20 @@ export default {
   },
   setup(props) {
 
-    const destinationsName = props.firstChart[0];
-    const destinationsCounts = props.firstChart[1];
+    const operatorsName = props.secondChart[0];
+    const operatorsCounts = props.secondChart[1];
 
     return {
-      destinationsName,
-      destinationsCounts,
+      operatorsName,
+      operatorsCounts,
 
       chartData: {
-        labels: destinationsName,
+        labels: operatorsName,
         datasets: [
           {
-            label: "Bultos olvidados",
-            data: destinationsCounts,
-            backgroundColor: ["#B5D99C"],
+            label: "REGISTROS",
+            data: operatorsCounts,
+            backgroundColor: ["#E75A7C"],
           borderWidth: 1
           },
         ],

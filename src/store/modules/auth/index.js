@@ -61,10 +61,9 @@ const actions = {
 
       commit("loginUser", { user, token });
 
-      return { ok: true };
+      return { ok: true, errors: false };
     } catch (errors) {
-
-      return { ok: false };
+      return { ok: false, errors: errors.response.data.msg };
     }
   },
   async readToken({ commit }) {

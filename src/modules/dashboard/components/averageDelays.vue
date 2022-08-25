@@ -32,7 +32,7 @@ export default {
   name: "BarChart",
   components: { Bar },
   props: {
-    firstChart: {
+    thirdChart: {
       type: Array,
       required: true,
     },
@@ -66,22 +66,26 @@ export default {
     },
   },
   setup(props) {
+    const delays = props.thirdChart[0];
+    const delaysData = props.thirdChart[1];
+    const averageDelays = props.thirdChart[2];
+    const averageMilliseconds = props.thirdChart[3];
 
-    const destinationsName = props.firstChart[0];
-    const destinationsCounts = props.firstChart[1];
+    let average = averageDelays[0];
 
     return {
-      destinationsName,
-      destinationsCounts,
+      delays,
+      delaysData,
+      averageDelays,
+      average,
 
       chartData: {
-        labels: destinationsName,
+        labels: ['Despacho esperado dentro de 48 horas', 'Promedio de demora'],
         datasets: [
           {
-            label: "Bultos olvidados",
-            data: destinationsCounts,
+            label: "Promedio tardanza de despacho de bultos en horas.",
             backgroundColor: ["#B5D99C"],
-          borderWidth: 1
+            data: [48, averageMilliseconds],
           },
         ],
       },
@@ -89,11 +93,6 @@ export default {
         responsive: true,
         maintainAspectRatio: false,
         scales: {
-          x: {
-            grid: {
-              display: false,
-            },
-          },
           y: {
             beginAtZero: true,
           },
@@ -105,12 +104,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .up {
-    background-color: white;
-    width: 100%;
-    max-width: 1200px;
-    min-width: 300px;
-    overflow: auto;
-    border-radius: 4px;
-  }
+.up {
+  background-color: white;
+  width: 100%;
+  max-width: 1200px;
+  min-width: 300px;
+  overflow: auto;
+  border-radius: 4px;
+}
+
+.average {
+  text-align: center;
+  margin: 8px 0 8px 0;
+}
 </style>

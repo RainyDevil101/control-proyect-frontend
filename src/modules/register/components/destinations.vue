@@ -43,19 +43,13 @@ p {
 }
 
 .destination-container {
-  background-color: white;
-  margin: 5px;
-  padding: 3px;
-  border-radius: 4px;
   transition: all 0.2s ease-in-out;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 3rem;
 }
 
 .destination {
-  font-size: 12px;
   display: flex;
   align-content: center;
   justify-content: space-between;

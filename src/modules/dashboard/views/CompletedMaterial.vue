@@ -98,15 +98,15 @@
           </p>
         </div>
         <div class="button-wrapper">
-          <button @click="onShowImageOne" class="btn btn-primary">
+          <button @click="onShowImageOne" class="buttons-styles">
             Ver imagen ingreso
           </button>
-          <button @click="onShowImageTwo" class="btn btn-primary">
+          <button @click="onShowImageTwo" class="buttons-styles">
             Ver imagen despacho
           </button>
           <button
             @click="$router.push({ name: 'get-completed-material' })"
-            class="btn btn-warning"
+            class="buttons-styles"
           >
             Volver
           </button>
@@ -196,7 +196,7 @@ h1 {
 }
 
 .body-wrapper {
-  margin: auto;
+  margin: 80px auto;
   width: 100%;
   min-width: 350px;
   max-width: 460px;
@@ -218,6 +218,28 @@ h1 {
 .body-item p {
   word-wrap: break-word;
   max-width: 10rem;
+}
+
+
+.buttons-styles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border-radius: 4px;
+  color: white;
+  padding: 8px;
+  width: 9.8rem;
+  margin: 4px auto 4px auto;
+  height: 44px;
+  border: none;
+  cursor: default;
+    transition: 0.2s;
+
+  &:hover {
+    background-color: rgba($color: #444444, $alpha: 1.0);
+  }
+
 }
 
 .button-wrapper {

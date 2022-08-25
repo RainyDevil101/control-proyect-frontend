@@ -1,39 +1,40 @@
 <template>
-  
-<div class="data">
-    <p>NO HAY DATOS</p>
-</div>
-
+  <div class="no-data-wrapper">
+    <div class="data">
+      <p>NO HAY DATOS</p>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-setup () {
-    return {
-    }
-}
-}
+  setup() {
+    return {};
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 
-.data {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    color: white;
-    height: 300px;
-    width: 100%;
-    border-radius: 4px;
-    background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-}
-
-.data p {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+p {
     margin: 0;
-    font-size: 25px;
+    padding: 0;
+}
+.no-data-wrapper {
+    background-color: white;
+    width: 100%;
+    max-width: 1200px;
+    min-width: 300px;
+    overflow: auto;
+    border-radius: 4px;
 }
 
+.no-data-wrapper .data {
+  display: block;
+  margin: auto;
+}
+
+.no-data-wrapper .data p {
+    text-align: center;
+}
 </style>

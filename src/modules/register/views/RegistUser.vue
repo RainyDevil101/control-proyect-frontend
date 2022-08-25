@@ -1,6 +1,6 @@
 <template>
   <div v-if="userUpdate === true" class="update-user">
-    <update-user @on:close="onShowUpdateUser"/>
+    <update-user @on:close="onShowUpdateUser" />
   </div>
 
   <div v-if="getStatusUser === 'CARGANDO'" class="loader-wrapper">
@@ -8,17 +8,15 @@
   </div>
 
   <div v-else class="wrapper-users">
-
     <div class="users">
-      
       <div class="header">
         <h1>Usuarios</h1>
       </div>
-
-      <div v-if="showUsers === true" class="body-user">
-              <div class="search">
+      <div class="search">
         <input type="text" placeholder="Buscar usuario" v-model="term" />
       </div>
+
+      <div v-if="showUsers === true" class="body-user">
         <users
           v-for="user of users"
           :key="user"
@@ -26,16 +24,7 @@
           @on:open="onShowUpdateUser"
         />
       </div>
-        <div v-else class="not-register"><h1>NO HAY REGISTROS</h1></div>
-      <div class="button-wrapper">
-        <button
-          type="button"
-          @click="$router.push({ name: 'select-register' })"
-          class="btn btn-warning back"
-        >
-          Volver
-        </button>
-      </div>
+      <div v-else class="not-register"><h1>NO HAY REGISTROS</h1></div>
     </div>
     <div class="create-wrapper">
       <div class="create">
@@ -123,7 +112,14 @@
             </select>
           </div>
           <div class="button-wrapper">
-            <button type="submit" class="btn btn-warning back">CREAR</button>
+            <button type="submit" class="buttons-styles">CREAR</button>
+            <button
+              type="button"
+              @click="$router.push({ name: 'select-register' })"
+              class="buttons-styles"
+            >
+              Volver
+            </button>
           </div>
         </form>
       </div>
@@ -133,7 +129,7 @@
 
 <script>
 import { ref } from "@vue/reactivity";
-import { watch } from '@vue/runtime-core';
+import { watch } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import Swal from "sweetalert2";
 import Loader from "@/modules/components/Loader.vue";
@@ -151,7 +147,7 @@ export default {
     const term = ref("");
 
     const { postUser } = usersCommand();
-  
+
     const roles = ref([
       { name: "ADMIN_ROLE" },
       { name: "OPERATOR_ROLE" },
@@ -174,17 +170,16 @@ export default {
     );
 
     const userForm = ref({
-      fullname: "TESTTTT",
-      fulllastname: "TESTING",
-      passwordT: "testing",
-      confirmPassword: "testing",
-      rut: "14.279.370-9",
-      email: "testing@gmail.com",
-      users_divisions: "1000",
-      role: "ADMIN_ROLE",
-      position: "Test",
+      fullname: "",
+      fulllastname: "",
+      passwordT: "",
+      confirmPassword: "",
+      rut: "",
+      email: "",
+      users_divisions: "",
+      role: "",
+      position: "",
     });
-
 
     return {
       term,
@@ -224,7 +219,6 @@ export default {
         }
       },
       onShowUpdateUser: (id) => {
-        
         if (userUpdate.value === false) {
           store.dispatch("users/changeUserId", id);
           store.dispatch("users/changeUserUpdate", true);
@@ -248,7 +242,7 @@ h1 {
 }
 
 p {
-  color: white;
+  color: black;
 }
 
 .wrapper-users {
@@ -268,14 +262,15 @@ p {
 }
 
 .users {
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+  margin: 10px 0 10px 0;
+  background-color: white;
   border-radius: 4px;
   min-width: 300px;
   padding: 15px;
 }
 
 .body-user {
-  height: 70vh;
+  height: 65vh;
   overflow: auto;
   width: 100%;
 }
@@ -284,6 +279,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 4px;
 }
 
 input[type="text"] {
@@ -292,13 +288,12 @@ input[type="text"] {
 
 .header h1 {
   text-align: center;
-  color: white;
+  color: black;
   padding: 10px;
 }
 
 .create-wrapper {
-  margin-top: 20px;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+  background-color: white;
   min-width: 300px;
   border-radius: 4px;
   display: flex;
@@ -340,6 +335,26 @@ select {
   width: 100%;
 }
 
+.buttons-styles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border-radius: 4px;
+  color: white;
+  padding: 8px;
+  width: 9.8rem;
+  margin: 4px auto 4px auto;
+  height: 44px;
+  border: none;
+  cursor: default;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: rgba($color: #444444, $alpha: 1);
+  }
+}
+
 @media screen and (min-width: 948px) {
   .wrapper-users {
     display: flex;
@@ -358,7 +373,7 @@ select {
   }
 
   .body-user {
-    height: 60vh;
+    height: 62.5vh;
     overflow: auto;
   }
 }

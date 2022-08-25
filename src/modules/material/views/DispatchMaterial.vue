@@ -1,5 +1,8 @@
 <template>
-  <Loader v-if="materialPendingIdStatus === 'CARGANDO'" class="loader-wrapper"/>
+  <Loader
+    v-if="materialPendingIdStatus === 'CARGANDO'"
+    class="loader-wrapper"
+  />
 
   <div v-else class="wrapper">
     <div class="wrapper-form">
@@ -80,18 +83,15 @@
             <p>{{ imgTwoName }}</p>
           </div>
           <div class="forum-button">
+            <button type="submit" class="buttons-styles">Registrar</button>
             <button
-            type="submit" class="btn btn-warning">Registrar</button>
-          <button
-          type="button"
-            @click="$router.push({ name: 'get-material' })"
-            class="btn btn-primary"
-          >
-            Volver
-          </button>
+              type="button"
+              @click="$router.push({ name: 'get-material' })"
+              class="buttons-styles"
+            >
+              Volver
+            </button>
           </div>
-
-
         </form>
       </div>
       <div v-else>
@@ -106,7 +106,7 @@
 <script>
 import { onUpdated, ref, watch } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
-import { useStore } from 'vuex';
+import { useStore } from "vuex";
 import Swal from "sweetalert2";
 import Loader from "@/modules/components/Loader.vue";
 import useMaterials from "../composables/materialsStore";
@@ -130,8 +130,13 @@ export default {
 
     const { dispatchMaterial } = updateMaterial();
 
-    const { getMaterialPending, materialPendingId, materialPendingIdStatus, pendiente, materialPendingIdDate } =
-      useMaterials();
+    const {
+      getMaterialPending,
+      materialPendingId,
+      materialPendingIdStatus,
+      pendiente,
+      materialPendingIdDate,
+    } = useMaterials();
 
     onUpdated(() => {
       getMaterialPending(route.params.id);
@@ -185,16 +190,19 @@ export default {
 
         const pictureTwo = await uploadTwo(imgTwo.value);
 
-        const { errors, nice, code } = await dispatchMaterial(materialForm.value, pictureTwo, route.params.id);
+        const { errors, nice, code } = await dispatchMaterial(
+          materialForm.value,
+          pictureTwo,
+          route.params.id
+        );
 
         if (nice.value === false) {
           Swal.fire({
             title: "Error",
             text: `${errors.value}`,
             icon: "error",
-          })
+          });
         } else {
-
           await store.dispatch("materials/loadMaterials");
 
           Swal.fire(
@@ -203,13 +211,12 @@ export default {
             "success"
           ).then(function (result) {
             if (true) {
-              router.push({ name: 'get-material' });
+              router.push({ name: "get-material" });
             } else {
               window.alert("Error, intente nuevamente");
             }
           });
         }
-
       },
 
       onImageTwo: async (event) => {
@@ -271,7 +278,7 @@ h1 {
 .forum-data {
   margin: 5px;
   padding: 10px;
-  
+
   width: 21rem;
   display: flex;
   justify-content: space-between;
@@ -312,6 +319,26 @@ input[type="file"] {
   margin: auto;
 }
 
+.buttons-styles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border-radius: 4px;
+  color: white;
+  padding: 8px;
+  width: 9.8rem;
+  margin: 4px auto 4px auto;
+  height: 44px;
+  border: none;
+  cursor: default;
+    transition: 0.2s;
+
+  &:hover {
+    background-color: rgba($color: #444444, $alpha: 1.0);
+  }
+
+}
 .confirmation p {
   background-color: black;
   border-radius: 4px;

@@ -1,7 +1,5 @@
 <template>
   <div class="wrapper">
-
-
     <div class="filter-align">
       <div class="filter">
         <h3><b>FILTRAR</b></h3>
@@ -16,22 +14,36 @@
               <input type="date" v-model="filters.date_in.finDate" />
             </div>
           </div>
-          <div class="input-config">
-            <h5><b>División</b></h5>
-            <select v-model="filters.materials_divisions" class="task-width">
-              <option
-                v-for="division of divisions"
-                :key="division.id"
-                :value="division.id"
+          <div class="buttons-container">
+            <div>
+              <button
+                class="btn button-generate"
+                @click="onGenerateExcelDestinations"
               >
-                {{ division.name }}
-              </option>
-            </select>
-          </div>
-          <div class="input-config">
-            <button @click="onReset" class="btn button-color mt-2">
-              <b>Resetear</b>
-            </button>
+                <b>Destinos</b>
+              </button>
+            </div>
+            <div>
+              <button
+                class="btn button-generate"
+                @click="onGenerateExcelOperators"
+              >
+                <b>Operadores</b>
+              </button>
+            </div>
+            <div>
+              <button
+                class="btn button-generate"
+                @click="onGenerateExcelDelays"
+              >
+                <b>Tiempo demora</b>
+              </button>
+            </div>
+            <div>
+              <button @click="onReset" class="btn button-generate">
+                <b>Resetear</b>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -41,27 +53,26 @@
         <no-data />
       </div>
     </div>
-    
 
     <div v-else class="dashboard-view">
-      <div class="chart countDestinations">
-        <count-destinations
+      <div class="chart countsDestinations">
+        <counts-destinations
           v-if="firstChart"
           :key="firstChart"
           :firstChart="firstChart"
         />
         <no-data v-else />
       </div>
-      <div class="chart averageReviewed">
-        <donut
+      <div class="chart countOperators">
+        <counts-operators
           v-if="secondChart"
           :key="secondChart"
           :secondChart="secondChart"
         />
         <no-data v-else />
       </div>
-      <div class="chart artToDate">
-        <lines-art
+      <div class="chart averageDelays">
+        <average-delays
           v-if="thirdChart"
           :key="thirdChart"
           :thirdChart="thirdChart"
@@ -74,31 +85,24 @@
 
 <script>
 import { ref, watch } from "vue";
-import Donut from "../components/Donut.vue";
-import countDestinations from "../components/countsDestinations.vue";
-import LinesArt from "../components/LinesArt.vue";
-import Pie from "../components/Pie.vue";
-import LinePre from "../components/LinePre.vue";
-import AnswersNo from "../components/AnswersNo.vue";
-import Faenas from "../components/Faenas.vue";
+import countsOperators from "../components/countsOperators.vue";
+import countsDestinations from "../components/countsDestinations.vue";
+import averageDelays from "../components/averageDelays.vue";
 import getMaterialsCharts from "../composables/gets";
-import getTerm from "@/helpers/searchByTerm";
 import NoData from "../components/NoData.vue";
+import sendData from "../composables/sendDataToExcel";
+import createFile from "../composables/createExcelFile";
+import Swal from "sweetalert2";
 
 export default {
   components: {
-    countDestinations,
-    Donut,
-    LinesArt,
-    Pie,
-    LinePre,
-    AnswersNo,
-    Faenas,
-    NoData
+    countsDestinations,
+    countsOperators,
+    averageDelays,
+    NoData,
   },
 
   setup() {
-
     const filters = ref({
       date_in: {
         initDate: "",
@@ -107,18 +111,21 @@ export default {
       materials_divisions: "",
     });
 
-    const { firstChart,
-        secondChart,
-        thirdChart,
-        forthChart,
-        fifthChart,
-        gettingDate,
-        sixChart,
-        sevenChart,
-        errorMessage,
-        chartValues,
-        statusCharts } = getMaterialsCharts(filters.value);
-    const { divisions } = getTerm();
+    const {
+      firstChart,
+      sortableDestinationToExcelExport,
+      secondChart,
+      sortableOperatorToExcelExport,
+      thirdChart,
+      sortableDelayToExcelExport,
+      gettingDate,
+      errorMessage,
+      chartValues,
+      statusCharts,
+    } = getMaterialsCharts(filters.value);
+
+    const { postData } = sendData();
+    const { createExcelFile } = createFile();
 
     watch(
       () => [
@@ -132,19 +139,19 @@ export default {
     );
 
     return {
-      divisions,
       filters,
       firstChart,
+      sortableDestinationToExcelExport,
       secondChart,
+      sortableOperatorToExcelExport,
       thirdChart,
-      forthChart,
-      fifthChart,
+      sortableDelayToExcelExport,
       gettingDate,
-      sixChart,
-      sevenChart,
       errorMessage,
       chartValues,
       statusCharts,
+      postData,
+      createExcelFile,
 
       onReset: () => {
         filters.value = {
@@ -156,15 +163,98 @@ export default {
         };
         return;
       },
+      onGenerateExcelDestinations: async () => {
+        new Swal({
+          title: "Generando informe, espere por favor",
+          allowOutsideClick: false,
+        });
+        Swal.showLoading();
+
+        let dates = filters.value.date_in;
+        let category = "DESTINOS";
+
+        let { errors, excel, nice } = await createExcelFile(
+          category,
+          sortableDestinationToExcelExport.value,
+          dates
+        );
+
+        if (nice.value === false) {
+          Swal.fire("Error", `${errors.value}.`, "error");
+          return;
+        } else {
+          Swal.fire(
+            "Informe generado",
+            `El archivo ${excel.value} se ha generado con éxito.`
+          );
+        }
+      },
+      onGenerateExcelOperators: async () => {
+        new Swal({
+          title: "Generando informe, espere por favor",
+          allowOutsideClick: false,
+        });
+        Swal.showLoading();
+
+        let dates = filters.value.date_in;
+        let category = "OPERADORES";
+
+        let { errors, excel, nice } = await createExcelFile(
+          category,
+          sortableOperatorToExcelExport.value,
+          dates
+        );
+
+        if (nice.value === false) {
+          Swal.fire("Error", `${errors.value}.`, "error");
+          return;
+        } else {
+          Swal.fire(
+            "Informe generado",
+            `El archivo ${excel.value} se ha generado con éxito.`
+          );
+        }
+      },
+      onGenerateExcelDelays: async () => {
+        new Swal({
+          title: "Generando informe, espere por favor",
+          allowOutsideClick: false,
+        });
+        Swal.showLoading();
+
+        let dates = filters.value.date_in;
+        let category = "DEMORA";
+
+        let { errors, excel, nice } = await createExcelFile(
+          category,
+          sortableDelayToExcelExport.value,
+          dates
+        );
+
+        if (nice.value === false) {
+          Swal.fire("Error", `${errors.value}.`, "error");
+          return;
+        } else {
+          Swal.fire(
+            "Informe generado",
+            `El archivo ${excel.value} se ha generado con éxito.`
+          );
+        }
+      },
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
 .wrapper {
   min-height: 100vh;
+}
+
+.noData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .dashboard-view {
@@ -172,11 +262,8 @@ export default {
   padding-bottom: 70px;
   display: block;
   gap: 12px;
-}
-
-.button-color {
-  color: white;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .filter-align {
@@ -202,19 +289,7 @@ export default {
 .chart {
   display: flex;
   justify-content: center;
-}
-
-.noData>div {
-  text-align: center;
-  margin: auto;
-  background-color: white;
-  padding: 20px;
-  width: 100%;
-  border-radius: 4px;
-}
-
-.noData {
-  padding-bottom: 70px;
+  margin: 8px 0 8px 0;
 }
 
 .input-config {
@@ -225,14 +300,20 @@ export default {
   margin: 5px 6px 5px 6px;
 }
 
-h5 {
-  color: white;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border-radius: 4px;
-}
-
 h3 {
   text-decoration: underline;
+}
+
+.buttons-container {
+  display: block;
+  margin: auto;
+}
+
+.button-generate {
+  color: white;
+  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+  width: 150px;
+  margin: 4px auto;
 }
 
 //X-Small devices (portrait phones, less than 576px)
@@ -240,35 +321,31 @@ h3 {
 
 //Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) {
-
-  .dashboard-view>div {
-
+  .dashboard-view > div {
     min-width: 500px;
-
   }
-
 }
 
 @media screen and (min-width: 768px) {
-
-  .dashboard-view>div {
-
+  .dashboard-view > div {
     min-width: 500px;
-
   }
 
-  // .countDestinations .averageReviewed .artToDate .averageCompleted .rcPrevented .noPerAnswer .cuantityfaena .questions {
+  // .countsDestinations .countOperators .artToDate .averageCompleted .rcPrevented .noPerAnswer .cuantityfaena .questions {
   //   grid-column-start: 1;
   //   grid-column-end: -1;
   // }
 }
 
 // Large devices (desktops, 992px and up)
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+}
 
 // X-Large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+}
 
 // XX-Large devices (larger desktops, 1400px and up)
-@media (min-width: 1400px) {}
+@media (min-width: 1400px) {
+}
 </style>

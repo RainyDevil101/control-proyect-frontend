@@ -57,25 +57,25 @@
               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
             />
             <div class="button-align download-plantilla">
-              <button @click="onDownload" type="button" class="btn btn-primary">
+              <button @click="onDownload" type="button" class="buttons-styles">
                 Descargar plantilla
               </button>
             </div>
             <div class="button-align select-file">
-              <label class="select-massive" for="excel-file"
+              <label class="buttons-styles" for="excel-file"
                 >Seleccionar archivo</label
               >
             </div>
             <div class="button-align load-file-button">
-              <button type="submit" class="btn btn-warning" value="Store File">
+              <button type="submit" class="buttons-styles" value="Store File">
                 Cargar
               </button>
             </div>
             <div class="button-align back-button">
               <button
                 type="button"
-                @click="$router.push({ name: 'home-view' })"
-                class="btn btn-warning back"
+                @click="$router.push({ name: 'select-register' })"
+                class="buttons-styles"
               >
                 Volver
               </button>
@@ -162,9 +162,7 @@ p {
 }
 .wrapper {
   padding-top: 4rem;
-  height: 100%;
   min-height: 100vh;
-  width: 100%;
   min-width: 100vw;
   display: flex;
   justify-content: center;
@@ -174,7 +172,7 @@ p {
 .container-massive {
   background-color: white;
   border-radius: 4px;
-  padding: 1rem;
+  margin: 4px;
 }
 
 .form-massive {
@@ -193,11 +191,24 @@ p {
   margin: 4px 0 4px 0;
 }
 
-.select-massive {
+.buttons-styles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: black;
   border-radius: 4px;
   color: white;
   padding: 8px;
+  width: 9.8rem;
+  height: 44px;
+  border: none;
+  cursor: default;
+    transition: 0.2s;
+
+  &:hover {
+    background-color: rgba($color: #444444, $alpha: 1.0);
+  }
+
 }
 
 input[type="file"] {
@@ -222,11 +233,16 @@ input[type="file"] {
   margin: 4px 0 4px 0;
 }
 
-@media screen and(min-width: 640px) {
+@media screen and(min-width: 720px) {
   .input-button {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+
+  .container-massive {
+  padding: 1rem;
+}
+
 }
 </style>

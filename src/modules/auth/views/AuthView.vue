@@ -52,17 +52,27 @@ export default {
     const { loginUser } = useAuth();
 
     const userForm = ref({
-      rut: "19.268.695-4",
-      passwordT: "HERRERACARRENO",
+      rut: "",
+      passwordT: "",
     });
+
+    // const userForm = ref({
+    //   rut: "19.268.695-4",
+    //   passwordT: "HERRERACARRENO",
+    // });
+
+    // const userForm = ref({
+    //   rut: "19.268.695-4",
+    //   passwordT: "HERRERACARRENO",
+    // });
 
     return {
       userForm,
 
       onSubmit: async () => {
-        const { ok } = await loginUser(userForm.value);
+        const { ok, errors } = await loginUser(userForm.value);
 
-        if (!ok) Swal.fire("Error", "Error al conectar al servidor", "error");
+        if (!ok) Swal.fire("Error", `${errors}.`, "error");
         else router.push({ name: "home-view" });
       },
       onBack: async () => {

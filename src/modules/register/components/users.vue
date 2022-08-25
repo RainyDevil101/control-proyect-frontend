@@ -50,6 +50,7 @@ p {
   justify-content: space-between;
   align-items: center;
   height: 3rem;
+  cursor: pointer;
 }
 
 .user {

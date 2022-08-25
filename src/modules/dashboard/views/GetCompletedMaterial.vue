@@ -20,7 +20,7 @@
         <h1>NO HAY REGISTROS</h1>
       </div>
         <div class="back-button">
-          <button @click="$router.push({ name: 'menu-materials' })" type="buton" class="btn btn-warning">Volver</button>
+          <button @click="$router.push({ name: 'data-menu' })" type="buton" class="buttons-styles">Volver</button>
         </div>
     </div>
   </div>
@@ -91,6 +91,28 @@ h1 {
     overflow: auto;
   margin: auto;
   height: 100%;
+}
+
+
+.buttons-styles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border-radius: 4px;
+  color: white;
+  padding: 8px;
+  width: 9.8rem;
+  margin: 4px auto 4px auto;
+  height: 44px;
+  border: none;
+  cursor: default;
+    transition: 0.2s;
+
+  &:hover {
+    background-color: rgba($color: #444444, $alpha: 1.0);
+  }
+
 }
 
 @media screen and (min-width: 768px) {

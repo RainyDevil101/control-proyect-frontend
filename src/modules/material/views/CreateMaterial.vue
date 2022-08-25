@@ -62,11 +62,11 @@
             </div>
           </div>
           <div class="submit-button">
-            <button class="btn btn-warning" type="submit">Registrar</button>
+            <button class="buttons-styles" type="submit">Registrar</button>
             <button
               type="button"
               @click="$router.push({ name: 'menu-materials' })"
-              class="btn btn-warning back"
+              class="buttons-styles"
             >
               Volver
             </button>
@@ -221,6 +221,27 @@ h1 {
 
 .header-form {
   text-align: center;
+}
+
+.buttons-styles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border-radius: 4px;
+  color: white;
+  padding: 8px;
+  width: 9.8rem;
+  margin: 4px auto 4px auto;
+  height: 44px;
+  border: none;
+  cursor: default;
+    transition: 0.2s;
+
+  &:hover {
+    background-color: rgba($color: #444444, $alpha: 1.0);
+  }
+
 }
 
 .header-form h1 {

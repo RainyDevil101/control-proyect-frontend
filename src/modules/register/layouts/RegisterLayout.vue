@@ -7,7 +7,6 @@
 <script>
 
 import useAuth from '../../auth/composables/useAuth';
-
 import { onActivated } from '@vue/runtime-core';
 import Nabvar from '@/modules/components/Nabvar.vue';
 

@@ -6,20 +6,18 @@
       </div>
       <div class="body">
         <div class="categories">
-          <div @click="$router.push({ name: 'register-user' })" class="categories-item">
+          <div @click="$router.push({ name: 'register-user' })" class="buttons-styles">
             <p>Usuarios</p>
           </div>
-          <div @click="$router.push({ name: 'register-user-massive' })" class="categories-item">
+          <div @click="$router.push({ name: 'register-user-massive' })" class="buttons-styles">
             <p>Carga de usuarios</p>
           </div>
-          <div @click="$router.push({ name: 'register-destination' })" class="categories-item">
+          <div @click="$router.push({ name: 'register-destination' })" class="buttons-styles">
             <p>Destino</p>
           </div>
-        </div>
-        <div class="footer">
-          <button type="button" @click="$router.push({ name: 'home-view' })" class="btn btn-warning back">
-            Volver
-          </button>
+          <div @click="$router.push({ name: 'home-view' })" class="buttons-styles">
+            <p>Volver</p>
+          </div>
         </div>
       </div>
     </div>
@@ -66,7 +64,7 @@ p {
 
 .menu {
   display: block;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+  background-color: white;
   border-radius: 4px;
   width: 90%;
 }
@@ -76,21 +74,28 @@ p {
 }
 
 .header {
-  color: #fff;
+  color: black;
   padding: 15px;
   text-align: center;
 }
 
-.categories-item {
-  margin: auto;
-  width: 70%;
-  cursor: default;
-  text-align: center;
-  background-color: #fff;
+.buttons-styles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
   border-radius: 4px;
-  transition: all 0.2s ease-in-out;
+  color: white;
+  padding: 8px;
+  width: 9.8rem;
+  margin: 4px auto 4px auto;
+  height: 44px;
+  border: none;
+  cursor: default;
+    transition: 0.2s;
+
   &:hover {
-    background-color: rgb(223, 223, 223);
+    background-color: rgba($color: #444444, $alpha: 1.0);
   }
 
 }

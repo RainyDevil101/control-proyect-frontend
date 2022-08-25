@@ -77,24 +77,19 @@ export default {
 
   nav .navbar-nav li a{
   color: white !important;
-    cursor: default;
+    cursor: pointer;
   }
 
 .logout {
   height: 40px;
   width: 120px;
-  background-color: white;
   border: none;
   text-decoration: none;
-  color: black;
+  background-color: transparent;
   transition: 0.3s;
   border-radius: 4px;
+  color: white;
 
-
-  &:hover {
-    background-color: white;
-    color: black;
-  }
 }
 
 .button-wrapper {

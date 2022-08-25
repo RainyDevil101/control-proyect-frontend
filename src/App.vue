@@ -38,6 +38,8 @@ export default {
   #app {
     width: 100%;
     height: 100%;
+    /* min-width: 100vw; */
+    min-height: 100vh;
     background-color: rgba(49, 49, 49, 0.756);
     /* font-size: 16px; */
     

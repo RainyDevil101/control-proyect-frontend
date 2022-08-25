@@ -1,55 +1,71 @@
-import { computed, ref } from 'vue';
-import { useStore } from 'vuex';
-import { cloneDeep } from 'lodash';
-import chartData from './chartData';
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+import { cloneDeep } from "lodash";
+import chartData from "./chartData";
 
-
-const getMaterialsCharts = (dates = {
+const getMaterialsCharts = (
+  dates = {
     initDate: "",
     finDate: "",
     divisionSearch: "",
-}) => {
+  }
+) => {
+  const store = useStore();
+  const gettingDate = ref(dates);
+  const firstChart = ref(null);
+  const sortableDestinationToExcelExport = ref(null);
+  const secondChart = ref(null);
+  const sortableOperatorToExcelExport = ref(null);
+  const thirdChart = ref(null);
+  const sortableDelayToExcelExport = ref(null);
+  const errorMessage = ref(false);
 
-    const store = useStore();
-    const gettingDate = ref(dates);
-    const firstChart = ref(null);
-    const secondChart = ref(null);
-    const thirdChart = ref(null);
-    const errorMessage = ref(false);
+  const chartValues = (gettingDate) => {
+    if (!gettingDate) return;
 
-    const chartValues = (gettingDate) => {
-        
-        if (!gettingDate) return;
-        
-        const dateFormated = cloneDeep(gettingDate);
-        
-        const data = computed(() => store.getters['materials/gettingData'](dateFormated));
+    const dateFormated = cloneDeep(gettingDate);
 
-        const { allMaterialsFiltered } = data.value;
-        
-        const { firstChartValue, secondChartValue, thirdChartValue, errorMessages } = chartData(allMaterialsFiltered);
+    const data = computed(() =>
+      store.getters["materials/gettingData"](dateFormated)
+    );
 
-        firstChart.value = firstChartValue.value;
-        secondChart.value = secondChartValue.value;
-        thirdChart.value = thirdChartValue.value;
+    const { allMaterialsFiltered } = data.value;
 
-        errorMessage.value = errorMessages.value;
+    const {
+      firstChartValue,
+      sortableDestinationsToExcel,
+      secondChartValue,
+      sortableOperatorsToExcel,
+      thirdChartValue,
+      sortableDelaysToExcel,
+      errorMessages,
+    } = chartData(allMaterialsFiltered);
 
-        return;
+    firstChart.value = firstChartValue.value;
+    secondChart.value = secondChartValue.value;
+    thirdChart.value = thirdChartValue.value;
+    sortableDestinationToExcelExport.value = sortableDestinationsToExcel.value;
+    sortableOperatorToExcelExport.value = sortableOperatorsToExcel.value;
+    sortableDelayToExcelExport.value = sortableDelaysToExcel.value;
+    errorMessage.value = errorMessages.value;
 
-    };
+    return;
+  };
 
-    chartValues(gettingDate.value);
+  chartValues(gettingDate.value);
 
-    return {
-        chartValues,
-        firstChart,
-        secondChart,
-        thirdChart,
-        errorMessage,
+  return {
+    chartValues,
+    firstChart,
+    sortableDestinationToExcelExport,
+    secondChart,
+    sortableOperatorToExcelExport,
+    thirdChart,
+    sortableDelayToExcelExport,
+    errorMessage,
 
-        statusCharts: computed(() => store.getters['materials/statusCharts']),
-    };
+    statusCharts: computed(() => store.getters["materials/statusCharts"]),
+  };
 };
 
-export default getMaterialsCharts
+export default getMaterialsCharts;

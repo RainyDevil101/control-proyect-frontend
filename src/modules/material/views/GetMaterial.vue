@@ -19,17 +19,20 @@
       <div v-else class="not-registers">
         <h1>NO HAY REGISTROS</h1>
       </div>
-        <div class="back-button">
-          <button @click="$router.push({ name: 'menu-materials' })" type="buton" class="btn btn-warning">Volver</button>
-        </div>
+      <div class="back-button">
+        <button
+          @click="$router.push({ name: 'menu-materials' })"
+          type="buton"
+          class="buttons-styles"
+        >
+          Volver
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from "@vue/reactivity";
-import { useStore } from "vuex";
-import Swal from "sweetalert2";
 import Loader from "@/modules/components/Loader.vue";
 import useMaterials from "../composables/materialsStore";
 
@@ -38,7 +41,6 @@ import Pendiente from "../components/Pendiente.vue";
 export default {
   components: { Pendiente, Loader },
   setup() {
-    const store = useStore();
 
     const { pendientes, status } = useMaterials();
 
@@ -94,9 +96,30 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-    overflow: auto;
+  overflow: auto;
   margin: auto;
   height: 100%;
+}
+
+.buttons-styles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border-radius: 4px;
+  color: white;
+  padding: 8px;
+  width: 9.8rem;
+  margin: 4px auto 4px auto;
+  height: 44px;
+  border: none;
+  cursor: default;
+    transition: 0.2s;
+
+  &:hover {
+    background-color: rgba($color: #444444, $alpha: 1.0);
+  }
+
 }
 
 @media screen and (min-width: 768px) {
