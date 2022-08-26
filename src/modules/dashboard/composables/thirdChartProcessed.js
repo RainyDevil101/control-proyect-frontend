@@ -224,8 +224,6 @@ const thirdChartProcessed = (data) => {
 
   const thirdChartDataProcessed = dispatchChart;
 
-  console.log(dataToExcelDelays);
-
   return {
     thirdChartDataProcessed,
     dataToExcelDelays,
