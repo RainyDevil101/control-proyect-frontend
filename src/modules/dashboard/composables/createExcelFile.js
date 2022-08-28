@@ -56,8 +56,6 @@ const createFile = () => {
         
             let fileName = `INFORME_${name}_${initDate}_${finDate}.xlsx`;
         
-            //const file = path.join(__dirname, "../uploads/file", fileName);
-        
             writeFile(workbook, fileName);
 
             errors.value = false;

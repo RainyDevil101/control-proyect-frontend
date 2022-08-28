@@ -93,8 +93,6 @@ export default {
 }
 
 .login {
-  width: 90%;
-  height: 50%;
   background-color: #fff;
   display: block;
   border-radius: 4px;

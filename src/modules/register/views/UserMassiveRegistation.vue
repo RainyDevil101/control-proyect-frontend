@@ -91,6 +91,7 @@
 import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import uploadUsers from "../composables/uploadExcelUsers";
+import createFiles from "../composables/createUserTemplate";
 import Swal from "sweetalert2";
 export default {
   setup() {
@@ -98,10 +99,12 @@ export default {
     const localFile = ref(null);
 
     const { sendData } = uploadUsers();
+    const { excelTemplateUsers } = createFiles();
 
     return {
       localFile,
       sendData,
+      excelTemplateUsers,
 
       onSubmit: async () => {
         new Swal({
@@ -140,12 +143,14 @@ export default {
           return;
         } else {
           localFile.value = file;
-          console.log(localFile.value);
         }
       },
       onDownload: async () => {
-        const plantilla = "../files/plantilla_carga_usuarios.xlsx";
-        window.location.href = plantilla;
+
+        const { ok } = excelTemplateUsers();
+
+        console.log(ok);
+
       },
     };
   },
