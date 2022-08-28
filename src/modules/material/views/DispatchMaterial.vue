@@ -259,6 +259,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 8px;
 }
 
 .forum-item {
@@ -323,7 +324,7 @@ input[type="file"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
   border-radius: 4px;
   color: white;
   padding: 8px;
@@ -332,15 +333,14 @@ input[type="file"] {
   height: 44px;
   border: none;
   cursor: default;
-    transition: 0.2s;
+  transition: 0.2s;
 
   &:hover {
-    background-color: rgba($color: #444444, $alpha: 1.0);
+    background-color: rgba($color: #444444, $alpha: 1);
   }
-
 }
 .confirmation p {
-  background-color: black;
+  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
   border-radius: 4px;
   color: white;
   text-align: center;
@@ -355,7 +355,7 @@ label {
   height: 30px;
   font-size: 12px;
   color: white;
-  background-color: black;
+  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
   justify-content: center;
   align-items: center;
   display: flex;

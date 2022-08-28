@@ -13,8 +13,18 @@
               <h5><b>Hasta</b></h5>
               <input type="date" v-model="filters.date_in.finDate" />
             </div>
+            <div>
+              <button @click="onReset" class="btn button-generate">
+                <b>Resetear</b>
+              </button>
+            </div>
           </div>
           <div class="buttons-container">
+
+            <div class="header-buttons">
+              <p>Exportar a excel</p>
+            </div>
+
             <div>
               <button
                 class="btn button-generate"
@@ -39,11 +49,7 @@
                 <b>Tiempo demora</b>
               </button>
             </div>
-            <div>
-              <button @click="onReset" class="btn button-generate">
-                <b>Resetear</b>
-              </button>
-            </div>
+
           </div>
         </div>
       </div>
@@ -247,6 +253,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+  h1, p {
+    margin: 0;
+    padding: 0;
+  }
 .wrapper {
   min-height: 100vh;
 }
@@ -302,6 +313,16 @@ export default {
 
 h3 {
   text-decoration: underline;
+}
+
+.header-buttons {
+  margin: 2rem auto 1rem auto;
+  padding: 10px;
+}
+.header-buttons p{
+  border: 1px solid black;
+  font-size: 1.5rem;
+  border-radius: 4px;
 }
 
 .buttons-container {

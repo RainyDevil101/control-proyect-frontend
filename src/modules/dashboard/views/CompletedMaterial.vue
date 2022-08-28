@@ -40,7 +40,7 @@
             <b>{{ materialIdCompleted.cantidad }}</b>
           </p>
         </div>
-        <hr>
+        <hr />
         <div class="body-item">
           <p>Fecha de ingreso:</p>
           <p>
@@ -53,7 +53,7 @@
             <b>{{ materialIdCompletedDate.hour }}</b>
           </p>
         </div>
-        <hr>
+        <hr />
         <div class="body-item">
           <p>Fecha de despacho:</p>
           <p>
@@ -66,7 +66,7 @@
             <b>{{ materialIdCompletedDate.outHour }}</b>
           </p>
         </div>
-        <hr>
+        <hr />
         <div class="body-item">
           <p>Cantidad de bultos:</p>
           <p>
@@ -166,7 +166,7 @@ export default {
         }
       },
       onShowImageTwo: () => {
-        if ((imageTwoCompleted.value === false)) {
+        if (imageTwoCompleted.value === false) {
           return store.dispatch("materials/changeImageTwo", true);
         } else {
           return store.dispatch("materials/changeImageTwo", false);
@@ -220,12 +220,11 @@ h1 {
   max-width: 10rem;
 }
 
-
 .buttons-styles {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
   border-radius: 4px;
   color: white;
   padding: 8px;
@@ -234,12 +233,11 @@ h1 {
   height: 44px;
   border: none;
   cursor: default;
-    transition: 0.2s;
+  transition: 0.2s;
 
   &:hover {
-    background-color: rgba($color: #444444, $alpha: 1.0);
+    background-color: rgba($color: #444444, $alpha: 1);
   }
-
 }
 
 .button-wrapper {

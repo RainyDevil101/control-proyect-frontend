@@ -98,7 +98,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
   border-radius: 4px;
   color: white;
   padding: 8px;

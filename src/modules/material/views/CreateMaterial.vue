@@ -227,7 +227,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
   border-radius: 4px;
   color: white;
   padding: 8px;
@@ -277,7 +277,6 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 8px;
 }
 
 .submit-button button {
@@ -305,7 +304,7 @@ input[type="file"] {
 }
 
 .confirmation p {
-  background-color: black;
+  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
   border-radius: 4px;
   color: white;
   text-align: center;
@@ -320,7 +319,7 @@ label {
   height: 30px;
   font-size: 12px;
   color: white;
-  background-color: black;
+  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
   justify-content: center;
   align-items: center;
   display: flex;
