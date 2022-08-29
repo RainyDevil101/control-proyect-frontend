@@ -33,7 +33,7 @@
             <h1>Registrar usuario</h1>
           </div>
           <div class="form form-name">
-            <p>Nombre</p>
+            <p>Nombres</p>
             <input
               type="text"
               placeholder="Nombre"
@@ -42,7 +42,7 @@
             />
           </div>
           <div class="form form-name">
-            <p>Apellido</p>
+            <p>Apellidos</p>
             <input
               type="text"
               placeholder="Apellido"
@@ -56,7 +56,7 @@
               type="text"
               placeholder="Ej: 12.345.678-k"
               v-model="userForm.rut"
-              maxlength="11"
+              maxlength="12"
             />
           </div>
           <div class="form form-email">
