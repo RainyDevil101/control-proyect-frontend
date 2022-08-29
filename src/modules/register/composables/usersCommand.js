@@ -24,17 +24,35 @@ const usersCommand = () => {
 
     errorsPost.value = true;
 
-    if (userForm.name === "" || !userForm.name) {
+    if (userForm.fullname === "" || userForm.fulllastname === "" || userForm.rut === "" || userForm.email === "" || userForm.users_divisions === "" || userForm.passwordT  === "" || userForm.confirmPassword === "" || userForm.position === "" || userForm.role === "" ) {
       errorsPost.value = "Debe llenar los campos";
-      user.value = "";
-      return { errorsPost, location, nicePost };
+      return {
+        errorsPost,
+        user,
+        nicePost
+      };
     } else {
-      const { name } = userForm;
+
+      const fullname = userForm.fullname;
+     const fulllastname = userForm.fulllastname;
+     const passwordT = userForm.passwordT;
+     const email = userForm.email;
+     const rut = userForm.rut;
+     const users_divisions = userForm.users_divisions;
+     const position = userForm.position;
+     const role = userForm.role;
 
       try {
         const resp = await backendConnect.post(
           "/api/user",
-          { name },
+          { fullname,
+fulllastname,
+passwordT,
+email,
+rut,
+users_divisions,
+position,
+role },
           { headers: { "x-token": localStorage.getItem("token") } }
         );
 

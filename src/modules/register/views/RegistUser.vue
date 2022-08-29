@@ -36,7 +36,7 @@
             <p>Nombres</p>
             <input
               type="text"
-              placeholder="Nombre"
+              placeholder="Nombres"
               v-model="userForm.fullname"
               maxlength="60"
             />
@@ -45,7 +45,7 @@
             <p>Apellidos</p>
             <input
               type="text"
-              placeholder="Apellido"
+              placeholder="Apellidos"
               v-model="userForm.fulllastname"
               maxlength="60"
             />

@@ -8,6 +8,8 @@ const createUser = () => {
 
   const postUser = async (userForm) => {
 
+    console.log(userForm);
+
     if (userForm.fullname === "" || userForm.fulllastname === "" || userForm.rut === "" || userForm.email === "" || userForm.users_divisions === "" || userForm.passwordT  === "" || userForm.confirmPassword === "" || userForm.position === "" || userForm.role === "" ) {
       errors.value = "Debe llenar los campos";
       return {
