@@ -178,6 +178,7 @@ p {
   background-color: white;
   border-radius: 4px;
   margin: 4px;
+  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
 .form-massive {

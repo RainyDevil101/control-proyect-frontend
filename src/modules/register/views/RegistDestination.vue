@@ -202,6 +202,7 @@ p {
   background-color: white;
   border-radius: 4px;
   padding: 10px;
+  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 .button-forum {
   margin: 4px;

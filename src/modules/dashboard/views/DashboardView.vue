@@ -289,6 +289,7 @@ export default {
   padding-bottom: 10px;
   width: 300px;
   background-color: white;
+  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
 .input-date-search {
@@ -335,6 +336,7 @@ h3 {
   background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
   width: 150px;
   margin: 4px auto;
+  
 }
 
 //X-Small devices (portrait phones, less than 576px)

@@ -18,7 +18,7 @@ img {
   width: 300px;
   display: block;
   margin: auto;
-  border: 1px solid white;
+  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
 @media (min-width: 768px) {

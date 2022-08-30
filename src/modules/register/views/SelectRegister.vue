@@ -10,7 +10,7 @@
             <p>Usuarios</p>
           </div>
           <div @click="$router.push({ name: 'register-user-massive' })" class="buttons-styles">
-            <p>Carga de usuarios</p>
+            <p>Carga masiva</p>
           </div>
           <div @click="$router.push({ name: 'register-destination' })" class="buttons-styles">
             <p>Destino</p>
@@ -67,6 +67,7 @@ p {
   background-color: white;
   border-radius: 4px;
   width: 90%;
+  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
 .categories {

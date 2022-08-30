@@ -7,10 +7,10 @@
       <div class="body">
         <div class="categories">
           <div @click="$router.push({ name: 'dashboard-view' })" class="buttons-styles">
-            <p>Gráficos</p>
+            <p>Reportes</p>
           </div>
           <div @click="$router.push({ name: 'get-completed-material' })" class="buttons-styles">
-            <p>Completadas</p>
+            <p>Pendientes gestionadas</p>
           </div>
           <div @click="$router.push({ name: 'home-view' })" class="buttons-styles">
             <p>Volver</p>
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router';
 export default {
   setup() {
 
@@ -65,6 +64,7 @@ p {
   background-color: white;
   border-radius: 4px;
   width: 90%;
+  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
 .categories {
@@ -85,7 +85,7 @@ p {
   border-radius: 4px;
   color: white;
   padding: 8px;
-  width: 9.8rem;
+  width: 12rem;
   margin: 4px auto 4px auto;
   height: 44px;
   border: none;

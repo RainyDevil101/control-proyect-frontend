@@ -40,7 +40,7 @@ export default {
     height: 100%;
     /* min-width: 100vw; */
     min-height: 100vh;
-    background-color: rgba(49, 49, 49, 0.756);
+    background-color: rgb(243, 243, 243);
     /* font-size: 16px; */
     
     }

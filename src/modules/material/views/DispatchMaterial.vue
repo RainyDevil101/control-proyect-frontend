@@ -260,6 +260,7 @@ h1 {
   justify-content: center;
   align-items: center;
   padding: 8px;
+  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
 .forum-item {

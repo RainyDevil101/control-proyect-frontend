@@ -71,6 +71,7 @@ h1 {
   border-radius: 4px;
   width: 90vw;
   min-width: 338px;
+  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
 .header {

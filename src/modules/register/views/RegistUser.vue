@@ -267,6 +267,7 @@ p {
   border-radius: 4px;
   min-width: 300px;
   padding: 15px;
+  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
 .body-user {
@@ -298,6 +299,7 @@ input[type="text"] {
   border-radius: 4px;
   display: flex;
   padding: 15px;
+  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
 .loader-wrapper {

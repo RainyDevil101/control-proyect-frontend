@@ -259,6 +259,7 @@ h1 {
   padding: 8px;
   margin: auto;
   background-color: #fff;
+  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
 .body-form {

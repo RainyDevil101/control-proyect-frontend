@@ -13,7 +13,7 @@
   <div v-else class="wrapper">
     <div class="body-wrapper">
       <div class="header">
-        <h1>COMPLETADAS</h1>
+        <h1>PENDIENTES GESTIONADAS</h1>
       </div>
       <div class="body">
         <div class="body-item">
@@ -203,6 +203,7 @@ h1 {
   background-color: white;
   border-radius: 4px;
   overflow: auto;
+  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
 .body {

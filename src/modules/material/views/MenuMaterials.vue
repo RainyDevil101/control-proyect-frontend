@@ -66,6 +66,7 @@ p {
   background-color: white;
   border-radius: 4px;
   width: 90%;
+  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
 .buttons-menu {
