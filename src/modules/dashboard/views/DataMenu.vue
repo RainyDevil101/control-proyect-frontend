@@ -85,7 +85,7 @@ p {
   border-radius: 4px;
   color: white;
   padding: 8px;
-  width: 12rem;
+  width: 95%;
   margin: 4px auto 4px auto;
   height: 44px;
   border: none;
