@@ -2,15 +2,15 @@
   <div class="wrapper">
     <div class="menu">
       <div class="header">
-        <h1>Materiales</h1>
+        <h1>Materiales por despachar</h1>
       </div>
       <div class="body">
         <div class="buttons-menu">
           <div @click="$router.push({ name: 'create-material' })" class="buttons-styles">
-            <p>Registrar</p>
+            <p>Ingreso de material</p>
           </div>
           <div @click="$router.push({ name: 'get-material' })" class="buttons-styles">
-            <p>Pendientes</p>
+            <p>Finalizar pendientes</p>
           </div>
           <div @click="$router.push({ name: 'home-view' })" class="buttons-styles">
             <p>Volver</p>
@@ -22,11 +22,9 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router';
 export default {
   setup() {
 
-    const router = useRouter();
     
     return {
       

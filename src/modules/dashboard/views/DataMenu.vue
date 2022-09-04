@@ -2,15 +2,18 @@
   <div class="wrapper">
     <div class="menu">
       <div class="header">
-        <h1>Datos</h1>
+        <h1>Reportes</h1>
       </div>
       <div class="body">
         <div class="categories">
           <div @click="$router.push({ name: 'dashboard-view' })" class="buttons-styles">
-            <p>Reportes</p>
+            <p>Registro total de ingresos</p>
           </div>
           <div @click="$router.push({ name: 'get-completed-material' })" class="buttons-styles">
-            <p>Pendientes gestionadas</p>
+            <p>Despachos finalizados</p>
+          </div>
+          <div @click="$router.push({ name: 'get-material' })" class="buttons-styles">
+            <p>Despachos pendientes</p>
           </div>
           <div @click="$router.push({ name: 'home-view' })" class="buttons-styles">
             <p>Volver</p>

@@ -1,5 +1,8 @@
 <template>
-    <div class="wrapper-home">
+  <div class="wrapper-home">
+      <div class="home-title">
+        <h1>Control Materiales</h1>
+      </div>
         <img src="../../../assets/home-background.jpg" alt="No disponible">
     </div>
 </template>
@@ -11,7 +14,16 @@
     width: 100%;
     min-height: 100vh;
     min-width: 100vw;
-    display: flex;
+    display: block;
+}
+
+.home-title {
+  text-align: center;
+  padding-top: 4rem;
+}
+
+.home-title h1 {
+  margin: 4rem 0 4rem 0;
 }
 
 img {

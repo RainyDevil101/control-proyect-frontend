@@ -26,7 +26,7 @@
         </div>
 
         <div class="in-forum">
-          <button class="login-boton">Ingresar</button>
+          <button :disabled="loading === true" class="login-boton">Ingresar</button>
           <button type="button" @click="onBack" class="login-boton">
             Volver
           </button>
@@ -51,9 +51,14 @@ export default {
     const router = useRouter();
     const { loginUser } = useAuth();
 
+    // const userForm = ref({
+    //   rut: "",
+    //   passwordT: "",
+    // });
+
     const userForm = ref({
-      rut: "",
-      passwordT: "",
+      rut: "19.268.695-4",
+      passwordT: "HERRERACARRENO",
     });
 
     // const userForm = ref({
@@ -61,18 +66,20 @@ export default {
     //   passwordT: "HERRERACARRENO",
     // });
 
-    // const userForm = ref({
-    //   rut: "19.268.695-4",
-    //   passwordT: "HERRERACARRENO",
-    // });
+    const loading = ref(false);
 
     return {
       userForm,
+      loading,
 
       onSubmit: async () => {
+        loading.value = true;
         const { ok, errors } = await loginUser(userForm.value);
 
-        if (!ok) Swal.fire("Error", `${errors}.`, "error");
+        if (!ok) {
+          Swal.fire("Error", `${errors}.`, "error");
+          loading.value = false;
+        }
         else router.push({ name: "home-view" });
       },
       onBack: async () => {

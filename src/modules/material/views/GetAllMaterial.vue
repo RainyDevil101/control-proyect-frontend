@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import { useStore } from "vuex";
 import Loader from "@/modules/components/Loader.vue";
 import useMaterials from "../composables/materialsStore";
 

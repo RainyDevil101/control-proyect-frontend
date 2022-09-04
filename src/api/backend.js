@@ -2,13 +2,17 @@ import axios from "axios";
 
 //develope
 
+const backendConnect = axios.create({
+    baseURL: 'https://control-project-backend.onrender.com'
+})
+
 // const backendConnect = axios.create({
 //     baseURL: 'http://localhost:3000'
 // })
 
-const backendConnect = axios.create({
-    baseURL: 'http://ec2-3-229-237-112.compute-1.amazonaws.com:3000'
-})
+// const backendConnect = axios.create({
+//     baseURL: 'http://ec2-3-229-237-112.compute-1.amazonaws.com:3000'
+// })
 
 //cpanel
 

@@ -2,8 +2,7 @@
   <div class="pendiente-wrapper"
   @click="$router.push({ name : 'dispatch-material', params: { id: pendiente.id } })"
   >
-    <span>ID: <b>{{pendiente.id}}</b> | </span>
-    <span>Número de transporte:<b> {{pendiente.transport_number}}</b></span>
+    <span>ID: <b>{{pendiente.id}}</b> | N° transporte:<b> {{pendiente.transport_number}}lore</b> | Código:<b> {{pendiente.code}}</b></span>
   </div>
 </template>
 
@@ -31,11 +30,14 @@ export default {
 <style lang="postcss" scoped>
 
 .pendiente-wrapper {
+  display: flex;
     background-color: tomato;
     padding: 10px;
     margin: 4px;
     border-radius: 4px;
     transition: all .2s ease-in-out;
+    overflow: auto;
+    justify-content: space-between;
 }
 
 .pendiente-wrapper:hover {

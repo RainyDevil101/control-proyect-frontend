@@ -1,4 +1,8 @@
 <template>
+  <div v-if="imageOneCompleted === true">
+    <img-one :imageOne="imageOne" @on:close="onShowImageOne" />
+  </div>
+
   <Loader
     v-if="materialPendingIdStatus === 'CARGANDO'"
     class="loader-wrapper"
@@ -63,7 +67,7 @@
             </p>
           </div>
           <div class="forum-item">
-            <span>Número de transporte en despacho</span>
+            <span>Ingrese nuevo N° de documento</span>
             <input
               v-model="materialForm.transport_number_two"
               type="text"
@@ -76,14 +80,21 @@
             id="imageTwo"
             accept="image/png, image/jpg, image/ jpeg"
           />
+
           <div class="image-label">
-            <label for="imageTwo">Seleccione la imagen</label>
+            <label
+              :class="[
+                !localImageTwo ? image_label_unSelected : image_label_selected,
+              ]"
+              for="imageTwo"
+              >Seleccione la imagen</label
+            >
           </div>
           <div v-if="localImageTwo" class="confirmation">
             <p>{{ imgTwoName }}</p>
           </div>
           <div class="forum-button">
-            <button type="submit" class="buttons-styles">Registrar</button>
+            <button type="submit" class="buttons-styles">Finalizar</button>
             <button
               type="button"
               @click="$router.push({ name: 'get-material' })"
@@ -93,6 +104,11 @@
             </button>
           </div>
         </form>
+        <div class="image-label">
+          <button @click="onShowImageOne" class="buttons-styles">
+            Ver imagen ingreso
+          </button>
+        </div>
       </div>
       <div v-else>
         <div class="not-wrapper">
@@ -112,9 +128,10 @@ import Loader from "@/modules/components/Loader.vue";
 import useMaterials from "../composables/materialsStore";
 import updateMaterial from "@/modules/material/composables/updateMaterial";
 import uploadTwo from "@/modules/material/helpers/imageTwo";
+import ImgOne from '@/modules/dashboard/components/ImgOne.vue';
 
 export default {
-  components: { Loader },
+  components: { Loader, ImgOne },
   setup() {
     const route = useRoute();
     const router = useRouter();
@@ -123,6 +140,9 @@ export default {
     const materialForm = ref({
       transport_number_two: "",
     });
+
+    const image_label_selected = ref("image_label_selected");
+    const image_label_unSelected = ref("image_label_unSelected");
 
     const localImageTwo = ref();
     const imgTwoName = ref();
@@ -136,6 +156,8 @@ export default {
       materialPendingIdStatus,
       pendiente,
       materialPendingIdDate,
+      imageOneCompleted,
+      imageOne
     } = useMaterials();
 
     onUpdated(() => {
@@ -162,6 +184,10 @@ export default {
       imgTwo,
       uploadImageTwo,
       dispatchMaterial,
+      image_label_selected,
+      image_label_unSelected,
+      imageOne,
+      imageOneCompleted,
 
       onSubmit: async () => {
         new Swal({
@@ -218,6 +244,13 @@ export default {
           });
         }
       },
+      onShowImageOne: () => {
+        if (imageOneCompleted.value === false) {
+          return store.dispatch("materials/changeImageOne", true);
+        } else {
+          return store.dispatch("materials/changeImageOne", false);
+        }
+      },
 
       onImageTwo: async (event) => {
         const file = event.target.files[0];
@@ -239,9 +272,21 @@ export default {
 
 <style lang="scss" scoped>
 p,
-h1 {
+h1,
+label {
   margin: 0;
   padding: 0;
+}
+
+.selected {
+  margin: 0;
+  padding: 0;
+}
+
+.unSelected {
+  margin: 0;
+  padding: 0;
+  background-color: red;
 }
 
 .wrapper {
@@ -265,8 +310,12 @@ h1 {
 
 .forum-item {
   display: grid;
-  width: 80%;
+  width: 100%;
   margin: auto;
+}
+
+.forum-item span {
+  text-align: center;
 }
 
 .forum-button {
@@ -293,13 +342,6 @@ h1 {
 
 input[type="file"] {
   display: none;
-}
-
-.image-label {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .confirmation {
@@ -341,17 +383,19 @@ input[type="file"] {
   }
 }
 .confirmation p {
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+  background-color: #66cc91;
   border-radius: 4px;
   color: white;
   text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   overflow: hidden;
   max-width: 200px;
   margin: auto;
   cursor: default;
 }
 
-label {
+.image_label_unSelected {
   width: 100%;
   height: 30px;
   font-size: 12px;
@@ -361,9 +405,29 @@ label {
   align-items: center;
   display: flex;
   border-radius: 4px;
+  transition: 0.2s;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.827);
   }
+}
+
+.image_label_selected {
+  width: 100%;
+  height: 30px;
+  font-size: 12px;
+  color: white;
+  background-color: #66cc91;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 4px;
+  transition: 0.2s;
+}
+.image-label {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

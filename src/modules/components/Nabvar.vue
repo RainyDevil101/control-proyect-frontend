@@ -9,24 +9,24 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 txt-c">
           <li class="nav-item box-a">
-            <a @click="$router.push({ name: 'home-view' })" class="nav-link active pointer">
+            <button :disabled="loading === true" @click="onMenu" class="button-navbar">
               <b>Menu</b>
-            </a>
+            </button>
           </li>
           <li class="nav-item box-a">
-            <a @click="$router.push({ name: 'data-menu' })" class="nav-link active pointer">
-              <b>Datos</b>
-            </a>
+            <button :disabled="loading === true" @click="onDatamenu" class="button-navbar">
+              <b>Reportes</b>
+            </button>
           </li>
           <li class="nav-item box-a">
-            <a @click="$router.push({ name: 'select-register' })" class="nav-link active pointer">
+            <button :disabled="loading === true" @click="onAdministration" class="button-navbar">
               <b>Administrador</b>
-            </a>
+            </button>
           </li>
           <li class="nav-item box-a">
-            <a @click="$router.push({ name: 'menu-materials' })" class="nav-link active pointer">
-              <b>Materiales</b>
-            </a>
+            <button :disabled="loading === true" @click="onMaterials" class="button-navbar">
+              <b>Ingreso de Materiales</b>
+            </button>
           </li>
         </ul>
         <div class="button-wrapper">
@@ -43,16 +43,39 @@
 <script>
 import { useRouter } from 'vue-router'
 import useAuth from '../auth/composables/useAuth';
+import { ref } from 'vue';
 export default {
   setup() {
 
     const router = useRouter();
     const { logOut } = useAuth();
 
+    const loading = ref(false);
+
     return {
+      loading,
+
+
       onLogOut: () => {
+        loading.value = true;
         router.push({ name: "select-login" });
         logOut();
+      },
+      onMenu: () => {
+        loading.value = true;
+        router.push({ name: 'home-view' });
+      },
+      onDatamenu: () => {
+        loading.value = true;
+        router.push({ name: 'data-menu' });
+      },
+      onAdministration: () => {
+        loading.value = true;
+        router.push({ name: 'select-register' });
+      },
+      onMaterials: () => {
+        loading.value = true;
+        router.push({ name: 'menu-materials' });
       },
     }
 
@@ -95,6 +118,12 @@ export default {
 .button-wrapper {
   display: flex;
   justify-content: center;
+}
+
+.button-navbar {
+  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+  color: white;
+  border: none;
 }
 
 </style>

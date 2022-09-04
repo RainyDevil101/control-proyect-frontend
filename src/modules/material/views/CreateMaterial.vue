@@ -9,7 +9,7 @@
       <div class="body body-form">
         <form @submit.prevent="onSubmit">
           <div class="item-form">
-            <p>N° de transporte</p>
+            <p>Ingrese N° de transporte</p>
             <input
               v-model="materialForm.transport_number"
               type="text"
@@ -17,7 +17,7 @@
             />
           </div>
           <div class="item-form">
-            <p>Código</p>
+            <p>Código de material</p>
             <input v-model="materialForm.code" type="text" maxlength="45" />
           </div>
           <div class="item-form">
@@ -62,7 +62,7 @@
             </div>
           </div>
           <div class="submit-button">
-            <button class="buttons-styles" type="submit">Registrar</button>
+            <button class="buttons-styles" type="submit">Finalizar</button>
             <button
               type="button"
               @click="$router.push({ name: 'menu-materials' })"
