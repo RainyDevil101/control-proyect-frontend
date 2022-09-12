@@ -13,6 +13,10 @@
             placeholder="Rut Ej: 12.345.678-9"
             required
           />
+          <div class="change-forum mt-5">
+          <p>Ingrese su RUT con puntos y guión.</p>
+
+          </div>
         </div>
 
         <div class="forum-password" data-validate="Enter password">
@@ -33,6 +37,7 @@
         </div>
 
         <div class="change-forum mt-5">
+          
           <p>Si no tienes cuenta, ponte en contacto con el administrador.</p>
         </div>
       </form>
@@ -51,20 +56,11 @@ export default {
     const router = useRouter();
     const { loginUser } = useAuth();
 
-    // const userForm = ref({
-    //   rut: "",
-    //   passwordT: "",
-    // });
-
     const userForm = ref({
-      rut: "19.268.695-4",
-      passwordT: "HERRERACARRENO",
+      rut: "",
+      passwordT: "",
     });
 
-    // const userForm = ref({
-    //   rut: "19.268.695-4",
-    //   passwordT: "HERRERACARRENO",
-    // });
 
     const loading = ref(false);
 

@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper-home">
       <div class="home-title">
-        <h1>Control Materiales</h1>
+        <h1>CONTROL MATERIALES</h1>
       </div>
         <img src="../../../assets/home-background.jpg" alt="No disponible">
     </div>

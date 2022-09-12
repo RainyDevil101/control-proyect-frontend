@@ -88,7 +88,7 @@ p {
   border-radius: 4px;
   color: white;
   padding: 8px;
-  width: 95%;
+  width: 100%;
   margin: 4px auto 4px auto;
   height: 44px;
   border: none;
