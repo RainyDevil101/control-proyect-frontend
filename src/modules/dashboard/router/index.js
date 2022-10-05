@@ -4,7 +4,7 @@ export default {
     component: () => import(/* webpackChunkName: "dashboard" */ '@/modules/dashboard/layouts/DashboardLayout.vue'),
     children: [
         {
-            path: '',
+            path: 'dashboard-view',
             name: 'dashboard-view',
             component: () => import(/* webpackChunkName: "dashboard-view" */ '@/modules/dashboard/views/DashboardView.vue'),
         },
@@ -17,6 +17,19 @@ export default {
             path: 'get-completed-material',
             name: 'get-completed-material',
             component: () => import(/* webpackChunkName: "get-completas" */ '@/modules/dashboard/views/GetCompletedMaterial.vue'),
+        },
+        {
+            path: 'get-dispatch-material',
+            name: 'get-dispatch-material',
+            component: () => import(/* webpackChunkName: "get-dispatch" */ '@/modules/dashboard/views/GetMaterialToDispatch.vue'),
+        },
+        {
+            path: 'dispatch-dash/:id',
+            name: 'dispatch-dash-material',
+            component: () => import(/* webpackChunkName: "dispath-dash-material" */ '@/modules/dashboard/views/DispatchDashMaterial.vue'),
+            props: (route) => {
+                id: route.params.id
+            },
         },
         {
             path: 'completed/:id',

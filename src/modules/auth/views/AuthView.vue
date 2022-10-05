@@ -61,22 +61,29 @@ export default {
       passwordT: "",
     });
 
-
     const loading = ref(false);
+    const { pathWanted } = useAuth();
 
     return {
       userForm,
       loading,
+      pathWanted,
 
       onSubmit: async () => {
         loading.value = true;
         const { ok, errors } = await loginUser(userForm.value);
 
+        
         if (!ok) {
           Swal.fire("Error", `${errors}.`, "error");
           loading.value = false;
-        }
-        else router.push({ name: "home-view" });
+        } else {
+          if (pathWanted.value === false) {
+            return router.push({ name: "home-view" });
+          } else {
+            return router.push({ name: pathWanted.value});
+          }
+        };
       },
       onBack: async () => {
         router.push({ name: "select-login" });
@@ -88,7 +95,6 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
-  width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;

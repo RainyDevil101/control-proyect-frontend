@@ -14,12 +14,12 @@
             </button>
           </li>
           <li class="nav-item box-a">
-            <button :disabled="loading === true" @click="onDatamenu" class="button-navbar">
+            <button :disabled="loading === true" @click="onDatamenu" :class="[userRole === 'PLANNER_ROLE' || userRole === 'ADMIN_ROLE' ? buttonNavbar : buttonNavbarRestringed]">
               <b>Reportes</b>
             </button>
           </li>
           <li class="nav-item box-a">
-            <button :disabled="loading === true" @click="onAdministration" class="button-navbar">
+            <button :disabled="loading === true" @click="onAdministration" :class="[userRole === 'ADMIN_ROLE' ? buttonNavbar : buttonNavbarRestringed]">
               <b>Administrador</b>
             </button>
           </li>
@@ -48,42 +48,52 @@ export default {
   setup() {
 
     const router = useRouter();
-    const { logOut } = useAuth();
+    const { logOut, userRole } = useAuth();
 
     const loading = ref(false);
+    const buttonNavbar = ref("button-navbar");
+    const buttonNavbarRestringed = ref("button-navbar-restringed");
 
     return {
       loading,
+      buttonNavbar,
+      buttonNavbarRestringed,
+      userRole,
 
 
       onLogOut: () => {
         loading.value = true;
         router.push({ name: "select-login" });
+        loading.value = false;
         logOut();
       },
       onMenu: () => {
         loading.value = true;
         router.push({ name: 'home-view' });
+        loading.value = false;
       },
       onDatamenu: () => {
         loading.value = true;
         router.push({ name: 'data-menu' });
+        loading.value = false;
       },
       onAdministration: () => {
         loading.value = true;
         router.push({ name: 'select-register' });
+        loading.value = false;
       },
       onMaterials: () => {
         loading.value = true;
         router.push({ name: 'menu-materials' });
+        loading.value = false;
       },
-    }
-
+    };
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
+
 .bcc {
   background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
 
@@ -120,8 +130,18 @@ export default {
   justify-content: center;
 }
 
-.button-navbar {
+.button-navbar-restringed {
+  border-radius: 4px;
+  margin: 0 2px;
   background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+  color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+  border: none;
+}
+
+.button-navbar {
+  border-radius: 4px;
+  margin: 0 2px;
+  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);;
   color: white;
   border: none;
 }

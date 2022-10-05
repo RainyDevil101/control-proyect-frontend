@@ -1,9 +1,11 @@
 import backendConnect from "../../../api/backend";
+import user from "../user";
 
 const state = {
   status: "AUTHENTICATING",
   user: "null",
   token: null,
+  pathWanted: false,
 };
 
 const getters = {
@@ -18,6 +20,16 @@ const getters = {
   },
   getUserId(state) {
     return state.user[0].id;
+  },
+  getPathWanted(state) {
+    return state.pathWanted;
+  },
+  getUserRole(state) {
+    if(state.user === null) {
+      return "null"
+    } else {
+      return state.user[0].role;
+    }
   }
 };
 
@@ -31,10 +43,18 @@ const mutations = {
     state.user = user;
     state.status = "authenticated";
   },
+  savePathState(state, {pathToStore}) {
+    if (pathToStore) {
+      state.pathWanted = pathToStore;
+    } else {
+      state.pathWanted = false;
+    }
+  },
   logOut(state) {
       state.user = null;
       state.token = null;
       state.status = "AUTHENTICATING";
+      state.pathWanted = false;
       localStorage.removeItem("token");
       localStorage.removeItem('mP');
       localStorage.removeItem('mC');
@@ -87,6 +107,11 @@ const actions = {
       commit("logOut");
       return { ok: false };
     }
+  },
+  async savePathWanted({ commit }, pathToStore) {
+
+    commit("savePathState", {pathToStore});
+    return { ok: true };
   },
 };
 

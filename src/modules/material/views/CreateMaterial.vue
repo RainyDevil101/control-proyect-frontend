@@ -52,7 +52,7 @@
               type="file"
               @change="onImageOne"
               id="imageOne"
-              accept="image/png, image/jpg, image/ jpeg"
+              accept="image/png, image/jpg, image/jpeg"
             />
             <div class="image-label">
               <label for="imageOne">Seleccione la imagen</label>
@@ -251,7 +251,6 @@ h1 {
 .wrapper {
   display: flex;
   min-height: 100vh;
-  min-width: 100vw;
 }
 
 .material-form {

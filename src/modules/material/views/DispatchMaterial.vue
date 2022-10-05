@@ -78,7 +78,7 @@
             type="file"
             @change="onImageTwo"
             id="imageTwo"
-            accept="image/png, image/jpg, image/ jpeg"
+            accept="image/png, image/jpg, image/jpeg"
           />
 
           <div class="image-label">
@@ -290,8 +290,7 @@ label {
 }
 
 .wrapper {
-  min-width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
 }
 

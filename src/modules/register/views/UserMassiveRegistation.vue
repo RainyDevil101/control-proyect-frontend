@@ -168,7 +168,6 @@ p {
 .wrapper {
   padding-top: 4rem;
   min-height: 100vh;
-  min-width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;

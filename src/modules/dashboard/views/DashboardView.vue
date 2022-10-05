@@ -259,7 +259,7 @@ export default {
     padding: 0;
   }
 .wrapper {
-  min-height: 100vh;
+  height: 100%;
 }
 
 .noData {

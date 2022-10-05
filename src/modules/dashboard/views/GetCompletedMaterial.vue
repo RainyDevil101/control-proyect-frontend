@@ -4,7 +4,7 @@
   <div v-else class="wrapper">
     <div class="alarm-wrapper">
       <div v-if="completas.length > 0" class="header">
-        <h1>COMPLETAS</h1>
+        <h1>DESPACHOS FINALIZADOS</h1>
       </div>
       <div v-if="completas.length > 0" class="body-wrapper">
         <div class="pendiente-wrapper">
@@ -19,26 +19,70 @@
       <div v-else class="not-registers">
         <h1>NO HAY REGISTROS</h1>
       </div>
-        <div class="back-button">
-          <button @click="$router.push({ name: 'data-menu' })" type="buton" class="buttons-styles">Volver</button>
-        </div>
+      <div class="back-button">
+        <button
+          @click="onGenerateExcelCompleted"
+          type="button"
+          class="buttons-styles"
+        >
+          Exportar
+        </button>
+        <button
+          @click="$router.push({ name: 'data-menu' })"
+          type="button"
+          class="buttons-styles"
+        >
+          Volver
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Swal from "sweetalert2";
 import Loader from "@/modules/components/Loader.vue";
 import useMaterials from "../composables/materialsStore";
 import Completa from "../components/Completa.vue";
+import createFile from "../composables/createExcelFile";
 
 export default {
   components: { Completa, Loader },
   setup() {
     const { completas, status } = useMaterials();
+    const { createUsersCompletedExcelFile } = createFile();
 
     return {
       completas,
       status,
+
+      onGenerateExcelCompleted: async () => {
+        new Swal({
+          title: "Generando informe, espere por favor",
+          allowOutsideClick: false,
+        });
+        Swal.showLoading();
+
+        let category = "DESPACHOS_COMPLETADOS";
+
+        console.log(completas.value);
+
+        let {
+          usersExcelErrorsCompleted,
+          usersExcelCompleted,
+          usersExcelOkCompleted,
+        } = await createUsersCompletedExcelFile(category, completas.value);
+
+        if (usersExcelOkCompleted.value === false) {
+          Swal.fire("Error", `${usersExcelErrorsCompleted.value}.`, "error");
+          return;
+        } else {
+          Swal.fire(
+            "Informe generado",
+            `El archivo ${usersExcelCompleted.value} se ha generado con éxito.`
+          );
+        }
+      },
     };
   },
 };
@@ -51,28 +95,28 @@ h1 {
 }
 
 .wrapper {
-  width: 100vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
 }
 
 .alarm-wrapper {
-  height: 80vh;
-  margin: auto;
+  height: 800px;
+  margin: 12vh auto 8vh auto;
   background-color: #fff;
   border-radius: 4px;
   width: 90vw;
-  min-width: 338px;
+  min-width: 300px;
+  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
 .header {
   text-align: center;
-  height: 6%;
+  height: 48px;
 }
 
 .body-wrapper {
   cursor: default;
-  height: 94%;
+  height: 650px;
   overflow: auto;
   margin: auto;
 }
@@ -88,11 +132,10 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-    overflow: auto;
+  overflow: auto;
   margin: auto;
   height: 100%;
 }
-
 
 .buttons-styles {
   display: flex;
@@ -107,12 +150,11 @@ h1 {
   height: 44px;
   border: none;
   cursor: default;
-    transition: 0.2s;
+  transition: 0.2s;
 
   &:hover {
-    background-color: rgba($color: #444444, $alpha: 1.0);
+    background-color: rgba($color: #444444, $alpha: 1);
   }
-
 }
 
 @media screen and (min-width: 768px) {

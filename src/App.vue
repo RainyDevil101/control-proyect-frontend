@@ -36,11 +36,9 @@ export default {
 
 <style>
   #app {
-    width: 100%;
-    height: 100%;
-    /* min-width: 100vw; */
-    min-height: 100vh;
     background-color: rgb(243, 243, 243);
+    height: 100%;
+    min-height: 100vh;
     /* font-size: 16px; */
     
     }

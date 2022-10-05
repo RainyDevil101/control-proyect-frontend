@@ -4,7 +4,7 @@
   <div v-else class="wrapper">
     <div class="alarm-wrapper">
       <div v-if="pendientes.length > 0" class="header">
-        <h1>PENDIENTES</h1>
+        <h1>DESPACHOS PENDIENTES</h1>
       </div>
       <div v-if="pendientes.length > 0" class="body-wrapper">
         <div class="pendiente-wrapper">
@@ -20,14 +20,14 @@
         <h1>NO HAY REGISTROS</h1>
       </div>
       <div class="back-button">
+      </div>
         <button
           @click="$router.push({ name: 'menu-materials' })"
-          type="buton"
+          type="button"
           class="buttons-styles"
         >
           Volver
         </button>
-      </div>
     </div>
   </div>
 </template>
@@ -59,14 +59,13 @@ h1 {
 }
 
 .wrapper {
-  width: 100vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
 }
 
 .alarm-wrapper {
-  height: 80vh;
-  margin: auto;
+  height: 800px;
+  margin: 12vh auto 12vh auto;
   background-color: #fff;
   border-radius: 4px;
   width: 90vw;
@@ -81,7 +80,7 @@ h1 {
 
 .body-wrapper {
   cursor: default;
-  height: 94%;
+  height: 650px;
   overflow: auto;
   margin: auto;
 }

@@ -7,12 +7,12 @@
       <div class="body">
         <div class="categories">
           <div @click="$router.push({ name: 'dashboard-view' })" class="buttons-styles">
-            <p>Registro total de ingresos</p>
+            <p>Gráficos</p>
           </div>
           <div @click="$router.push({ name: 'get-completed-material' })" class="buttons-styles">
             <p>Despachos finalizados</p>
           </div>
-          <div @click="$router.push({ name: 'get-material' })" class="buttons-styles">
+          <div @click="$router.push({ name: 'get-dispatch-material' })" class="buttons-styles">
             <p>Despachos pendientes</p>
           </div>
           <div @click="$router.push({ name: 'home-view' })" class="buttons-styles">
@@ -44,8 +44,6 @@ p {
 }
 .wrapper {
   display: flex;
-  width: 100%;
-  min-width: 100vw;
   height: 100%;
   min-height: 100vh;
   justify-content: center;

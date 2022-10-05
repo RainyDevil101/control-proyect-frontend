@@ -88,7 +88,7 @@ const getTerm = (term) => {
     users,
     showUsers,
     userTerm,
-    getStatusLocation: computed(() => store.getters["users/getStatus"]),
+    getStatusUser: computed(() => store.getters["users/getStatus"]),
     userUpdate: computed(
       () => store.getters["users/getUpdateUser"]
     ),

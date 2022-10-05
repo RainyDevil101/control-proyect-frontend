@@ -1,10 +1,10 @@
 <template>
   <div @click="$emit('on:open', { id })" class="destination-container">
     <span class="destination"
-      >{{ destination.id }}
+      ><p>{{ destination.id }}</p>
       </span>
-    <span class="destination"
-      >{{ destination.nombre }}
+    <span class="destination-name"
+      ><p>{{ destination.nombre }}</p>
       </span>
   </div>
 </template>
@@ -54,4 +54,20 @@ p {
   align-content: center;
   justify-content: space-between;
 }
+
+.destination-name {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.destination-name p {
+
+  max-width: 14rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+}
+
 </style>

@@ -5,8 +5,10 @@ import chartData from "./chartData";
 
 const getMaterialsCharts = (
   dates = {
-    initDate: "",
-    finDate: "",
+    date_in: {
+      initDate: "",
+      finDate: "",
+    },
     divisionSearch: "",
   }
 ) => {

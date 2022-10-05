@@ -2,7 +2,7 @@
   <div class="pendiente-wrapper"
   @click="$router.push({ name : 'dispatch-material', params: { id: pendiente.id } })"
   >
-    <span>ID: <b>{{pendiente.id}}</b> | N° transporte:<b> {{pendiente.transport_number}}lore</b> | Código:<b> {{pendiente.code}}</b></span>
+    <span>ID: <b>{{pendiente.id}}</b> | N° transporte:<b> {{pendiente.transport_number}}</b> | Código:<b> {{pendiente.code}}</b></span>
   </div>
 </template>
 

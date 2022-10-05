@@ -107,7 +107,7 @@ export default {
 <style lang="scss" scoped>
   .up {
     background-color: white;
-    width: 100%;
+    width: 90%;
     max-width: 1200px;
     min-width: 300px;
     overflow: auto;

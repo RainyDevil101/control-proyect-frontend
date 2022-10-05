@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper-home">
       <div class="home-title">
-        <h1>CONTROL MATERIALES</h1>
+        <h1>CONTROL MATERIALES POR DESPACHAR</h1>
       </div>
         <img src="../../../assets/home-background.jpg" alt="No disponible">
     </div>
@@ -11,9 +11,6 @@
 
 .wrapper-home {
     height: 100%;
-    width: 100%;
-    min-height: 100vh;
-    min-width: 100vw;
     display: block;
 }
 

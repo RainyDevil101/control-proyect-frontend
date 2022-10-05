@@ -56,6 +56,8 @@ const useAuth = () => {
 
         userDivision: computed(() => store.getters['auth/getUserDivision']),
         userId: computed(() => store.getters['auth/getUserId']),
+        pathWanted: computed(() => store.getters['auth/getPathWanted']),
+        userRole: computed(() => store.getters['auth/getUserRole']),
 
         checkToken,
         loginUser,

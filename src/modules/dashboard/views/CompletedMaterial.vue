@@ -185,8 +185,7 @@ h1 {
 }
 
 .wrapper {
-  min-height: 100vh;
-  min-width: 100vw;
+  height: 100%;
   display: flex;
 }
 

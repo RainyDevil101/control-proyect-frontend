@@ -1,5 +1,6 @@
 import backendConnect from '../../../api/backend';
 import convertDate from '@/helpers/convertDate';
+import { DateTime } from "luxon";
 
 const state = {
     status: 'CARGANDO',
@@ -120,6 +121,12 @@ const getters = {
         if(state.allMaterials.length === 0) {
             const allMaterialsFiltered = '';
             return { allMaterialsFiltered };
+        }
+
+        if(dateFormated.date_in.finDate.length > 0) {
+            let addDay = new Date(dateFormated.date_in.finDate).toISOString();
+            let finalDate = DateTime.fromISO(addDay).plus({ hours: 23, minutes: 59}).toISO();
+            dateFormated.date_in.finDate = finalDate;
         }
 
         const getMaterialsByDate = state.allMaterials;

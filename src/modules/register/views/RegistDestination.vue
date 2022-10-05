@@ -138,16 +138,12 @@ p {
 }
 .wrapper {
   display: flex;
-  width: 100%;
-  min-width: 100vw;
-  height: 100%;
   min-height: 100vh;
   justify-content: center;
   align-items: center;
 }
 .loader-wrapper {
   width: 100%;
-  min-width: 100vw;
   height: 100%;
   min-height: 100vh;
 }
@@ -198,10 +194,11 @@ p {
 
 }
 .destinations {
-  width: 90%;
   background-color: white;
   border-radius: 4px;
-  padding: 10px;
+  margin: 12vh auto 8vh auto;
+  height: 800px;
+  min-width: 338;
   border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 .button-forum {
@@ -212,9 +209,10 @@ p {
 .body {
   display: block;
   margin: auto;
-  max-height: 30rem;
-  min-height: 25rem;
+  padding: 8px;
+  height: 550px;
   overflow: auto;
+  background-color: tomato;
 }
 .not-register {
   width: 30vw;
@@ -235,7 +233,6 @@ input[type="text"] {
     width: 70%;
   }
   .body {
-    max-height: 35rem;
     width: 25rem;
   }
 }
@@ -245,7 +242,6 @@ input[type="text"] {
   }
   .body {
     width: 90%;
-    max-height: 35rem;
   }
 }
 </style>
