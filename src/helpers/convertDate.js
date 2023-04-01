@@ -9,7 +9,6 @@ const convertDate = (time) => {
 
     const convertHour = new Date(time).toLocaleTimeString('es-cl');
     
-
     return {
         converTime,
         convertHour,

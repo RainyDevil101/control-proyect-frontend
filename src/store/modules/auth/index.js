@@ -91,7 +91,9 @@ const actions = {
       commit("logOut");
       commit("materials/logOut", null, { root: true });
       commit("destinations/logOut", null, { root: true });
+      commit("clients/logOut", null, { root: true });
       commit("users/logOut", null, { root: true });
+      commit("refunds/logOut", null, { root: true });
       return { ok: false, message: "No hay token" };
     }
 

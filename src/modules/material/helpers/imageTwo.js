@@ -1,5 +1,3 @@
-// import backendConnect from '../../../api/backend';
-
 import axios from "axios"
 
 const uploadImageTwo = async ( imageTwo ) => {
@@ -21,7 +19,6 @@ const uploadImageTwo = async ( imageTwo ) => {
 
     } catch (error) {
         console.error('Error al cargar el archivo');
-        console.log(error);
         return null
     }
 

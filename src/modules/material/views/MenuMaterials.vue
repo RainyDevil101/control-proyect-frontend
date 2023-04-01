@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper">
     <div class="menu">
-      <div class="header">
+      <section class="header">
         <h1>Materiales por despachar</h1>
-      </div>
-      <div class="body">
+      </section>
+      <main>
         <div class="buttons-menu">
           <div @click="$router.push({ name: 'create-material' })" class="buttons-styles">
             <p>Ingreso de material</p>
@@ -16,7 +16,7 @@
             <p>Volver</p>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   </div>
 </template>
@@ -25,9 +25,9 @@
 export default {
   setup() {
 
-    
+
     return {
-      
+
     };
   },
 };
@@ -35,76 +35,12 @@ export default {
 
 <style lang="scss" scoped>
 
-p {
-  margin: 0;
-  padding: 0;
-}
-.wrapper {
-  display: flex;
-  height: 100%;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-}
-
-.body {
-  margin: auto;
-  display: block;
-  padding: 0px 0 12px 0;
-}
-
-.footer {
-  text-align: center;
-}
-
 .menu {
   display: block;
   background-color: white;
   border-radius: 4px;
   width: 90%;
   border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
-}
-
-.buttons-menu {
-  display: block;
-  margin: auto;
-  padding: 2rem;
-}
-
-.header {
-  color: black;
-  padding: 15px;
-  text-align: center;
-}
-
-.buttons-styles {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border-radius: 4px;
-  color: white;
-  padding: 8px;
-  width: 100%;
-  margin: 4px auto 4px auto;
-  height: 44px;
-  border: none;
-  cursor: default;
-    transition: 0.2s;
-
-  &:hover {
-    background-color: rgba($color: #444444, $alpha: 1.0);
-  }
-
-}
-
-.categories-item p {
-  margin: 6px 0 6px 0;
-  padding: 4px;
-}
-
-.back {
-  margin: auto;
 }
 
 @media screen and (min-width: 768px) {

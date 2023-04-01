@@ -271,33 +271,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p,
-h1,
-label {
-  margin: 0;
-  padding: 0;
-}
-
-.selected {
-  margin: 0;
-  padding: 0;
-}
-
-.unSelected {
-  margin: 0;
-  padding: 0;
-  background-color: red;
-}
-
-.wrapper {
-  height: 100vh;
-  display: flex;
-}
 
 .wrapper-form {
   background-color: #fff;
-  margin: auto;
-  // width: 100%;
+  margin: 90px auto;
   border-radius: 4px;
   max-width: 400px;
   display: flex;

@@ -33,8 +33,6 @@ const sendMaterial = () => {
           { headers: { "x-token": localStorage.getItem("token") } }
         );
 
-        console.log(resp);
-
         materialId.value = resp.data.id;
         nice.value = true;
         errors.value = false;

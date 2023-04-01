@@ -10,10 +10,10 @@
             <p>Gráficos</p>
           </div>
           <div @click="$router.push({ name: 'get-completed-material' })" class="buttons-styles">
-            <p>Despachos finalizados</p>
+            <p>Finalizados</p>
           </div>
           <div @click="$router.push({ name: 'get-dispatch-material' })" class="buttons-styles">
-            <p>Despachos pendientes</p>
+            <p>Pendientes</p>
           </div>
           <div @click="$router.push({ name: 'home-view' })" class="buttons-styles">
             <p>Volver</p>
@@ -38,13 +38,8 @@ export default {
 
 <style lang="scss" scoped>
 
-p {
-  margin: 0;
-  padding: 0;
-}
 .wrapper {
   display: flex;
-  height: 100%;
   min-height: 100vh;
   justify-content: center;
   align-items: center;
@@ -78,26 +73,6 @@ p {
   text-align: center;
 }
 
-.buttons-styles {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border-radius: 4px;
-  color: white;
-  padding: 8px;
-  width: 100%;
-  margin: 4px auto 4px auto;
-  height: 44px;
-  border: none;
-  cursor: default;
-    transition: 0.2s;
-
-  &:hover {
-    background-color: rgba($color: #444444, $alpha: 1.0);
-  }
-
-}
 
 .categories-item p {
   margin: 6px 0 6px 0;

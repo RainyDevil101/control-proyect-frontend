@@ -46,7 +46,7 @@
           </div>
           <div class="input-change-name margin-item">
             <select v-model="user.role">
-              <option v-for="role of roles" :key="role.name" :value="role.name">
+              <option v-for="role of roles" :key="role.name" :value="role.role">
                 {{ role.name }}
               </option>
             </select>
@@ -86,9 +86,10 @@ export default {
     const userName = ref("");
 
     const roles = ref([
-      { name: "ADMIN_ROLE" },
-      { name: "OPERATOR_ROLE" },
-      { name: "PLANNER_ROLE" },
+      { name: "ADMINISTRADOR", role: "ADMIN_ROLE",},
+      { name: "OPERADOR", role: "OPERATOR_ROLE" },
+      { name: "PLANIFICADOR", role: "PLANNER_ROLE" },
+      { name: "DESPACHADOR", role: "REFUNDER_ROLE"}
     ]);
 
     const { deleteUser, updateUser } = usersCommand();

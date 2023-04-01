@@ -9,7 +9,7 @@ const revisor = async(to, from, next) => {
         next({name: 'select-login'})
     }
 
-    if ( user[0].role === 'OPERATOR_ROLE' || user[0].role === 'ADMIN_ROLE' ) {
+    if ( user[0].role === 'OPERATOR_ROLE' ) {
         next()
     } else {
         Swal.fire({

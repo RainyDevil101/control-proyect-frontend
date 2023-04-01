@@ -91,7 +91,7 @@
 import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import uploadUsers from "../composables/uploadExcelUsers";
-import createFiles from "../composables/createUserTemplate";
+import createFiles from "../composables/createFilesTemplate";
 import Swal from "sweetalert2";
 export default {
   setup() {
@@ -162,12 +162,8 @@ h1 {
   margin: 8px 0 8px 0;
 }
 
-p {
-  margin: 8px 0 8px 0;
-}
 .wrapper {
   padding-top: 4rem;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -194,26 +190,6 @@ p {
   justify-content: center;
   align-items: center;
   margin: 4px 0 4px 0;
-}
-
-.buttons-styles {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border-radius: 4px;
-  color: white;
-  padding: 8px;
-  width: 9.8rem;
-  height: 44px;
-  border: none;
-  cursor: default;
-    transition: 0.2s;
-
-  &:hover {
-    background-color: rgba($color: #444444, $alpha: 1.0);
-  }
-
 }
 
 input[type="file"] {

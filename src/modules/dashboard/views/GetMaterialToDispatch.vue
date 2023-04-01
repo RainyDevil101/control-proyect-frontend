@@ -80,22 +80,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  margin: 0;
-  padding: 0;
-}
-
-.wrapper {
-  min-height: 100vh;
-  width: 100%;
-  height: 100%;
-  display: flex;
-}
-
 .alarm-wrapper {
-  height: 80vh;
-  min-height: 800px;
-  margin: 12vh auto 8vh auto;
+  min-height: 400px;
+  margin-top: 70px;
+  margin-bottom: 70px;
   background-color: #fff;
   border-radius: 4px;
   width: 90vw;
@@ -105,13 +93,11 @@ h1 {
 
 .header {
   text-align: center;
-  height: 48px;
 }
 
 .body-wrapper {
   cursor: default;
-  height: 60vh;
-  min-height: 650px;
+  height: 500px;
   overflow: auto;
   margin: auto;
 }
@@ -129,28 +115,7 @@ h1 {
   align-items: center;
   overflow: auto;
   margin: auto;
-  height: 60vh;
-  min-height: 650px;
-}
-
-.buttons-styles {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border-radius: 4px;
-  color: white;
-  padding: 8px;
-  width: 9.8rem;
-  margin: 4px auto 4px auto;
-  height: 44px;
-  border: none;
-  cursor: default;
-  transition: 0.2s;
-
-  &:hover {
-    background-color: rgba($color: #444444, $alpha: 1);
-  }
+  height: 100%;
 }
 
 @media screen and (min-width: 768px) {

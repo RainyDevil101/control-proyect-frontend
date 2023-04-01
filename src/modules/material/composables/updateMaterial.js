@@ -51,8 +51,6 @@ const updateMaterial = () => {
         }
       }
     }
-
-    return;
   };
 
   return {

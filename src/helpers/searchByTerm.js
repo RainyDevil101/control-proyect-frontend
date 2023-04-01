@@ -42,6 +42,19 @@ const getTerm = (term) => {
     return;
   };
 
+  const clients = ref("");
+
+  const clientTerm = (term = "") => {
+    const resp = computed(() => {
+      store.getters["clients/getClientsByTerm"](term)
+    })
+
+    clients.value = resp;
+
+    return;
+
+  }
+
   userTerm(term);
 
   //DIVISIONES
@@ -110,6 +123,10 @@ const getTerm = (term) => {
     divisionIdStatus: computed(
       () => store.getters["divisions/getDivisionIdStatus"]
     ),
+
+    // REFUNDS
+    createClient: computed(() => store.getters["refunds/getCreateClient"]),
+
   };
 };
 

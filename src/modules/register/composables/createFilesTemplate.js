@@ -2,6 +2,7 @@ import { ref } from "vue";
 import { read, utils, writeFile } from "xlsx";
 
 const createFiles = () => {
+
   const ok = ref(false);
 
   const excelTemplateUsers = () => {
@@ -71,8 +72,20 @@ const createFiles = () => {
     return { ok };
   };
 
+  const excelTemplateDestinations = () => {
+
+    let workbook = utils.book_new();
+
+    let name = "DESTINOS";
+
+    
+
+    return { ok };
+  }
+
   return {
     excelTemplateUsers,
+    excelTemplateDestinations,
     ok,
   };
 };

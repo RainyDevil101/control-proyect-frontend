@@ -3,10 +3,10 @@
 
   <div v-else class="wrapper">
     <div class="material-form">
-      <div class="header-form">
+      <div class="header">
         <h1>Registro</h1>
       </div>
-      <div class="body body-form">
+      <div class="p-4">
         <form @submit.prevent="onSubmit">
           <div class="item-form">
             <p>Ingrese N° de transporte</p>
@@ -22,11 +22,11 @@
           </div>
           <div class="item-form">
             <p>Cantidad</p>
-            <input v-model="materialForm.cantidad" type="number" />
+            <input v-model="materialForm.cantidad" type="number" maxlength="99"/>
           </div>
           <div class="item-form">
             <p>Cantidad de bultos</p>
-            <input v-model="materialForm.cantidad_bultos" type="number" />
+            <input v-model="materialForm.cantidad_bultos" type="number" maxlength="99"/>
           </div>
           <div class="item-form">
             <p>Destino</p>
@@ -41,7 +41,7 @@
             </select>
           </div>
           <div class="item-form">
-            <p>UBICACIÓN</p>
+            <p>Ubicación</p>
             <textarea
               v-model="materialForm.ubication"
               maxlength="60"
@@ -209,60 +209,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p,
-h1 {
-  margin: 0;
-  padding: 0;
-}
 
 .item-form p {
   margin: 4px;
 }
 
-.header-form {
-  text-align: center;
-}
-
-.buttons-styles {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border-radius: 4px;
-  color: white;
-  padding: 8px;
-  width: 9.8rem;
-  margin: 4px auto 4px auto;
-  height: 44px;
-  border: none;
-  cursor: default;
-    transition: 0.2s;
-
-  &:hover {
-    background-color: rgba($color: #444444, $alpha: 1.0);
-  }
-
-}
-
-.header-form h1 {
-  margin: 6px;
-}
-
-.wrapper {
-  display: flex;
-  min-height: 100vh;
-}
-
 .material-form {
-  border-radius: 4px;
-  padding: 8px;
-  margin: auto;
+  min-height: 400px;
+  margin-top: 70px;
+  margin-bottom: 70px;
   background-color: #fff;
+  border-radius: 4px;
+  width: 90vw;
+  min-width: 338px;
   border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
-}
-
-.body-form {
-  padding: 2px;
 }
 
 .image-form {
@@ -294,9 +254,7 @@ input[type="file"] {
 
 .image-label {
   margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
 }
 
 .confirmation {
@@ -330,15 +288,10 @@ label {
   }
 }
 
-.footer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-textarea {
-  resize: none;
-  width: 100%;
+@media screen and (min-width: 768px) {
+  .material-form {
+    max-width: 600px;
+  }
 }
 
 </style>

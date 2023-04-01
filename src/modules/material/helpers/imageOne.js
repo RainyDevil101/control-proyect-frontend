@@ -21,7 +21,6 @@ const uploadImageOne = async ( imageOne ) => {
 
     } catch (error) {
         console.error('Error al cargar el archivo');
-        console.log(error);
         return null
     }
 

@@ -1,19 +1,11 @@
 <template>
-  <div class="wrapper">
+  <div class="login-wrapper">
     <div class="login">
-      <div class="selector">
-        <h4>BIENVENIDO</h4>
-      </div>
-      <div class="image-wrapper">
-        <img src="../../../assets/logocacciuttolo.png" alt="Logo">
-      </div>
-      <div class="choose">
-        <button @click="onSupervisores" class="login-boton">INGRESAR</button>
-      </div>
-      <div class="change-forum mt-5">
+        <img class="image-logo" src="../../../assets/logocacciuttolo.png" alt="Logo">
+        <button @click="onSupervisores" class="login-boton">Ingresar</button>
         <p>Si no tienes cuenta, ponte en contacto con el administrador.</p>
-      </div>
     </div>
+
   </div>
 </template>
 
@@ -34,45 +26,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
-  height: 100vh;
+.login-wrapper {
   display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: 100%;
+  margin: 0 auto;
+  max-width: 768px;
   justify-content: center;
   align-items: center;
-}
-
-.image-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 90%;
 }
 
 .login {
+  margin: 20px auto;
   background-color: #fff;
-  display: block;
-  border-radius: 4px;
   padding: 10px;
   border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
-.selector {
+.login p {
   text-align: center;
-  display: block;
-  color: #fff;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border-radius: 4px;
-  margin: auto;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.select {
-  text-align: center;
-  width: 70%;
-  padding: 10px;
-  margin-top: 5rem;
-  color: white;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+.image-logo {
+  width: 100%;
 }
 
 .login-boton {
@@ -88,26 +66,21 @@ export default {
   max-width: 280px;
   transition: 0.5s;
   border-radius: 0.3rem;
+  text-transform: uppercase;
 
   &:hover {
     background-color: rgba($color: black, $alpha: 0.7);
   }
 }
 
-.change-forum {
-  text-align: center;
-  color: rgba($color: #3b3b3b, $alpha: 1);
-  font-size: 0.7rem;
-  text-decoration: none;
-  width: 80%;
-  margin-left: 10%;
-}
 
 @media screen and (min-width: 768px) {
 
-.login {
-  padding: 2rem;
-}
+// .login {
+//   background-color: red;
+//   margin: auto;
+//   padding: auto;
+// }
 
 }
 </style>

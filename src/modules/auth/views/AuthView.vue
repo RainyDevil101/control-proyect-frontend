@@ -1,32 +1,18 @@
 <template>
-  <div class="wrapper">
+  <div class="login-wrapper">
     <div class="login">
-      <div class="selector">
-        <h4>INICIAR SESIÓN</h4>
-      </div>
+      <h4 class="login-header-wrapper">Iniciar sesión</h4>
       <form class="login-forum" @submit.prevent="onSubmit">
         <div class="forum-mail" data-validate="Enter username">
-          <input
-            v-model="userForm.rut"
-            type="text"
-            class="input-forum"
-            placeholder="Rut Ej: 12.345.678-9"
-            required
-          />
+          <input v-model="userForm.rut" type="text" class="input-forum" placeholder="Rut Ej: 12.345.678-9" required />
           <div class="change-forum mt-5">
-          <p>Ingrese su RUT con puntos y guión.</p>
+            <p>Ingrese su RUT con puntos y guión.</p>
 
           </div>
         </div>
 
         <div class="forum-password" data-validate="Enter password">
-          <input
-            v-model="userForm.passwordT"
-            type="password"
-            class="input-forum"
-            placeholder="Contraseña"
-            required
-          />
+          <input v-model="userForm.passwordT" type="password" class="input-forum" placeholder="Contraseña" required />
         </div>
 
         <div class="in-forum">
@@ -37,7 +23,6 @@
         </div>
 
         <div class="change-forum mt-5">
-          
           <p>Si no tienes cuenta, ponte en contacto con el administrador.</p>
         </div>
       </form>
@@ -57,8 +42,8 @@ export default {
     const { loginUser } = useAuth();
 
     const userForm = ref({
-      rut: "",
-      passwordT: "",
+      rut: "13.689.671-7",
+      passwordT: "administrador",
     });
 
     const loading = ref(false);
@@ -73,7 +58,7 @@ export default {
         loading.value = true;
         const { ok, errors } = await loginUser(userForm.value);
 
-        
+
         if (!ok) {
           Swal.fire("Error", `${errors}.`, "error");
           loading.value = false;
@@ -81,7 +66,7 @@ export default {
           if (pathWanted.value === false) {
             return router.push({ name: "home-view" });
           } else {
-            return router.push({ name: pathWanted.value});
+            return router.push({ name: pathWanted.value });
           }
         };
       },
@@ -94,17 +79,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
-  height: 100vh;
+
+.login-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
+  height: 100%;
+  max-width: 768px;
+  margin: 0 auto;
+  width: 90%;
 }
 
 .login {
-  background-color: #fff;
+  margin: 20px auto;
+  padding: 10px;
   display: block;
-  border-radius: 4px;
+  background-color: #fff;
   text-align: center;
   border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
@@ -151,18 +142,15 @@ select:focus {
   }
 }
 
-.login-forum {
-  margin-top: 3rem;
-}
-
-.selector {
+.login-header-wrapper {
   text-align: center;
-  display: block;
   color: #fff;
   background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border-radius: 4px;
-  margin: auto;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.change-forum {
+  font-size: 12px;
 }
 
 .login-boton {
@@ -182,71 +170,5 @@ select:focus {
   &:hover {
     background-color: rgba($color: black, $alpha: 0.7);
   }
-}
-
-.change-forum {
-  color: rgba($color: #3b3b3b, $alpha: 1);
-  font-size: 0.7rem;
-  text-decoration: none;
-}
-
-// x-Small devices (landscape phones, 375px and up)
-
-@media (min-width: 375px) {
-  .forum-mail {
-    font-size: 1.3rem;
-  }
-  .forum-password {
-    font-size: 1.3rem;
-  }
-}
-
-// Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) {
-  .forum-mail {
-    font-size: 1.5rem;
-  }
-  .forum-password {
-    font-size: 1.5rem;
-  }
-  .login-boton {
-    font-size: 1.4rem;
-  }
-}
-
-// Medium devices (tablets, 768px and up)
-@media (min-width: 768px) {
-  .forum-mail {
-    font-size: 1.5rem;
-    text-align: center;
-    margin-top: 4rem;
-    margin-bottom: 5rem;
-  }
-  .forum-password {
-    font-size: 1.5rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
-  .login-boton {
-    font-size: 1.5rem;
-  }
-
-  .login {
-  width: 40%;
-}
-
-}
-
-// Large devices (desktops, 992px and up)
-@media (min-width: 992px) {
-
-    .login {
-  width: 30%;
-}
-
-}
-
-// Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
 }
 </style>

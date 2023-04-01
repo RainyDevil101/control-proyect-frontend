@@ -8,8 +8,13 @@ import redirect from "../modules/auth/router/redirect";
 import admin from "../modules/auth/router/admin-guard";
 import register from "../modules/register/router";
 import material from "../modules/material/router";
+import refund from "../modules/refund/router";
+import adminRefund from "../modules/adminRefund/router"
+import operatorRefund from "../modules/operatorRefund/router";
 import dashboard from "../modules/dashboard/router";
 import planner from "../modules/auth/router/planner-verification";
+import refunder from "../modules/auth/router/refunder-verification";
+import operator from "../modules/auth/router/operator-verification";
 
 const routes = [
   {
@@ -43,6 +48,24 @@ const routes = [
     beforeEnter: [authGuard],
     beforeEnter: [planner],
     ...dashboard,
+  },
+  {
+    path: "/refund",
+    beforeEnter: [authGuard],
+    beforeEnter: [refunder],
+    ...refund,
+  },
+  {
+    path: "/operatorRefund",
+    beforeEnter: [authGuard],
+    beforeEnter: [operator],
+    ...operatorRefund,
+  },
+  {
+    path: "/adminRefund",
+    beforeEnter: [authGuard],
+    beforeEnter: [refunder],
+    ...adminRefund,
   },
 ];
 

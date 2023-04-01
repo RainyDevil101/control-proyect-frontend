@@ -2,3 +2,25 @@
 
 
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
+
+@import './classes.scss';
+
+// GLOBALS VARIABLES
+
+p, h1, label, ul {
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  text-decoration: underline;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+}
+
+select {
+  width: 100%;
+}

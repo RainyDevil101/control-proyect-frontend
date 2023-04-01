@@ -4,7 +4,7 @@ export default {
     component: () => import(/* webpackChunkName: "register" */ '@/modules/material/layouts/MaterialLayout.vue'),
     children: [
         {
-            path: 'menu-materials',
+            path: 'menu',
             name: 'menu-materials',
             component: () => import(/* webpackChunkName: "menu-materials" */ '@/modules/material/views/MenuMaterials.vue'),
         },
@@ -31,13 +31,13 @@ export default {
             name: 'create-material',
             component: () => import(/* webpackChunkName: "create-material" */ '@/modules/material/views/CreateMaterial.vue'),
         },
-        {
-            path: 'all/:id',
-            name: 'all-material',
-            component: () => import(/* webpackChunkName: "all-material" */ '@/modules/material/views/AllMaterial.vue'),
-            props: (route) => {
-                id: route.params.id
-            },
-        },
+        // {
+        //     path: 'all/:id',
+        //     name: 'all-material',
+        //     component: () => import(/* webpackChunkName: "all-material" */ '@/modules/material/views/AllMaterial.vue'),
+        //     props: (route) => {
+        //         id: route.params.id
+        //     },
+        // },
     ]
 }

@@ -24,8 +24,18 @@
             </button>
           </li>
           <li class="nav-item box-a">
-            <button :disabled="loading === true" @click="onMaterials" class="button-navbar">
+            <button :disabled="loading === true" @click="onMaterials" :class="[userRole === 'PLANNER_ROLE' || userRole === 'OPERATOR_ROLE' || userRole === 'ADMIN_ROLE' ? buttonNavbar : buttonNavbarRestringed]">
               <b>Ingreso de Materiales</b>
+            </button>
+          </li>
+          <li class="nav-item box-a">
+            <button :disabled="loading === true" @click="onOperatorRefund" :class="[userRole === 'OPERATOR_ROLE' ? buttonNavbar : buttonNavbarRestringed]">
+              <b>Registrar Devolución</b>
+            </button>
+          </li>
+          <li class="nav-item box-a">
+            <button :disabled="loading === true" @click="onRefund" :class="[userRole === 'REFUNDER_ROLE' ? buttonNavbar : buttonNavbarRestringed]">
+              <b>Devoluciones</b>
             </button>
           </li>
         </ul>
@@ -87,6 +97,16 @@ export default {
         router.push({ name: 'menu-materials' });
         loading.value = false;
       },
+      onOperatorRefund: () => {
+        loading.value = true;
+        router.push({ name: 'get-dispatch-refund' });
+        loading.value = false;
+      },
+      onRefund: () => {
+        loading.value = true;
+        router.push({ name: 'menu-refunds' });
+        loading.value = false;
+      },
     };
   }
 };
@@ -101,7 +121,9 @@ export default {
 
 .navbar-position {
   position: fixed;
-  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .txt-c {
@@ -131,17 +153,13 @@ export default {
 }
 
 .button-navbar-restringed {
-  border-radius: 4px;
-  margin: 0 2px;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border: none;
+  display: none;
 }
 
 .button-navbar {
   border-radius: 4px;
   margin: 0 2px;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);;
+  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
   color: white;
   border: none;
 }

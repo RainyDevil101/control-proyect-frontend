@@ -7,7 +7,7 @@
     <loader />
   </div>
 
-  <div v-else class="wrapper-users">
+  <div v-else class="wrapper">
     <div class="users">
       <div class="header">
         <h1>Usuarios</h1>
@@ -106,7 +106,7 @@
           <div class="form form-role">
             <p>Rol de usuario</p>
             <select v-model="userForm.role">
-              <option v-for="role of roles" :key="role.name" :value="role.name">
+              <option v-for="role of roles" :key="role.name" :value="role.role">
                 {{ role.name }}
               </option>
             </select>
@@ -149,9 +149,10 @@ export default {
     const { postUser } = usersCommand();
 
     const roles = ref([
-      { name: "ADMIN_ROLE" },
-      { name: "OPERATOR_ROLE" },
-      { name: "PLANNER_ROLE" },
+      { name: "ADMINISTRADOR", role: "ADMIN_ROLE",},
+      { name: "OPERADOR", role: "OPERATOR_ROLE" },
+      { name: "PLANIFICADOR", role: "PLANNER_ROLE" },
+      { name: "DESPACHADOR", role: "REFUNDER_ROLE"}
     ]);
 
     const {
@@ -245,14 +246,6 @@ p {
   color: black;
 }
 
-.wrapper-users {
-  display: block;
-  min-height: 100vh;
-  width: 90vw;
-  margin: auto;
-  padding: 4rem 0 20px 0;
-}
-
 .button-wrapper {
   margin-top: 20px;
   padding-bottom: 20px;
@@ -337,28 +330,8 @@ select {
   width: 100%;
 }
 
-.buttons-styles {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border-radius: 4px;
-  color: white;
-  padding: 8px;
-  width: 9.8rem;
-  margin: 4px auto 4px auto;
-  height: 44px;
-  border: none;
-  cursor: default;
-  transition: 0.2s;
-
-  &:hover {
-    background-color: rgba($color: #444444, $alpha: 1);
-  }
-}
-
 @media screen and (min-width: 948px) {
-  .wrapper-users {
+  .wrapper {
     display: flex;
     justify-content: space-around;
     align-items: center;

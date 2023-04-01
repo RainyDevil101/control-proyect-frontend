@@ -24,19 +24,19 @@ const destinationsCommand = () => {
     if (destinationForm.name === "" || !destinationForm.name) {
       errorsPost.value = "Debe llenar los campos";
       destination.value = '';
-      return { errorsPost, location,
+      return { errorsPost, destination,
         nicePost };
     } else {
-      const { name } = destinationForm;
-
-      const nombre = name;
+      const { name, id } = destinationForm;
 
       try {
         const resp = await backendConnect.post(
           "/api/destination",
-          { nombre },
+          { name, id },
           { headers: { "x-token": localStorage.getItem("token") } }
         );
+
+        console.log(resp.data);
 
         destination.value = resp.data.destination;
         nicePost.value = true;

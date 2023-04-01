@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper">
+  <div>
     <div class="filter-align">
-      <div class="filter">
+    <div class="filter">
         <h3><b>FILTRAR</b></h3>
         <div class="input-date-search">
           <div class="dates">
@@ -53,6 +53,8 @@
           </div>
         </div>
       </div>
+    
+
     </div>
     <div v-if="errorMessage === true" class="noData">
       <div>
@@ -254,13 +256,6 @@ export default {
 
 <style lang="scss" scoped>
 
-  h1, p {
-    margin: 0;
-    padding: 0;
-  }
-.wrapper {
-  height: 100%;
-}
 
 .noData {
   display: flex;
@@ -285,7 +280,7 @@ export default {
 .filter {
   margin: auto;
   text-align: center;
-  padding-top: 10px;
+  padding-top:10px;
   padding-bottom: 10px;
   width: 300px;
   background-color: white;
@@ -310,10 +305,6 @@ export default {
   justify-content: center;
   text-align: center;
   margin: 5px 6px 5px 6px;
-}
-
-h3 {
-  text-decoration: underline;
 }
 
 .header-buttons {

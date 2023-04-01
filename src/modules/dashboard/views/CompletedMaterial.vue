@@ -12,6 +12,7 @@
 
   <div v-else class="wrapper">
     <div class="body-wrapper">
+      <div v-if="materialIdCompleted !== 'none'" >
       <div class="header">
         <h1>PENDIENTES GESTIONADAS</h1>
       </div>
@@ -113,6 +114,12 @@
         </div>
       </div>
     </div>
+    <div v-else>
+        <div class="not-wrapper">
+          <h1>No existe registro</h1>
+        </div>
+      </div>
+  </div>
   </div>
 </template>
 
@@ -178,30 +185,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p,
-h1 {
-  margin: 0;
-  padding: 0;
-}
-
-.wrapper {
-  height: 100%;
-  display: flex;
-}
-
-.header h1 {
-  text-align: center;
-  padding: 4px;
-}
 
 .body-wrapper {
-  margin: 80px auto;
-  width: 100%;
-  min-width: 350px;
-  max-width: 460px;
-  background-color: white;
+  background-color: #fff;
+  margin:90px auto;
   border-radius: 4px;
-  overflow: auto;
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
   border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
@@ -220,26 +213,6 @@ h1 {
   max-width: 10rem;
 }
 
-.buttons-styles {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border-radius: 4px;
-  color: white;
-  padding: 8px;
-  width: 9.8rem;
-  margin: 4px auto 4px auto;
-  height: 44px;
-  border: none;
-  cursor: default;
-  transition: 0.2s;
-
-  &:hover {
-    background-color: rgba($color: #444444, $alpha: 1);
-  }
-}
-
 .button-wrapper {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -249,6 +222,16 @@ h1 {
   justify-content: space-around;
 }
 
+.not-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
 @media screen and (min-width: 768px) {
+  .body-wrapper {
+    max-width: 600px;
+  }
+
 }
 </style>

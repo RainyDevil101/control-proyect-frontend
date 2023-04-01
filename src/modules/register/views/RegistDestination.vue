@@ -12,38 +12,31 @@
         <h1>Destinos</h1>
       </div>
       <div class="create">
-        <form @submit.prevent="onSubmit">
-          <div class="form">
-            <input
-              type="text"
-              placeholder="Nombre"
-              v-model="destinationForm.name"
-              maxlength="25"
-            />
-            <button type="submit" class="button-forum">CREAR</button>
+        <div class="form">
+          <form @submit.prevent="onSubmit">
+          <div class="input-wrapper">
+            <input class="input-destination" type="text" placeholder="Nombre" v-model="destinationForm.name" maxlength="25" />
+              <input class="input-destination my-2" type="text" placeholder="ID" v-model="destinationForm.id" maxlength="10" />
+            </div>
+            <div class="button-wrapper">
+              <button type="submit" class="buttons-styles mx-1">Crear</button>
+            <!-- <p @click="$router.push({ name: 'register-destination-massive' })" class="buttons-styles mx-1">Añadir varios destinos</p> -->
+            </div>
+          </form>
           </div>
-        </form>
       </div>
       <div class="search">
         <input type="text" placeholder="Buscar destino" v-model="term" />
       </div>
       <div v-if="showDestinations === true" class="body">
-        <destinations
-          v-for="destination of destinations"
-          :key="destination.id"
-          :destination="destination"
-          @on:open="onShowUpdateDestination"
-        />
+        <destinations v-for="destination of destinations" :key="destination.id" :destination="destination"
+          @on:open="onShowUpdateDestination" />
       </div>
       <div v-else class="not-register">
         <h1>NO HAY REGISTROS</h1>
       </div>
       <div class="button-wrapper">
-        <button
-          type="button"
-          @click="$router.push({ name: 'select-register' })"
-          class="buttons-styles"
-        >
+        <button type="button" @click="$router.push({ name: 'select-register' })" class="buttons-styles">
           Volver
         </button>
       </div>
@@ -74,9 +67,12 @@ export default {
       destinationIdStatus,
       showDestinations,
     } = getTerm(term.value);
+
     const destinationForm = ref({
       name: "",
+      id: ""
     });
+
     watch(
       () => term.value,
       () => destinationTerm(term.value)
@@ -106,13 +102,13 @@ export default {
           return;
         } else {
           await store.dispatch("destinations/loadDestinations");
-          Swal.fire("Guardado", "Destino registrada con éxito", "success").then(function (result) {
-              if (true) {
-                location.reload();
-              } else {
-                window.alert("Error, intente nuevamente");
-              }
+          Swal.fire("Guardado", `Destino registrado con éxito`, "success").then(function (result) {
+            if (true) {
+              location.reload();
+            } else {
+              window.alert("Error, intente nuevamente");
             }
+          }
           );
         }
       },
@@ -132,16 +128,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p {
-  margin: 0;
-  padding: 0;
-}
-.wrapper {
-  display: flex;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-}
+
 .loader-wrapper {
   width: 100%;
   height: 100%;
@@ -156,16 +143,21 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 4px 0 4px 0;
 }
 .form {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-between;
+  align-items: space;
+  margin: auto;
 }
 .button-wrapper {
   padding: 4px 0 4px 0;
   display: flex;
   justify-content: center;
   align-content: center;
+  margin: 4px;
 }
 .header {
   color: black;
@@ -173,46 +165,24 @@ p {
   text-align: center;
 }
 
-.buttons-styles {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border-radius: 4px;
-  color: white;
-  padding: 8px;
-  width: 9.8rem;
-  margin: 4px auto 4px auto;
-  height: 44px;
-  border: none;
-  cursor: default;
-    transition: 0.2s;
-
-  &:hover {
-    background-color: rgba($color: #444444, $alpha: 1.0);
-  }
-
-}
 .destinations {
-  background-color: white;
+  min-height: 400px;
+  margin-top: 70px;
+  margin-bottom: 40px;
+  background-color: #fff;
   border-radius: 4px;
-  margin: 12vh auto 8vh auto;
-  height: 800px;
-  min-width: 338;
+  min-width: 338px;
   border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 .button-forum {
-  margin: 4px;
-  border-radius: 4px;
-  width: 70px;
+  padding: 4;
 }
 .body {
   display: block;
   margin: auto;
   padding: 8px;
-  height: 550px;
+  height: 500px;
   overflow: auto;
-  background-color: tomato;
 }
 .not-register {
   width: 30vw;
@@ -225,21 +195,22 @@ p {
 .search {
   margin: 10px 0 10px 0;
 }
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 input[type="text"] {
   border-radius: 4px;
+  margin-top: 4;
 }
 @media screen and (min-width: 768px) {
   .destinations {
-    width: 70%;
-  }
-  .body {
-    width: 25rem;
+    width: 760px;
   }
 }
 @media screen and (min-width: 1024px) {
-  .destinations {
-    width: 40%;
-  }
   .body {
     width: 90%;
   }

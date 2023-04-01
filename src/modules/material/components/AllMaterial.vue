@@ -55,7 +55,7 @@ export default {
 };
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 .allMaterial-wrapper {
   background-color: rgb(201, 201, 201);
   padding: 10px;

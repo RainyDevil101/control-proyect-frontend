@@ -31,8 +31,6 @@ const state = {
     pendingImageOne: false,
     pendingImageTwo: false,
 
-    // GRÁFICOS
-
 };
 
 const getters = {
@@ -279,10 +277,11 @@ const mutations = {
         state.materialPendingNeeded = materialPending[0];
         state.materialPendingIdStatus = 'RECIBIDO';
         
-
+        return;
     },
     updateMaterialD(state, { id }) {
         state.materialsPending = state.materialsPending.filter(x => x.id != id);
+        return;
     },
 
     // COMPLETADAS
@@ -330,11 +329,12 @@ const mutations = {
         state.imageTwo = materialCompleted[0].image_two;
         state.materialCompletedNeeded = materialCompleted[0];
         state.materialCompletedIdStatus = 'RECIBIDO';
-        
+        return;
     },
     changeImageOne(state, { onImageOne }) {
 
-        state.completedImageOne = onImageOne
+        state.completedImageOne = onImageOne;
+        return;
 
     },
     changeImageTwo(state, { onImageTwo }) {
@@ -342,12 +342,12 @@ const mutations = {
         
         state.completedImageTwo = onImageTwo
 
-
+        return;
     },
     deleteForumM(state, { id }) {
 
         state.materialsPending = state.materialsPending.filter(u => u.uid !== id)
-
+        return;
     },
     logOut(state) {
 
@@ -364,6 +364,7 @@ const mutations = {
         state.materialCompletedNeeded = '';
         state.materialCompletedNeededDate = '';
         state.materialPendingNeededHour = '';
+        state.materialCompletedIdStatus = 'CARGANDO';
         state.completedPendiente = '';
         state.completedImageOne = false;
         state.completedImageTwo = false;
@@ -371,16 +372,14 @@ const mutations = {
         state.materialPendingNeeded = '';
         state.materialPendingNeededDate = '';
         state.materialPendingNeededHour = '';
-        state.materialPendingNeededOutDate = '',
-        state.materialPendingNeededOutHour = '',
         state.materialPendingIdStatus = 'CARGANDO';
         state.pendiente = '';
         state.pendingImageOne = false;
         state.pendingImageTwo = false;
         localStorage.removeItem('aM');
         localStorage.removeItem('token');
-
-    },
+        return;
+    }
 }
 
 const actions = {
@@ -392,7 +391,7 @@ const actions = {
 
 
             if (!data) {
-                commit('saveAllMaterials', []);
+                // commit('saveAllMaterials', []);
                 commit('saveMaterials', []);
                 return;
             };

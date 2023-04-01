@@ -7,22 +7,28 @@
 <script>
 
 import useAuth from '../../auth/composables/useAuth';
-import { onActivated } from '@vue/runtime-core';
-import Nabvar from '@/modules/components/Nabvar.vue';
+import { onUpdated } from '@vue/runtime-core';
+import Nabvar from '@/modules/components/Navbar.vue';
 
 export default {
   components: { Nabvar },
 
   setup() {
 
-    const { getDestinations, getDivisions, getUsers } = useAuth();
+    const { getDestinations, getDivisions, getUsers, reUsers, reDestinations } = useAuth();
 
 
-    onActivated(() => {
+    onUpdated(() => {
       getDestinations();
       getDivisions();
       getUsers();
     })
+
+    const users = JSON.parse(localStorage.getItem('aU'));
+    reUsers(users);
+
+    const destinations = JSON.parse(localStorage.getItem('aD'));
+    reDestinations(destinations);
 
     getDestinations();
     getDivisions();

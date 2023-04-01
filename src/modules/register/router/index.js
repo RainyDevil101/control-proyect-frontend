@@ -4,7 +4,7 @@ export default {
     component: () => import(/* webpackChunkName: "register" */ '@/modules/register/layouts/RegisterLayout.vue'),
     children: [
         {
-            path: 'select-register',
+            path: '/register',
             name: 'select-register',
             component: () => import(/* webpackChunkName: "select-register" */ '@/modules/register/views/SelectRegister.vue'),
         },
@@ -22,6 +22,11 @@ export default {
             path: 'register-user-massive',
             name: 'register-user-massive',
             component: () => import(/* webpackChunkName: "register-user-massive" */ '@/modules/register/views/UserMassiveRegistation.vue'),
+        },
+        {
+            path: 'register-destination-massive',
+            name: 'register-destination-massive',
+            component: () => import(/* webpackChunkName: "register-destination-massive" */ '@/modules/register/views/DestinationMassiveRegistation.vue'),
         },
     ]
 }

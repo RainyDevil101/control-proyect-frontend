@@ -1,0 +1,62 @@
+  
+  
+  .buttons-menu {
+    display: block;
+    margin: auto;
+    padding: 2rem;
+  }
+
+  .header {
+    color: black;
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .buttons-styles {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+      border-radius: 4px;
+      color: white;
+      width: 8.8rem;
+      margin: 4px auto 4px auto;
+      height: 44px;
+      border: none;
+      cursor: default;
+        transition: 0.2s;
+    
+      &:hover {
+        background-color: rgba($color: #444444, $alpha: 1.0);
+      }
+    
+    }
+
+    .buttons-wrapper button {
+      margin: 5px auto;
+      width: 100%;
+      background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+      border-radius: 4px;
+      color: white;
+      border: none;
+      cursor: default;
+      transition: 0.2s;
+  
+      &:hover {
+          background-color: rgba($color: #444444, $alpha: 1.0);
+      }
+  }
+
+    .wrapper {
+      display: flex;
+      min-height: 100vh;
+      margin: auto;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .footer {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
