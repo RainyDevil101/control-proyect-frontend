@@ -43,11 +43,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.width {
-  margin: 0 auto;
-  max-width: 1200px;
-  width: 90%;
-}
-</style>

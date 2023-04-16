@@ -1,4 +1,5 @@
 
+
 <template>
   <div v-if="destinationUpdate === true" class="update-destination">
     <update-destination @on:close="onShowUpdateDestination" />
@@ -94,7 +95,7 @@ export default {
           allowOutsideClick: false,
         });
         Swal.showLoading();
-        const { errorsPost, destination, nicePost } = await postDestination(
+        const { errorsPost, nicePost } = await postDestination(
           destinationForm.value
         );
         if (nicePost.value === false) {

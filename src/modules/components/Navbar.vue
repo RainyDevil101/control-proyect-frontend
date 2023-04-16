@@ -30,7 +30,7 @@
           </li>
           <li class="nav-item box-a">
             <button :disabled="loading === true" @click="onOperatorRefund" :class="[userRole === 'OPERATOR_ROLE' ? buttonNavbar : buttonNavbarRestringed]">
-              <b>Registrar Devolución</b>
+              <b>Registrar Devolución Concentrador</b>
             </button>
           </li>
           <li class="nav-item box-a">
@@ -89,7 +89,7 @@ export default {
       },
       onAdministration: () => {
         loading.value = true;
-        router.push({ name: 'select-register' });
+        router.push({ name: 'regist-user' });
         loading.value = false;
       },
       onMaterials: () => {

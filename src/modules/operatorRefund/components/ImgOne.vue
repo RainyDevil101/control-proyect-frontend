@@ -25,8 +25,6 @@ export default {
 
         const imageOneProps = ref(props.imageOne);
 
-        console.log(imageOneProps);
-
         return {
             imageOneProps
         }

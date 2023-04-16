@@ -1,7 +1,9 @@
 <template>
     <Nabvar/>
 
-    <router-view/>
+    <div class="width">
+      <router-view/>
+    </div>
 </template>
 
 <script>

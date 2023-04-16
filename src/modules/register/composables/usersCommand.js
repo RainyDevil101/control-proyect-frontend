@@ -24,7 +24,7 @@ const usersCommand = () => {
 
     errorsPost.value = true;
 
-    if (userForm.fullname === "" || userForm.fulllastname === "" || userForm.rut === "" || userForm.email === "" || userForm.users_divisions === "" || userForm.passwordT  === "" || userForm.confirmPassword === "" || userForm.position === "" || userForm.role === "" ) {
+    if (userForm.fullname === "" || userForm.fulllastname === "" || userForm.rut === "" || userForm.email === "" || userForm.users_divisions === "" || userForm.passwordT === "" || userForm.confirmPassword === "" || userForm.position === "" || userForm.role === "") {
       errorsPost.value = "Debe llenar los campos";
       return {
         errorsPost,
@@ -34,25 +34,27 @@ const usersCommand = () => {
     } else {
 
       const fullname = userForm.fullname;
-     const fulllastname = userForm.fulllastname;
-     const passwordT = userForm.passwordT;
-     const email = userForm.email;
-     const rut = userForm.rut;
-     const users_divisions = userForm.users_divisions;
-     const position = userForm.position;
-     const role = userForm.role;
+      const fulllastname = userForm.fulllastname;
+      const passwordT = userForm.passwordT;
+      const email = userForm.email;
+      const rut = userForm.rut;
+      const users_divisions = userForm.users_divisions;
+      const position = userForm.position;
+      const role = userForm.role;
 
       try {
         const resp = await backendConnect.post(
           "/api/user",
-          { fullname,
-fulllastname,
-passwordT,
-email,
-rut,
-users_divisions,
-position,
-role },
+          {
+            fullname,
+            fulllastname,
+            passwordT,
+            email,
+            rut,
+            users_divisions,
+            position,
+            role
+          },
           { headers: { "x-token": localStorage.getItem("token") } }
         );
 
@@ -88,107 +90,9 @@ role },
     }
   };
 
-  const updateUser = async (userUpdate, user, id) => {
 
-    errorsUpdate.value = true;
 
-    if (!user || !userUpdate || !id) {
-      niceUpdate.value = false;
-      errorsUpdate.value = "Complete los campos";
-      return { niceUpdate, errorsUpdate };
-    }
 
-    if (
-      user.fullname.length === 0 ||
-      user.fulllastname.length === 0 ||
-      user.rut.length === 0 ||
-      user.email.length === 0 ||
-      user.position.length === 0 ||
-      user.role.length === 0
-    ) {
-      niceUpdate.value = false;
-      errorsUpdate.value = "Complete los campos";
-      return { niceUpdate, errorsUpdate };
-    }
-
-    if (userUpdate.passwordT !== userUpdate.confirmPasswordT) {
-
-      niceUpdate.value = false;
-      errorsUpdate.value = "Las contraseñas no coinciden";
-
-      return { niceUpdate, errorsUpdate };
-    } else {
-
-      if (userUpdate.passwordT.length > 0) {
-        user.password = userUpdate.passwordT;
-      } 
-
-      try {
-        
-        const { data } = await backendConnect.put(
-          `/api/user/${id}`,
-          { user },
-          { headers: { "x-token": localStorage.getItem("token") } }
-        );
-
-        niceUpdate.value = true;
-        errorsUpdate.value = false;
-
-        return { niceUpdate, errorsUpdate };
-      } catch (errors) {
-        if (errors.response.data.msg) {
-          errorsUpdate.value = errors.response.data.msg;
-          return { niceUpdate, errorsUpdate };
-        }
-        if (errors.response.data.errors) {
-          const msgErr = [];
-          const errorsDB = errors.response.data.errors;
-          for (const error of errorsDB) {
-            msgErr.push(" " + error.msg);
-          }
-          errorsUpdate.value = msgErr;
-          return { niceUpdate, errorsUpdate };
-        } else {
-          return { niceUpdate, errorsUpdate };
-        }
-      }
-    }
-  };
-
-  const deleteUser = async (id = "") => {
-    if (id === "" || !id) {
-      errorsDelete.value = "No existe";
-      return { errorsDelete, niceDelete };
-    } else {
-      try {
-        const resp = await backendConnect.delete(`/api/user/${id}`, {
-          headers: { "x-token": localStorage.getItem("token") },
-        });
-
-        idDelete.value = resp.data;
-        niceDelete.value = true;
-        errorsDelete.value = false;
-
-        return { errorsDelete, niceDelete, idDelete };
-      } catch (errors) {
-        if (errors.response.data.msg) {
-          errorsDelete.value = errors.response.data.msg;
-          return { niceDelete, errorsDelete };
-        }
-        if (errors.response.data.errors) {
-          const msgErr = [];
-          const errorsDB = errors.response.data.errors;
-          for (const error of errorsDB) {
-            msgErr.push(" " + error.msg);
-          }
-          errorsDelete.value = msgErr;
-          return { niceDelete, errorsDelete };
-        } else {
-          return { niceDelete, errorsDelete };
-        }
-      }
-    }
-  };
 
   return {
     // POST

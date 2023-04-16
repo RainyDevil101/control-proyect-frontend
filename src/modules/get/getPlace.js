@@ -8,9 +8,12 @@ const getPlaces = () => {
     
     const searchPlaces = async () => {
 
-        const {data} = await backendConnect.get('/api/place ', {
+        const all = true;
+
+        const {data} = await backendConnect.get(`/api/place?all=${all}`, {
             headers: { 'x-token': localStorage.getItem('token') }
         });
+
         const placesArray = [];
         const placesDB = data.places;
         for(const place of placesDB) {

@@ -4,9 +4,7 @@
   <div v-else class="wrapper">
 
     <div class="alarm-wrapper">
-      <div class="header">
-        <h1>DESPACHOS PENDIENTES</h1>
-      </div>
+      <h1>Devolución Pendiente</h1>
       <div class="filter">
         <p>Ubicación:</p>
         <select v-model="filters.ubication">
@@ -16,18 +14,21 @@
           </option>
         </select>
       </div>
-      <div v-if="pendientesFiltered.length > 0">
-        <div class="body-wrapper">
-          <div class="pendiente-wrapper">
-            <pendientesFiltered v-for="pendienteFiltered of pendientesFiltered" :key="pendienteFiltered.id"
-              :pendienteFiltered="pendienteFiltered" />
-          </div>
+      <div class="body-wrapper">
+        <div class="pendiente-wrapper">
+          <table class="table-wrapper">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th class="id">ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              <pendientesFiltered v-for="pendienteFiltered of pendientesFiltered" :key="pendienteFiltered.id"
+                :pendienteFiltered="pendienteFiltered" />
+            </tbody>
+          </table>
         </div>
-
-      </div>
-
-      <div v-else class="not-registers">
-        <h1>NO HAY REGISTROS</h1>
       </div>
       <div class="back-button">
         <button @click="$router.push({ name: 'home-view' })" type="button" class="buttons-styles">
@@ -82,21 +83,40 @@ export default {
   
 <style lang="scss" scoped>
 
+.table-wrapper {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.table-wrapper tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table-wrapper th {
+    color: white;
+    background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+    text-align: left;
+    padding: 12px 8px;
+}
+
+.id {
+    width: 100px;
+}
   
 .alarm-wrapper {
   min-height: 400px;
-  margin: 70px auto;
   background-color: #fff;
-  border-radius: 4px;
-  min-width: 338px;
-  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
+}
+
+.alarm-wrapper h1 {
+  text-align: center;
+  margin: 4px 0;
 }
 
 .body-wrapper {
-  cursor: default;
-  height: 500px;
+  height: 60vh;
   overflow: auto;
-  margin: auto;
 }
 
 .back-button {
@@ -112,7 +132,7 @@ export default {
   align-items: center;
   overflow: auto;
   margin: auto;
-  height: 500px;
+  height: 60vh;
 }
 
 .filter {
@@ -128,8 +148,6 @@ export default {
 }
 
 @media screen and (min-width: 768px) {
-  .alarm-wrapper {
-    max-width: 600px;
-  }
+  
 }
   </style>

@@ -1,17 +1,22 @@
 <template>
     <div class="admin_menu-wrapper">
+        <div v-if="clientUpdate === true" class="update">
+            <UpdateClient @on:close="onShowUpdateClient" />
+        </div>
         <div v-if="status === 'CARGANDO'">
             <loading />
         </div>
         <div v-else class="">
             <div class="header-wrapper">
-                <div class="search-wrapper">
+                <p class="search-wrapper">
                     <label for="search">Buscar por nombre</label>
                     <input type="text" id="search" v-model="term">
-                </div>
+                </p>
                 <form class="form-wrapper" @submit.prevent="onSubmit">
-                    <label for="name">Crear cliente</label>
-                    <input type="text" id="name" v-model="clientName" maxlength="20">
+                    <p>
+                        <label for="name">Crear cliente</label>
+                        <input type="text" id="name" v-model="clientName" maxlength="20">
+                    </p>
                     <button type="submit" class="btn btn-warning button-create">Crear</button>
                 </form>
             </div>
@@ -27,29 +32,38 @@
                         @on:open="onShowUpdateClient" />
                 </tbody>
             </table>
-            <button @click="prevPage">Atrás</button>
-            <button @click="nextPage">Siguiente</button>
+            <div class="page_section-wrapper">
+                <div class="page_button-wrapper">
+                    <button class="button-page" @click="prevPage">Atrás</button>
+                    <button class="button-page" @click="nextPage">Siguiente</button>
+                </div>
 
-            {{ currentPage }} / 
-            {{ numberOfPages }}
+                <div class="page-wrapper">
+                    <p>Página: <span>{{ currentPage }}/</span>
+                        <span>{{ numberOfPages }}</span>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import Swal from 'sweetalert2';
+import { useStore } from 'vuex';
 import { ref } from 'vue';
+import Swal from 'sweetalert2';
 import useClients from '../composables/clientsStore';
 import Loading from '../components/Loading.vue';
-import Client from '../components/Client.vue'
+import Client from '../components/Client.vue';
+import UpdateClient from '../components/UpdateClient.vue';
 import clientsCommand from '@/modules/refund/composables/clientsCommand';
-import store from '@/store';
 
 export default {
-    components: { Loading, Client },
+    components: { Loading, Client, UpdateClient },
 
     setup() {
 
+        const store = useStore();
         const clientName = ref('');
 
         const { status, clientsByTerm, term, clientUpdate, currentPage, numberOfPages } = useClients();
@@ -83,33 +97,26 @@ export default {
                     Swal.fire("Error", `${errorsPost.value}.`, "error");
                     return;
                 } else {
-                    await
-
-                        Swal.fire(
-                            "Guardado",
-                            "Cliente creado con éxito",
-                            "success"
-                        ).then(function (result) {
-                            if (true) {
-                                location.reload();
-                            } else {
-                                window.alert("Error, intente nuevamente");
-                            }
-                        });
+                    Swal.fire(
+                        "Guardado",
+                        "Cliente creado con éxito",
+                        "success"
+                    ).then(function (result) {
+                        if (true) {
+                            location.reload();
+                        } else {
+                            window.alert("Error, intente nuevamente");
+                        }
+                    });
                 }
             },
             onShowUpdateClient: (id) => {
-
-                console.log('asdasd');
-
-                return
-                if (userUpdate.value === false) {
-                    store.dispatch("users/changeUserId", id);
-                    store.dispatch("users/changeUserUpdate", true);
+                if (clientUpdate.value === false) {
+                    store.dispatch("clients/changeClientId", id);
+                    store.dispatch("clients/changeClientUpdate", true);
                     return;
                 } else {
-                    store.dispatch("users/loadUsers");
-                    store.dispatch("users/changeUserUpdate", false);
+                    store.dispatch("clients/changeClientUpdate", false);
                     return;
                 }
             },
@@ -120,8 +127,8 @@ export default {
                 if (next > numberOfPages.value) {
 
                     return next = numberOfPages;
-                    
-                } 
+
+                }
 
                 store.dispatch("clients/loadClients", next)
             },
@@ -187,6 +194,25 @@ export default {
 
 .button-create {
     margin: 12px 0;
+}
+
+.page_section-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.button-page {
+    color: white;
+    background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+    border: none;
+    padding: 8px;
+    margin-right: 4px;
+}
+
+.page-wrapper {
+    font-weight: bold;
 }
 
 @media screen and (min-width: 768px) {

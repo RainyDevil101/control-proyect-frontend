@@ -9,6 +9,9 @@ const state = {
   destinationIdStatus: "CARGANDO",
   updateDestination: false,
   destinationUpdated: "",
+  total: "",
+  numberOfPages: "",
+  currentPage: "",
 };
 
 const getters = {
@@ -35,27 +38,23 @@ const getters = {
   getUpdateDestination(state) {
     return state.updateDestination;
   },
-  changeDestinationId(state) {
+  getDestinationSelected(state) {
     if (!state.changeDestinationId) {
       return;
     }
-    const destinationIdToChange = state.changeDestinationId.id;
+    const id = state.changeDestinationId.id;
 
-    const destinationToChange = state.changeDestinationId;
-
-    return { destinationIdToChange, destinationToChange };
+    return id;
   },
 };
 
 const mutations = {
   // GUARDAR Y DISTRIBUIR LOS DESTINOS SEGÚN SU ORDEN
 
-  saveDestinations(state, { destinations }) {
+  saveDestinations(state, { destinations, total, numberOfPages, currentPage }) {
     state.status = "CARGANDO";
 
-    if (!destinations) return;
-
-    if (destinations.length === 0) {
+    if (!destinations || destinations.length === 0) {
       state.destinations = "";
       state.status = "RECIBIDOS";
       return;
@@ -66,6 +65,9 @@ const mutations = {
     localStorage.setItem("aD", JSON.stringify(destinations));
 
     state.destinations = destinations;
+    state.total = total;
+    state.numberOfPages = numberOfPages;
+    state.currentPage = currentPage;
     state.status = "RECIBIDOS";
     return;
   },
@@ -136,6 +138,9 @@ const mutations = {
   state.destinationIdStatus = "CARGANDO",
   state.updateDestination = false,
   state.destinationUpdated = "",
+  state.total = "",
+  state.numberOfPages = "",
+  state.currentPage = "",
       localStorage.removeItem("aD");
   },
 };
@@ -143,20 +148,20 @@ const mutations = {
 const actions = {
   // OBTENER LA CARGA DE DESTINOS
 
-  async loadDestinations({ commit }) {
+  async loadDestinations({ commit }, page = 1) {
     try {
-      const { data } = await backendConnect.get("/api/destination/", {
+      const { data } = await backendConnect.get(`/api/destination?page=${page}`, {
         headers: { "x-token": localStorage.getItem("token") },
       });
 
-      if (!data) {
+      if (!data || data.length === 0) {
         commit("saveDestinations", []);
         return;
       }
 
-      const { destinations } = data;
+      const { destinations, total, numberOfPages, currentPage } = data;
 
-      commit("saveDestinations", { destinations });
+      commit("saveDestinations", { destinations, total, numberOfPages, currentPage });
 
       return { ok: true };
     } catch (error) {
@@ -175,15 +180,16 @@ const actions = {
     commit("saveDestinations", { destinations });
     return { ok: true };
   },
-  // async updateDestination({ commit }, id) {
-  //   commit("updateDestination", { id });
-  //   return { ok: true };
-  // },
+  async updateDestination({ commit }, id) {
+    commit("updateDestination", { id });
+    return { ok: true };
+  },
   async changeDestinationUpdate({ commit }, onUpdate) {
     commit("changeDestination", { onUpdate });
     return { ok: true };
   },
   async changeDestinationId({ commit }, id) {
+    console.log(id, 2);
     commit("changeDestinationId", { id });
     return { ok: true };
   },

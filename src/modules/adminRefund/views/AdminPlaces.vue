@@ -1,17 +1,22 @@
 <template>
     <div class="admin_menu-wrapper">
+        <div v-if="dispatchPlaceUpdate === true" class="update">
+            <UpdateDispatchPlace @on:close="onShowUpdateDispatchPlace" />
+        </div>
         <div v-if="status === 'CARGANDO'">
             <loading />
         </div>
         <div v-else class="">
             <div class="header-wrapper">
-                <div class="search-wrapper">
+                <p class="search-wrapper">
                     <label for="search">Buscar por nombre</label>
                     <input type="text" id="search" v-model="term">
-                </div>
+                </p>
                 <form class="form-wrapper" @submit.prevent="onSubmit">
-                    <label for="name">Crear destino</label>
-                    <input type="text" id="name" v-model="dispatchPlaceName" maxlength="20">
+                    <p>
+                        <label for="name">Crear destino</label>
+                        <input type="text" id="name" v-model="dispatchPlaceName" maxlength="20">
+                    </p>
                     <button type="submit" class="btn btn-warning button-create">Crear</button>
                 </form>
             </div>
@@ -23,29 +28,46 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <DispatchPlace class="dispatchPlace-wrapper" v-for="dispatchPlace in dispatchPlacesByTerm" :key="dispatchPlace.id" :dispatchPlace="dispatchPlace" />
+                    <DispatchPlace class="dispatchPlace-wrapper" v-for="dispatchPlace in dispatchPlacesByTerm"
+                        :key="dispatchPlace.id" :dispatchPlace="dispatchPlace" @on:open="onShowUpdateDispatchPlace" />
                 </tbody>
             </table>
+            <div class="page_section-wrapper">
+                <div class="page_button-wrapper">
+                    <button class="button-page" @click="prevPage">Atrás</button>
+                    <button class="button-page" @click="nextPage">Siguiente</button>
+                </div>
+
+                <div class="page-wrapper">
+                    <p>Página: <span>{{ currentPage }}/</span>
+                        <span>{{ numberOfPages }}</span>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import Swal from 'sweetalert2';
+import { useStore } from 'vuex';
 import { ref } from 'vue';
+import Swal from 'sweetalert2';
 import useDispatchPlaces from '../composables/dispatchPlacesStore';
 import Loading from '../components/Loading.vue';
 import DispatchPlace from '../components/DispatchPlace.vue'
 import dispatchPlacesCommand from '../composables/dispatchPlacesCommand';
+import UpdateDispatchPlace from '../components/UpdateDispatchPlace.vue';
+
 
 export default {
-    components: { Loading, DispatchPlace },
+    components: { Loading, DispatchPlace, UpdateDispatchPlace },
 
     setup() {
 
+        const store = useStore();
         const dispatchPlaceName = ref('');
 
-        const { status, dispatchPlacesByTerm, term } = useDispatchPlaces();
+        const { status, dispatchPlacesByTerm, term, dispatchPlaceUpdate, currentPage, numberOfPages } = useDispatchPlaces();
 
         const { postDispatchPlace } = dispatchPlacesCommand();
 
@@ -56,6 +78,9 @@ export default {
             dispatchPlacesByTerm,
             term,
             dispatchPlaceName,
+            dispatchPlaceUpdate,
+            currentPage,
+            numberOfPages,
 
             onSubmit: async () => {
 
@@ -73,21 +98,52 @@ export default {
                     Swal.fire("Error", `${errorsPost.value}.`, "error");
                     return;
                 } else {
-                    await
-
-                        Swal.fire(
-                            "Guardado",
-                            "Ubicación de despatcho creada con éxito",
-                            "success"
-                        ).then(function (result) {
-                            if (true) {
-                                location.reload();
-                            } else {
-                                window.alert("Error, intente nuevamente");
-                            }
-                        });
+                    Swal.fire(
+                        "Guardado",
+                        "Ubicación de despatcho creada con éxito",
+                        "success"
+                    ).then(function (result) {
+                        if (true) {
+                            location.reload();
+                        } else {
+                            window.alert("Error, intente nuevamente");
+                        }
+                    });
                 }
             },
+            onShowUpdateDispatchPlace: (id) => {
+
+                if (dispatchPlaceUpdate.value === false) {
+                    store.dispatch("dispatchPlaces/changeDispatchPlaceId", id);
+                    store.dispatch("dispatchPlaces/changeDispatchPlaceUpdate", true);
+                    return;
+                } else {
+                    store.dispatch("dispatchPlaces/changeDispatchPlaceUpdate", false);
+                    return;
+                }
+            },
+            nextPage: () => {
+
+                let next = currentPage.value + 1;
+
+                if (next > numberOfPages.value) {
+
+                    return next = numberOfPages;
+
+                }
+
+                store.dispatch("dispatchPlaces/loadDispatchPlaces", next)
+            },
+            prevPage: () => {
+
+                let prev = currentPage.value - 1;
+
+                if (prev < 1) {
+                    return prev = 1;
+                }
+
+                store.dispatch("dispatchPlaces/loadDispatchPlaces", prev)
+            }
         };
     },
 }
@@ -140,6 +196,25 @@ export default {
 
 .button-create {
     margin: 12px 0;
+}
+
+.page_section-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.button-page {
+    color: white;
+    background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+    border: none;
+    padding: 8px;
+    margin-right: 4px;
+}
+
+.page-wrapper {
+    font-weight: bold;
 }
 
 @media screen and (min-width: 768px) {

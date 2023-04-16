@@ -1,45 +1,42 @@
 <template>
-  <div class="completa-wrapper"
-  @click="$router.push({ name : 'completed-material', params: { id: completa.id } })"
-  >
-    <span>ID: <b>{{completa.id}}</b> | </span>
-    <span>Número de transporte: <b>{{completa.transport_number}}</b></span>
-  </div>
+  <tr class="cursor-pointer" @click="$router.push({ name : 'completed-material', params: { id: completa.id } })">
+      <td>{{ completa.transport_number }}</td>
+      <td>{{ completa.id }}</td>
+  </tr>
 </template>
 
 <script>
-import { ref } from '@vue/reactivity';
+import { ref } from 'vue';
+
+
 export default {
+  emits: ['on:open'],
   props: {
-    completa: {
-      type: Object,
-      required: true,
-    },
+      completa: {
+          type: Object,
+          required: true,
+      },
   },
 
   setup(props) {
 
-    const completa = ref(props.completa);
+      const completa = ref(props.completa);
+      const id = props.completa.id;
 
-    return {
-        completa,
-    };
-  },
-};
+      return {
+          completa,
+          id
+      }
+  }
+}
 </script>
 
-<style lang="postcss" scoped>
+<style lang="scss" scoped>
 
-.completa-wrapper {
-    background-color: rgb(201, 201, 201);
-    padding: 10px;
-    margin: 4px;
-    border-radius: 4px;
-    transition: all .2s ease-in-out;
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  word-wrap: break-word;
 }
-
-.completa-wrapper:hover {
-        background-color: rgb(155, 155, 155);
-    }
 
 </style>

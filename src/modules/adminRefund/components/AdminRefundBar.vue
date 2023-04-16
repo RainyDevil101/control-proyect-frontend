@@ -8,6 +8,7 @@
                 <router-link class="router-link_admin-bar" :to="{name: 'admin-clients'}">Clientes</router-link>
                 <router-link class="router-link_admin-bar" :to="{name: 'admin-places'}">Destinos</router-link>
                 <router-link class="router-link_admin-bar" :to="{name: 'admin-reports'}">Reportes</router-link>
+                <router-link class="router-link_admin-bar" :to="{name: 'menu-refunds'}">Volver</router-link>
             </ul>
         </div>
     </div>
@@ -29,14 +30,13 @@
 
 .options-wrapper {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
 }
 
 .router-link_admin-bar {
     text-decoration: none;
     color: white;
-    padding: 10px 20px;
 }
 
 .router-link-active {
@@ -53,6 +53,10 @@
         padding: 10px 0px 0px 10px;
         
     }
+
+    .router-link_admin-bar {
+    padding: 10px 20px;
+}
 
   }
 

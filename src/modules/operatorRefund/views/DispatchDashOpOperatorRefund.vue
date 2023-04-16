@@ -5,111 +5,110 @@
 
   <Loader v-if="refundPendingIdStatus === 'CARGANDO'" class="loader-wrapper" />
 
-  <div v-else class="wrapper">
-    <div class="wrapper-form">
-      <div v-if="refundPendingId !== 'none'">
-        <form @submit.prevent="onSubmit">
-          <div class="forum-data">
-            <p>Número de ID:</p>
-            <p>
-              <b>{{ refundPendingId.id }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Fecha de ingreso:</p>
-            <p>
-              <b>{{ refundPendingIdDate.date }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Hora de ingreso:</p>
-            <p>
-              <b>{{ refundPendingIdDate.hour }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Código:</p>
-            <p>
-              <b>{{ refundPendingId.code }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Cantidad:</p>
-            <p>
-              <b>{{ refundPendingId.quantity }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Cantidad de bultos:</p>
-            <p>
-              <b>{{ refundPendingId.packageQuantity }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Nombre del conductor:</p>
-            <p>
-              <b>{{ refundPendingId.driverName }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Apellido del conductor:</p>
-            <p>
-              <b>{{ refundPendingId.driverLastname }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Patente del vehículo:</p>
-            <p>
-              <b>{{ refundPendingId.patent }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Ubicación teórica:</p>
-            <p>
-              <b>{{ refundPendingId.possibleUbication }}</b>
-            </p>
-          </div>
-          <div class="forum-item">
-            <span>¿Cambiar la ubicación final?</span>
-            <div class="inputs-container">
-              <div class="input-container">
-                <label for="yes">Si</label>
-                <input type="radio" id="yes" name="ubication" value="yes" v-model="changeFinalUbication">
-              </div>
-              <div class="input-container">
-                <label for="no">No</label>
-                <input type="radio" id="no" name="ubication" value="no" v-model="changeFinalUbication" @click="onResetForumFinalUbication">
-              </div>
+  <div v-else>
+    <div v-if="refundPendingId !== 'none'">
+      <form @submit.prevent="onSubmit" class="wrapper-form">
+        <h1>Registrar Devolución</h1>
+        <div class="forum-data">
+          <p>Número de ID:</p>
+          <p>
+            <b>{{ refundPendingId.id }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Fecha de ingreso:</p>
+          <p>
+            <b>{{ refundPendingIdDate.date }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Hora de ingreso:</p>
+          <p>
+            <b>{{ refundPendingIdDate.hour }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Código:</p>
+          <p>
+            <b>{{ refundPendingId.code }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Cantidad:</p>
+          <p>
+            <b>{{ refundPendingId.quantity }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Cantidad de bultos:</p>
+          <p>
+            <b>{{ refundPendingId.packageQuantity }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Nombre del conductor:</p>
+          <p>
+            <b>{{ refundPendingId.driverName }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Apellido del conductor:</p>
+          <p>
+            <b>{{ refundPendingId.driverLastname }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Patente del vehículo:</p>
+          <p>
+            <b>{{ refundPendingId.patent }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Ubicación teórica:</p>
+          <p>
+            <b>{{ refundPendingId.possibleUbication }}</b>
+          </p>
+        </div>
+        <div class="forum-item">
+          <span>¿Cambiar la ubicación final?</span>
+          <div class="inputs-container">
+            <div class="input-container">
+              <label for="yes">Si</label>
+              <input type="radio" id="yes" name="ubication" value="yes" v-model="changeFinalUbication">
             </div>
-            <input v-if="changeFinalUbication === 'yes'" v-model="possibleUbication" type="text" maxlength="45" placeholder="Ingrese la ubicación final"/>
+            <div class="input-container">
+              <label for="no">No</label>
+              <input type="radio" id="no" name="ubication" value="no" v-model="changeFinalUbication"
+                @click="onResetForumFinalUbication">
+            </div>
           </div>
-          <input type="file" @change="onImageTwo" id="imageTwo" accept="image/png, image/jpg, image/jpeg" />
+          <input v-if="changeFinalUbication === 'yes'" v-model="possibleUbication" type="text" maxlength="45"
+            placeholder="Ingrese la ubicación final" />
+        </div>
+        <input type="file" @change="onImageTwo" id="imageTwo" accept="image/png, image/jpg, image/jpeg" />
 
-          <div class="image-label">
-            <label :class="[
-              !localImageTwo ? image_label_unSelected : image_label_selected,
-            ]" for="imageTwo">Seleccione la imagen</label>
-          </div>
-          <div v-if="localImageTwo" class="confirmation">
-            <p>{{ imgTwoName }}</p>
-          </div>
-          <div class="forum-button">
-            <button type="submit" class="buttons-styles">Finalizar</button>
-            <button type="button" @click="$router.push({ name: 'get-dispatch-refund' })" class="buttons-styles">
-              Volver
-            </button>
-          </div>
-        </form>
         <div class="image-label">
-          <button @click="onShowImageOne" class="buttons-styles">
+          <label :class="[
+            !localImageTwo ? image_label_unSelected : image_label_selected,
+          ]" for="imageTwo">Seleccione la imagen</label>
+        </div>
+        <div v-if="localImageTwo" class="confirmation">
+          <p>{{ imgTwoName }}</p>
+        </div>
+        <div class="forum-button">
+          <button type="submit" class="buttons-styles">Finalizar</button>
+          <button type="button" @click="$router.push({ name: 'get-dispatch-refund' })" class="buttons-styles">
+            Volver
+          </button>
+          <button type="button" @click="onShowImageOne" class="buttons-styles">
             Ver imagen ingreso
           </button>
         </div>
-      </div>
-      <div v-else>
-        <div class="not-wrapper">
-          <h1>No existe registro</h1>
-        </div>
+      </form>
+    </div>
+    <div v-else>
+      <div class="not-wrapper">
+        <h1>No existe registro</h1>
       </div>
     </div>
   </div>
@@ -199,7 +198,7 @@ export default {
 
         const originalUbication = refundPendingId.value.possibleUbication;
 
-        
+
         if (checkUbication === "" && changeFinalUbication.value === 'yes') {
           return Swal.fire({
             title: "Error",
@@ -207,7 +206,7 @@ export default {
             icon: "error",
           });
         }
-        
+
         if (checkUbication.length < 6 && changeFinalUbication.value === 'yes') {
           return Swal.fire({
             title: "Error",
@@ -300,15 +299,15 @@ export default {
   
   .wrapper-form {
     background-color: #fff;
-    margin-top: 70px;
-    margin-bottom: 70px;
-    border-radius: 4px;
-    max-width: 400px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     padding: 8px;
-    border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
+    width: 100%;
+  }
+
+  .wrapper-form h1 {
+    text-align: center;
+    margin: 4px 0;
   }
   
   .forum-item {
@@ -319,6 +318,7 @@ export default {
   
   .forum-item span {
     text-align: center;
+    margin: 8px 0;
   }
   
   .forum-button {
@@ -327,16 +327,17 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-direction: column;
   }
   
   .forum-data {
-    margin: 5px;
-    padding: 10px;
-  
-    width: 21rem;
-    display: flex;
-    justify-content: space-between;
-  }
+  margin: 5px;
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
   
   .forum-data p {
     word-wrap: break-word;
@@ -430,4 +431,10 @@ export default {
   .input-container label {
     margin: 0 4px;
   }
+
+  @media screen and (min-width: 768px) {
+.forum-button {
+  flex-direction: row;
+}
+}
   </style>

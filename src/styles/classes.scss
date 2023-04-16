@@ -47,16 +47,22 @@
       }
   }
 
-    .wrapper {
-      display: flex;
-      min-height: 100vh;
-      margin: auto;
-      justify-content: center;
-      align-items: center;
-    }
+  .cursor-pointer {
+    cursor: pointer;
+  }
 
     .footer {
       width: 100%;
       display: flex;
       justify-content: center;
     }
+
+    .width {
+      display: block;
+      padding: 90px 0;
+      max-width: 1200px;
+      width: 90%;
+      min-height: 100vh;
+      margin: 0 auto;
+    }
+    

@@ -2,9 +2,9 @@ import backendConnect from "../../../api/backend";
 
 const state = {
   status: "CARGANDO",
-  clients: "a",
+  clients: "",
   // POR ID
-  clientSelected: "",
+  changeClientId: "",
   clientNeeded: "",
   statusClientSelected: "CARGANDO",
   updateClient: false,
@@ -36,14 +36,12 @@ const getters = {
     return state.updateClient;
   },
   getClientSelected(state) {
-    if (!state.clientSelected || state.clientSelected.length === 0) {
+    if (!state.changeClientId || state.changeClientId.length === 0) {
       return;
     }
-    const clientToUpdateId = state.clientSelected.id;
+    const clientToUpdateId = state.changeClientId.id;
 
-    const clientToUpdate = state.clientSelected;
-
-    return { clientToUpdateId, clientToUpdate };
+    return clientToUpdateId;
   },
   getCurrentPage(state) {
     return state.currentPage;
@@ -101,7 +99,7 @@ const mutations = {
   changeClient(state, { onUpdate }) {
     state.updateClient = onUpdate;
   },
-  clientSelected(state, { id }) {
+  changeClientId(state, { id }) {
     if (!id || id.length === 0 || state.clients.length === 0 || !state.clients) {
       return;
     }
@@ -112,12 +110,12 @@ const mutations = {
       (x) => x.id == idFilter
     );
 
-    state.clientSelected = gettingClientById[0];
+    state.changeClientId = gettingClientById[0];
   },
   logOut(state) {
     state.status = "CARGANDO",
       state.clients = "",
-      state.clientSelected = "",
+      state.changeClientId = "",
       state.clientNeeded = "",
       state.statusClientSelected = "CARGANDO",
       state.updateClient = false,
@@ -137,8 +135,6 @@ const actions = {
       const { data } = await backendConnect.get(`/api/client?page=${page}`, {
         headers: { "x-token": localStorage.getItem("token") },
       });
-
-      console.log(data);
 
       if (!data || data.length === 0) {
         commit("saveClients", []);
@@ -166,16 +162,16 @@ const actions = {
     commit("saveClients", { clients });
     return { ok: true };
   },
-  // async updateClient({ commit }, id) {
-  //   commit("updateClient", { id });
-  //   return { ok: true };
-  // },
+  async updateClient({ commit }, id) {
+    commit("updateClient", { id });
+    return { ok: true };
+  },
   async changeClientUpdate({ commit }, onUpdate) {
     commit("changeClient", { onUpdate });
     return { ok: true };
   },
-  async clientSelected({ commit }, id) {
-    commit("clientSelected", { id });
+  async changeClientId({ commit }, id) {
+    commit("changeClientId", { id });
     return { ok: true };
   },
 };

@@ -9,6 +9,9 @@ const state = {
   userIdStatus: "CARGANDO",
   updateUser: false,
   userUpdated: "",
+  total: "",
+  numberOfPages: "",
+  currentPage: "",
 };
 
 const getters = {
@@ -16,13 +19,16 @@ const getters = {
 
   getUserByTerm:
     (state) =>
-    (term = "") => {
-      if (term.length === 0) return state.users;
+      (term = "") => {
+        if (term.length === 0) return state.users;
 
-      return state.users.filter((user) =>
-        user.fullname.toLowerCase().includes(term.toLocaleLowerCase()) || user.fulllastname.toLowerCase().includes(term.toLocaleLowerCase())
-      );
-    },
+        return state.users.filter((user) =>
+          user.fullname.toLowerCase().includes(term.toLocaleLowerCase()) || user.fulllastname.toLowerCase().includes(term.toLocaleLowerCase())
+        );
+      },
+  getUsers(state) {
+    return state.users;
+  },
   getStatus(state) {
     return state.status;
   },
@@ -35,25 +41,36 @@ const getters = {
   getUpdateUser(state) {
     return state.updateUser;
   },
-  changeUserId(state) {
+  getChangeUserId(state) {
     if (!state.changeUserId) {
       return;
     }
-    const userIdToChange = state.changeUserId.id;
-
-    const userToChange = state.changeUserId;
-
-    return { userIdToChange, userToChange };
+    return state.changeUserId.id;
   },
+  getChangeUser(state) {
+    if (!state.changeUserId) {
+      return;
+    }
+    return state.changeUserId;
+  },
+  getCurrentPage(state) {
+    return state.currentPage;
+  },
+  getNumberOfPages(state) {
+    return state.numberOfPages;
+  },
+  getTotal(state) {
+    return state.total;
+  }
 };
 
 const mutations = {
   // GUARDAR Y DISTRIBUIR LOS USUARIOS SEGÚN SU ORDEN
 
-  saveUsers(state, { users }) {
+  saveUsers(state, { users, total, numberOfPages, currentPage }) {
     state.status = "CARGANDO";
 
-    if (!users) return;
+    if (!users || !total || !numberOfPages || !currentPage) return;
 
     if (users.length === 0) {
       state.users = "";
@@ -66,6 +83,9 @@ const mutations = {
     localStorage.setItem("aU", JSON.stringify(users));
 
     state.users = users;
+    state.total = total[0];
+    state.numberOfPages = numberOfPages;
+    state.currentPage = currentPage;
     state.status = "RECIBIDOS";
     return;
   },
@@ -74,7 +94,7 @@ const mutations = {
 
   getUserById(state, { id }) {
     state.userIdStatus = "CARGANDO";
-    
+
     if (id === null) {
       state.users = "";
       return;
@@ -129,13 +149,16 @@ const mutations = {
     state.changeUserId = getUserById[0];
   },
   logOut(state) {
-  state.status = "CARGANDO",
-  state.users = "",
-  state.changeUserId = "",
-  state.userNeeded = "",
-  state.userIdStatus = "CARGANDO",
-  state.updateUser = false,
-  state.userUpdated = "",
+    state.status = "CARGANDO",
+      state.users = "",
+      state.changeUserId = "",
+      state.userNeeded = "",
+      state.userIdStatus = "CARGANDO",
+      state.updateUser = false,
+      state.userUpdated = "",
+      state.total = "",
+      state.numberOfPages = "",
+      state.currentPage = "",
       localStorage.removeItem("aU");
   },
 };
@@ -143,20 +166,20 @@ const mutations = {
 const actions = {
   // OBTENER LA CARGA DE USUARIOS
 
-  async loadUsers({ commit }) {
+  async loadUsers({ commit }, page = 1) {
     try {
-      const { data } = await backendConnect.get("/api/user/", {
+      const { data } = await backendConnect.get(`/api/user?page=${page}`, {
         headers: { "x-token": localStorage.getItem("token") },
       });
 
-      if (!data) {
+      if (!data || data.length === 0) {
         commit("saveUsers", []);
         return;
       }
 
-      const { users } = data;
+      const { users, total, numberOfPages, currentPage } = data;
 
-      commit("saveUsers", { users });
+      commit("saveUsers", { users, total, numberOfPages, currentPage });
 
       return { ok: true };
     } catch (error) {

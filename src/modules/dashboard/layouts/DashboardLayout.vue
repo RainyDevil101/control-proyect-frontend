@@ -1,9 +1,11 @@
 <template>
   <Nabvar />
 
-  <Loader v-if="statusCharts === 'CARGANDO'"/>
+  <!-- <Loader v-if="statusCharts === 'CARGANDO'"/> -->
 
-  <router-view v-else />
+  <div class="width">
+    <router-view />
+  </div>
 </template>
 
 <script>

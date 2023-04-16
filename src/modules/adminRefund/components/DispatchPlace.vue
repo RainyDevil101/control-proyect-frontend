@@ -1,6 +1,6 @@
 <template>
-    <tr>
-        <td>{{ dispatchPlace.place }}</td>
+    <tr @click="$emit('on:open', { id })">
+        <td >{{ dispatchPlace.place }}</td>
         <td>{{ dispatchPlace.id }}</td>
     </tr>
 </template>
@@ -10,6 +10,7 @@ import { ref } from 'vue';
 
 
 export default {
+    emits: ['on:open'],
     props: {
         dispatchPlace: {
             type: Object,

@@ -10,11 +10,7 @@
         <form @submit.prevent="onSubmit">
           <div class="item-form">
             <p>Ingrese N° de transporte</p>
-            <input
-              v-model="materialForm.transport_number"
-              type="text"
-              maxlength="45"
-            />
+            <input v-model="materialForm.transport_number" type="text" maxlength="45" />
           </div>
           <div class="item-form">
             <p>Código de material</p>
@@ -22,52 +18,34 @@
           </div>
           <div class="item-form">
             <p>Cantidad</p>
-            <input v-model="materialForm.cantidad" type="number" maxlength="99"/>
+            <input v-model="materialForm.cantidad" type="number" maxlength="99" />
           </div>
           <div class="item-form">
             <p>Cantidad de bultos</p>
-            <input v-model="materialForm.cantidad_bultos" type="number" maxlength="99"/>
+            <input v-model="materialForm.cantidad_bultos" type="number" maxlength="99" />
           </div>
           <div class="item-form">
             <p>Destino</p>
             <select v-model="materialForm.destination">
-              <option
-                v-for="destination of destinations"
-                :key="destination.nombre"
-                :value="destination"
-              >
+              <option v-for="destination of destinations" :key="destination.nombre" :value="destination">
                 {{ destination.nombre }}
               </option>
             </select>
           </div>
           <div class="item-form">
             <p>Ubicación</p>
-            <textarea
-              v-model="materialForm.ubication"
-              maxlength="60"
-            ></textarea>
+            <textarea v-model="materialForm.ubication" maxlength="60"></textarea>
           </div>
           <div class="item-form image-form">
-            <input
-              type="file"
-              @change="onImageOne"
-              id="imageOne"
-              accept="image/png, image/jpg, image/jpeg"
-            />
-            <div class="image-label">
-              <label for="imageOne">Seleccione la imagen</label>
-            </div>
+            <input type="file" @change="onImageOne" id="imageOne" accept="image/png, image/jpg, image/jpeg" />
             <div v-if="localImageOne" class="confirmation">
               <p>{{ imgOneName }}</p>
             </div>
           </div>
           <div class="submit-button">
+            <label class="buttons-styles" for="imageOne">Seleccion imagen</label>
             <button class="buttons-styles" type="submit">Finalizar</button>
-            <button
-              type="button"
-              @click="$router.push({ name: 'menu-materials' })"
-              class="buttons-styles"
-            >
+            <button type="button" @click="$router.push({ name: 'menu-materials' })" class="buttons-styles">
               Volver
             </button>
           </div>
@@ -79,12 +57,12 @@
 
 <script>
 import { ref } from "@vue/reactivity";
+import { watch } from "@vue/runtime-core";
 import Swal from "sweetalert2";
 import Loader from "@/modules/components/Loader.vue";
 import getDestination from "../../get/getDestination";
 import uploadOne from "@/modules/material/helpers/imageOne";
 import sendMaterial from "@/modules/material/composables/createMaterial";
-import { watch } from "@vue/runtime-core";
 import useAuth from "@/modules/auth/composables/useAuth";
 
 export default {
@@ -215,13 +193,9 @@ export default {
 }
 
 .material-form {
-  min-height: 400px;
-  margin-top: 70px;
-  margin-bottom: 70px;
+  margin: auto;
   background-color: #fff;
   border-radius: 4px;
-  width: 90vw;
-  min-width: 338px;
   border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
@@ -235,6 +209,7 @@ export default {
 
 .submit-button {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
@@ -272,26 +247,9 @@ input[type="file"] {
   cursor: default;
 }
 
-label {
-  width: 100%;
-  height: 30px;
-  font-size: 12px;
-  color: white;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  border-radius: 4px;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.827);
-  }
-}
 
 @media screen and (min-width: 768px) {
-  .material-form {
-    max-width: 600px;
-  }
+
 }
 
 </style>

@@ -1,47 +1,43 @@
 <template>
-  <div class="pendiente-wrapper"
-  @click="$router.push({ name : 'dispatch-dash-refund', params: { id: pendienteFiltered.id } })"
-  >
-    <span>ID: <b>{{pendienteFiltered.id}}</b> | {{ pendienteFiltered.statusDelivery }}</span>
-  </div>
+  <tr class="cursor-pointer" @click="$router.push({ name : 'dispatch-dash-refund', params: { id: pendienteFiltered.id } })">
+      <td>{{ pendienteFiltered.code }}</td>
+      <td>{{ pendienteFiltered.id }}</td>
+  </tr>
 </template>
 
 <script>
-import { ref } from '@vue/reactivity';
+import { ref } from 'vue';
+
+
 export default {
+  emits: ['on:open'],
   props: {
-    pendienteFiltered: {
-      type: Object,
-      required: true,
-    },
+      pendienteFiltered: {
+          type: Object,
+          required: true,
+      },
   },
 
   setup(props) {
 
-    const pendienteFiltered = ref(props.pendienteFiltered);
+      const pendienteFiltered = ref(props.pendienteFiltered);
+      const id = props.pendienteFiltered.id;
 
-    return {
-      pendienteFiltered,
-    };
-  },
-};
+      return {
+          pendienteFiltered,
+          id
+      }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 
-.pendiente-wrapper {
-  display: flex;
-    background-color: tomato;
-    padding: 10px;
-    margin: 4px;
-    border-radius: 4px;
-    transition: all .2s ease-in-out;
-    overflow: auto;
-    justify-content: space-between;
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  word-wrap: break-word;
+  background-color: tomato;
 }
-
-.pendiente-wrapper:hover {
-        background-color: rgb(255, 83, 52);
-    }
 
 </style>

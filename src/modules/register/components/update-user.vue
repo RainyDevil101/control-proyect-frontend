@@ -70,12 +70,10 @@ import { useStore } from "vuex";
 import { ref } from "@vue/reactivity";
 
 import getTerm from "@/helpers/searchByTerm";
-import Loader from "@/modules/components/Loader.vue";
 import Swal from "sweetalert2";
 import usersCommand from "../composables/usersCommand";
 
 export default {
-  components: { Loader },
   emits: ["on:close"],
   setup() {
     const store = useStore();

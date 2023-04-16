@@ -253,12 +253,18 @@ export default {
   margin: 2px 0;
 }
 
+.refund_form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .refund-form {
   border-radius: 4px;
   padding: 8px;
   margin: 70px auto;
-  min-width: 350px;
-  max-width: 450px;
+  width: 90%;
+  max-width: 500px;
   background-color: #fff;
   border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }

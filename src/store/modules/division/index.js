@@ -15,13 +15,16 @@ const getters = {
   // TODAS
   getDivisionsByTerm:
     (state) =>
-    (term = "") => {
-      if (term.length === 0) return state.divisions;
+      (term = "") => {
+        if (term.length === 0) return state.divisions;
 
-      return state.divisions.filter((division) =>
-        division.name.toLowerCase().includes(term.toLocaleLowerCase())
-      );
-    },
+        return state.divisions.filter((division) =>
+          division.name.toLowerCase().includes(term.toLocaleLowerCase())
+        );
+      },
+  getDivisions(state) {
+    return state.divisions;
+  },
   getStatus(state) {
     return state.status;
   },
@@ -128,14 +131,14 @@ const mutations = {
     state.changeDivisionId = getDivisionById[0];
   },
   logOut(state) {
-  state.status = "CARGANDO";
-  state.divisions = "";
-  state.changeDivisionId = "";
-  state.divisionNeeded = "";
-  state.divisionIdStatus = "CARGANDO";
-  state.updateDivision = false;
-  state.divisionUpdated = "";
-  // localStorage.removeItem("aDi");
+    state.status = "CARGANDO";
+    state.divisions = "";
+    state.changeDivisionId = "";
+    state.divisionNeeded = "";
+    state.divisionIdStatus = "CARGANDO";
+    state.updateDivision = false;
+    state.divisionUpdated = "";
+    // localStorage.removeItem("aDi");
   },
 };
 

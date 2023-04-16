@@ -3,117 +3,94 @@
     <img-one :imageOne="imageOne" @on:close="onShowImageOne" />
   </div>
 
-  <Loader
-    v-if="materialPendingIdStatus === 'CARGANDO'"
-    class="loader-wrapper"
-  />
+  <Loader v-if="materialPendingIdStatus === 'CARGANDO'" class="loader-wrapper" />
 
-  <div v-else class="wrapper">
-    <div class="wrapper-form">
-      <div v-if="materialPendingId !== 'none'">
-        <form @submit.prevent="onSubmit">
-          <div class="forum-data">
-            <p>Fecha de ingreso:</p>
-            <p>
-              <b>{{ materialPendingIdDate.date }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Hora de ingreso:</p>
-            <p>
-              <b>{{ materialPendingIdDate.hour }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Número de transporte:</p>
-            <p>
-              <b>{{ materialPendingId.transport_number }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Código:</p>
-            <p>
-              <b>{{ materialPendingId.code }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Cantidad:</p>
-            <p>
-              <b>{{ materialPendingId.cantidad }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Cantidad de bultos:</p>
-            <p>
-              <b>{{ materialPendingId.cantidad_bultos }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Ubicación:</p>
-            <p>
-              <b>{{ materialPendingId.ubication }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Destino:</p>
-            <p>
-              <b>{{ materialPendingId.destination_name }}</b>
-            </p>
-          </div>
-          <div class="forum-data">
-            <p>Estado:</p>
-            <p>
-              <b>{{ pendiente }}</b>
-            </p>
-          </div>
-          <div class="forum-item">
-            <span>Ingrese nuevo N° de documento</span>
-            <input
-              v-model="materialForm.transport_number_two"
-              type="text"
-              maxlength="45"
-            />
-          </div>
-          <input
-            type="file"
-            @change="onImageTwo"
-            id="imageTwo"
-            accept="image/png, image/jpg, image/ jpeg"
-          />
+  <div v-else>
+    <div v-if="materialPendingId !== 'none'">
+      <form @submit.prevent="onSubmit" class="wrapper-form">
+        <h1>Despacho Pendiente</h1>
+        <div class="forum-data">
+          <p>Fecha de ingreso:</p>
+          <p>
+            <b>{{ materialPendingIdDate.date }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Hora de ingreso:</p>
+          <p>
+            <b>{{ materialPendingIdDate.hour }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Número de transporte:</p>
+          <p>
+            <b>{{ materialPendingId.transport_number }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Código:</p>
+          <p>
+            <b>{{ materialPendingId.code }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Cantidad:</p>
+          <p>
+            <b>{{ materialPendingId.cantidad }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Cantidad de bultos:</p>
+          <p>
+            <b>{{ materialPendingId.cantidad_bultos }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Ubicación:</p>
+          <p>
+            <b>{{ materialPendingId.ubication }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Destino:</p>
+          <p>
+            <b>{{ materialPendingId.destination_name }}</b>
+          </p>
+        </div>
+        <div class="forum-data">
+          <p>Estado:</p>
+          <p>
+            <b>{{ pendiente }}</b>
+          </p>
+        </div>
+        <div class="forum-item">
+          <span><b>Ingrese nuevo N° de documento</b></span>
+          <input v-model="materialForm.transport_number_two" type="text" maxlength="45" />
+        </div>
+        <input type="file" @change="onImageTwo" id="imageTwo" accept="image/png, image/jpg, image/ jpeg" />
 
-          <div class="image-label">
-            <label
-              :class="[
-                !localImageTwo ? image_label_unSelected : image_label_selected,
-              ]"
-              for="imageTwo"
-              >Seleccione la imagen</label
-            >
-          </div>
-          <div v-if="localImageTwo" class="confirmation">
-            <p>{{ imgTwoName }}</p>
-          </div>
-          <div class="forum-button">
-            <button type="submit" class="buttons-styles">Finalizar</button>
-            <button
-              type="button"
-              @click="$router.push({ name: 'get-dispatch-material' })"
-              class="buttons-styles"
-            >
-              Volver
-            </button>
-          </div>
-        </form>
         <div class="image-label">
-          <button @click="onShowImageOne" class="buttons-styles">
+          <label :class="[
+            !localImageTwo ? image_label_unSelected : image_label_selected,
+          ]" for="imageTwo">Seleccione la imagen</label>
+        </div>
+        <div v-if="localImageTwo" class="confirmation">
+          <p>{{ imgTwoName }}</p>
+        </div>
+        <div class="forum-button">
+          <button type="submit" class="buttons-styles">Finalizar</button>
+          <button type="button" @click="$router.push({ name: 'get-dispatch-material' })" class="buttons-styles">
+            Volver
+          </button>
+          <button type="button" @click="onShowImageOne" class="buttons-styles">
             Ver imagen ingreso
           </button>
         </div>
-      </div>
-      <div v-else>
-        <div class="not-wrapper">
-          <h1>No existe registro</h1>
-        </div>
+      </form>
+    </div>
+    <div v-else>
+      <div class="not-wrapper">
+        <h1>No existe registro</h1>
       </div>
     </div>
   </div>
@@ -274,14 +251,15 @@ export default {
 
 .wrapper-form {
   background-color: #fff;
-  margin: 90px auto;
-  border-radius: 4px;
-  max-width: 400px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   padding: 8px;
-  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
+  width: 100%;
+}
+
+.wrapper-form h1 {
+  text-align: center;
+  margin: 4px 0;
 }
 
 .forum-item {
@@ -292,12 +270,14 @@ export default {
 
 .forum-item span {
   text-align: center;
+  margin: 8px 0;
 }
 
 .forum-button {
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
 }
@@ -305,10 +285,10 @@ export default {
 .forum-data {
   margin: 5px;
   padding: 10px;
-
-  width: 21rem;
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid black;
 }
 
 .forum-data p {
@@ -405,5 +385,11 @@ input[type="file"] {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+.forum-button {
+  flex-direction: row;
+}
 }
 </style>

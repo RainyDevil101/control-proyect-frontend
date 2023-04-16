@@ -6,7 +6,7 @@ import loading from "../modules/load/router";
 import authGuard from "../modules/auth/router/auth-guard";
 import redirect from "../modules/auth/router/redirect";
 import admin from "../modules/auth/router/admin-guard";
-import register from "../modules/register/router";
+import usersAdmin from "../modules/usersAdmin/router";
 import material from "../modules/material/router";
 import refund from "../modules/refund/router";
 import adminRefund from "../modules/adminRefund/router"
@@ -33,10 +33,10 @@ const routes = [
     ...loading,
   },
   {
-    path: "/register",
+    path: "/users-admin",
     beforeEnter: [authGuard],
     beforeEnter: [admin],
-    ...register,
+    ...usersAdmin,
   },
   {
     path: "/material",

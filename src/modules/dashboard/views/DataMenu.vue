@@ -1,9 +1,6 @@
 <template>
-  <div class="wrapper">
     <div class="menu">
-      <div class="header">
         <h1>Reportes</h1>
-      </div>
       <div class="body">
         <div class="categories">
           <div @click="$router.push({ name: 'dashboard-view' })" class="buttons-styles">
@@ -21,7 +18,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -38,13 +34,6 @@ export default {
 
 <style lang="scss" scoped>
 
-.wrapper {
-  display: flex;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-}
-
 .body {
   margin: auto;
   display: block;
@@ -59,8 +48,11 @@ export default {
   display: block;
   background-color: white;
   border-radius: 4px;
-  width: 90%;
   border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
+}
+
+.menu h1 {
+  text-align: center;
 }
 
 .categories {
@@ -84,15 +76,8 @@ export default {
 }
 
 @media screen and (min-width: 768px) {
-  .menu {
-    width: 60%;
-  }
+
 }
 
-@media screen and (min-width: 1024px) {
-  .menu {
-    width: 30%;
-  }
-}
 </style>
 

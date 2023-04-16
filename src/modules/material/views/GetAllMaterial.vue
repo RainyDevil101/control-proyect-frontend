@@ -1,8 +1,7 @@
 <template>
   <loader v-if="status === 'CARGANDO'" />
 
-  <div v-else class="wrapper">
-    <div class="alarm-wrapper">
+    <div v-else class="alarm-wrapper">
       <div v-if="allMaterials.length > 0" class="header">
         <h1>TODAS</h1>
       </div>
@@ -29,7 +28,6 @@
         </button>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -52,23 +50,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  margin: 0;
-  padding: 0;
-}
-
-.wrapper {
-  min-height: 100vh;
-  display: flex;
-}
 
 .alarm-wrapper {
-  height: 80vh;
   margin: auto;
   background-color: #fff;
   border-radius: 4px;
-  width: 90vw;
-  min-width: 338px;
   border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
 }
 
@@ -82,6 +68,11 @@ h1 {
   height: 94%;
   overflow: auto;
   margin: auto;
+}
+
+.overflow {
+  height: 70vh;
+  overflow: auto;
 }
 
 .back-button {
@@ -101,8 +92,5 @@ h1 {
 }
 
 @media screen and (min-width: 768px) {
-  .alarm-wrapper {
-    max-width: 600px;
-  }
 }
 </style>

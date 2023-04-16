@@ -8,7 +8,6 @@
 
 <script>
 import { RouterView } from 'vue-router';
-// import { onUpdated } from 'vue';
 import Navbar from '@/modules/components/Navbar.vue';
 import AdminRefundBar from '../components/AdminRefundBar.vue';
 import useAuth from '@/modules/auth/composables/useAuth';
@@ -19,10 +18,6 @@ export default {
     setup() {
 
     const { getClients, reClients, getDispatchPlaces, reDispatchPlaces } = useAuth();
-
-    // onUpdated(() => {
-    //     getClients();
-    // }),
 
     getClients();
     getDispatchPlaces();
@@ -43,16 +38,3 @@ export default {
 }
 
 </script>
-
-<style lang="scss" scoped>
-
-.width {
-  display: block;
-  padding: 90px 0;
-  max-width: 1200px;
-  width: 90%;
-  margin: 0 auto;
-}
-
-
-</style>

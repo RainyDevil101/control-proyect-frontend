@@ -4,11 +4,14 @@ const state = {
   status: "CARGANDO",
   dispatchPlaces: "",
   // POR ID
-  dispatchPlaceSelected: "",
+  changeDispatchPlaceId: "",
   dispatchPlaceNeeded: "",
   statusDispatchPlaceSelected: "CARGANDO",
   updateDispatchPlace: false,
   dispatchPlaceUpdated: "",
+  total: "",
+  numberOfPages: "",
+  currentPage: "",
 };
 
 const getters = {
@@ -30,25 +33,29 @@ const getters = {
     return state.statusDispatchPlaceSelected;
   },
   getUpdateDispatchPlace(state) {
-    return state.dispatchPlaceDispatchPlace;
+    return state.updateDispatchPlace;
   },
   getDispatchPlaceSelected(state) {
-    if (!state.dispatchPlaceSelected || state.dispatchPlaceSelected.length === 0) {
+    if (!state.changeDispatchPlaceId || state.changeDispatchPlaceId.length === 0) {
       return;
     }
-    const dispatchPlaceToUpdateId = state.dispatchPlaceSelected.id;
+    const dispatchPlaceToUpdateId = state.changeDispatchPlaceId.id;
 
-    const dispatchPlaceToUpdate = state.dispatchPlaceSelected;
-
-    return { dispatchPlaceToUpdateId, dispatchPlaceToUpdate };
+    return dispatchPlaceToUpdateId;
   },
+  getCurrentPage(state) {
+    return state.currentPage;
+  },
+  getNumberOfPages(state) {
+    return state.numberOfPages;
+  }
 };
 
 const mutations = {
 
   // GUARDAR Y DISTRIBUIR LOS LUGARES DE DESPACHO SEGÚN SU ORDEN
 
-  saveDispatchPlaces(state, { dispatchPlaces }) {
+  saveDispatchPlaces(state, { dispatchPlaces, total, numberOfPages, currentPage }) {
     state.status = "CARGANDO";
 
     if (!dispatchPlaces || dispatchPlaces.length === 0) {
@@ -63,7 +70,11 @@ const mutations = {
 
 
     state.dispatchPlaces = dispatchPlaces;
+    state.total = total;
+    state.numberOfPages = numberOfPages;
+    state.currentPage = currentPage;
     state.status = "RECIBIDOS";
+
   },
 
   // OBTENIENDO EL LUGAR DE DESPACHO POR EL ID
@@ -86,10 +97,10 @@ const mutations = {
     state.dispatchPlaceNeeded = dispatchPlaceId[0];
     state.statusDispatchPlaceSelected = "RECIBIDO";
   },
-  changeDispatchPlaceOnChange(state, { onUpdate }) {
+  changeDispatchPlace(state, { onUpdate }) {
     state.updateDispatchPlace = onUpdate;
   },
-  dispatchPlaceSelected(state, { id }) {
+  changeDispatchPlaceId(state, { id }) {
     if (!id || id.length === 0 || state.dispatchPlaces.length === 0 || !state.dispatchPlaces) {
       return;
     }
@@ -100,16 +111,19 @@ const mutations = {
       (x) => x.id == idFilter
     );
 
-    state.dispatchPlaceSelected = gettingDispatchDispatchPlaceById[0];
+    state.changeDispatchPlaceId = gettingDispatchDispatchPlaceById[0];
   },
   logOut(state) {
     state.status = "CARGANDO",
       state.dispatchPlaces = "",
-      state.dispatchPlaceSelected = "",
+      state.changeDispatchPlaceId = "",
       state.dispatchPlaceNeeded = "",
       state.statusDispatchPlaceSelected = "CARGANDO",
       state.updateDispatchPlace = false,
       state.dispatchPlaceUpdated = "",
+      state.total = "",
+      state.numberOfPages = "",
+      state.currentPage = "",
       localStorage.removeItem("aPlaces");
   },
 };
@@ -117,11 +131,10 @@ const mutations = {
 const actions = {
   // OBTENER LA CARGA DE LUGARES DE DESPACHO
 
-  async loadDispatchPlaces({ commit }) {
-
+  async loadDispatchPlaces({ commit }, page = 1) {
 
     try {
-      const { data } = await backendConnect.get(`/api/place`, {
+      const { data } = await backendConnect.get(`/api/place?page=${page}`, {
         headers: { "x-token": localStorage.getItem("token") },
       });
 
@@ -130,9 +143,9 @@ const actions = {
         return;
       }
 
-      const { places: dispatchPlaces } = data;
+      const { places: dispatchPlaces, total, numberOfPages, currentPage } = data;
 
-      commit("saveDispatchPlaces", { dispatchPlaces });
+      commit("saveDispatchPlaces", { dispatchPlaces, total, numberOfPages, currentPage });
 
       return { ok: true };
     } catch (error) {
@@ -151,16 +164,17 @@ const actions = {
     commit("saveDispatchPlaces", { dispatchPlaces });
     return { ok: true };
   },
-  // async updateDispatchPlace({ commit }, id) {
-  //   commit("dispatchPlaceDispatchPlace", { id });
-  //   return { ok: dispatchPlace;
-  // },
+  async updateDispatchPlace({ commit }, id) {
+    commit("dispatchPlaceDispatchPlace", { id });
+    return { ok: dispatchPlace }
+  },
   async changeDispatchPlaceUpdate({ commit }, onUpdate) {
-    commit("changeDispatchPlaceOnChange", { onUpdate });
+    commit("changeDispatchPlace", { onUpdate });
     return { ok: true };
   },
-  async dispatchPlaceSelected({ commit }, id) {
-    commit("dispatchPlaceSelected", { id });
+  async changeDispatchPlaceId({ commit }, id) {
+    console.log(id);
+    commit("changeDispatchPlaceId", { id });
     return { ok: true };
   },
 };

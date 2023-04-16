@@ -5,35 +5,31 @@ const dispatchPlacesCommand = () => {
 
   // POST RESPONSES
 
-  const errorsPost = ref(true);
+  const errorsPost = ref(false);
   const dispatchPlace = ref(null);
   const nicePost = ref(false);
 
   // UPDATE RESPONSES
 
-  // const errorsUpdate = ref(true);
-  // const niceUpdate = ref(false);
+  const errorsUpdate = ref(false);
+  const niceUpdate = ref(false);
   
   // DELETE RESPONSES
   
-  // const idDelete = ref();
-  // const errorsDelete = ref(true);
-  // const niceDelete = ref(false);
+  const idDelete = ref("");
+  const errorsDelete = ref(false);
+  const niceDelete = ref(false);
 
-  const postDispatchPlace = async (dispatchPlaceName) => {
+  const postDispatchPlace = async (place) => {
 
-    if (dispatchPlaceName.length === 0 || !dispatchPlaceName) {
+    if (place.length === 0 || !place) {
 
       errorsPost.value = "Debe llenar los campos";
-
-      dispatchPlace.value = '';
 
       return { errorsPost, dispatchPlace,
         nicePost };
 
     } else {
-
-      const place = dispatchPlaceName;
 
       try {
         const resp = await backendConnect.post(
@@ -45,14 +41,11 @@ const dispatchPlacesCommand = () => {
 
         dispatchPlace.value = resp.data.msg;
         nicePost.value = true;
-        errorsPost.value = false;
 
         return { errorsPost, nicePost, dispatchPlace };
       } catch (error) {
         if (error.response.data.msg) {
           errorsPost.value = error.response.data.msg;
-          dispatchPlace.value = null;
-          nicePost.value = false;
           return { errorsPost, nicePost, dispatchPlace };
         }
         if (error.response.data.errors) {
@@ -62,8 +55,6 @@ const dispatchPlacesCommand = () => {
             msgErr.push(" " + error.msg);
           }
           errorsPost.value = msgErr;
-          dispatchPlace.value = null;
-          nicePost.value = false;
           return { errorsPost, nicePost, dispatchPlace };
         } else {
           dispatchPlace.value = resp.data.id;
@@ -75,83 +66,80 @@ const dispatchPlacesCommand = () => {
     }
   };
 
-  // const updateDestination = async (updateForum, id) => {
+  const updateDispatchPlace = async (place, id) => {
 
-  //   if (!updateForum || updateForum.nombre === "") {
-  //     niceUpdate.value = false;
-  //     errorsUpdate.value = "No se pudo actualizar";
-  //     return { niceUpdate, errorsUpdate };
-  //   } else {
-  //     try {
-  //       const resp = await backendConnect.put(
-  //         `/api/dispatchPlace/${id}`,
-  //         { updateForum },
-  //         { headers: { "x-token": localStorage.getItem("token") } }
-  //       );
+    if (!place || place === "" || place.length === 0) {
+      errorsUpdate.value = "No se pudo actualizar";
+      return { niceUpdate, errorsUpdate };
+    } else {
+      try {
+        const resp = await backendConnect.put(
+          `/api/place/${id}`,
+          { place },
+          { headers: { "x-token": localStorage.getItem("token") } }
+        );
 
-  //       niceUpdate.value = true;
+        console.log(resp);
 
-  //       errorsUpdate.value = false;
+        niceUpdate.value = true;
 
-  //       return { niceUpdate, errorsUpdate };
-  //     } catch (errors) {
+        return { niceUpdate };
+      } catch (errors) {
+        console.log(errors);
+        if (errors.response.data.msg) {
+          errorsUpdate.value = errors.response.data.msg;
+          return { niceUpdate, errorsUpdate };
+        }
+        if (errors.response.data.errors) {
+          const msgErr = [];
+          const errorsDB = errors.response.data.errors;
+          for (const error of errorsDB) {
+            msgErr.push(" " + error.msg);
+          }
+          errorsUpdate.value = msgErr;
+          return { niceUpdate, errorsUpdate };
+        } else {
+          return { niceUpdate, errorsUpdate };
+        }
+      }
+    }
+  };
 
-  //       if (errors.response.data.msg) {
-  //         errorsUpdate.value = errors.response.data.msg;
-  //         return { niceUpdate, errorsUpdate };
-  //       }
-  //       if (errors.response.data.errors) {
-  //         const msgErr = [];
-  //         const errorsDB = errors.response.data.errors;
-  //         for (const error of errorsDB) {
-  //           msgErr.push(" " + error.msg);
-  //         }
-  //         errorsUpdate.value = msgErr;
-  //         return { niceUpdate, errorsUpdate };
-  //       } else {
-  //         return { niceUpdate, errorsUpdate };
-  //       }
-  //     }
-  //   }
-  // };
+  const deleteDispatchPlace = async (id = "") => {
 
-  // const deleteDestination = async (id = "") => {
+    if (id === "" || !id || id.length === 0) {
+      errorsDelete.value = "No existe";
+      return { errorsDelete, niceDelete };
+    } else {
+      try {
+        await backendConnect.delete(
+            `/api/place/${id}`,
+          { headers: { "x-token": localStorage.getItem("token")}}
+        );
 
-  //   if (id === "" || !id) {
-  //     errorsDelete.value = "No existe";
-  //     return { errorsDelete, niceDelete };
-  //   } else {
-  //     try {
-  //       const resp = await backendConnect.delete(
-  //           `/api/dispatchPlace/${id}`,
-  //         { headers: { "x-token": localStorage.getItem("token")}}
-  //       );
+        niceDelete.value = true;
 
-  //       idDelete.value = resp.data;
-  //       niceDelete.value = true;
-  //       errorsDelete.value = false;
+        return { errorsDelete, niceDelete, idDelete };
+      } catch (errors) {
 
-  //       return { errorsDelete, niceDelete, idDelete };
-  //     } catch (errors) {
-
-  //       if (errors.response.data.msg) {
-  //         errorsDelete.value = errors.response.data.msg;
-  //         return { niceDelete, errorsDelete };
-  //       }
-  //       if (errors.response.data.errors) {
-  //         const msgErr = [];
-  //         const errorsDB = errors.response.data.errors;
-  //         for (const error of errorsDB) {
-  //           msgErr.push(" " + error.msg);
-  //         }
-  //         errorsDelete.value = msgErr;
-  //         return { niceDelete, errorsDelete };
-  //       } else {
-  //         return { niceDelete, errorsDelete };
-  //       }
-  //     }
-  //   }
-  // };
+        if (errors.response.data.msg) {
+          errorsDelete.value = errors.response.data.msg;
+          return { niceDelete, errorsDelete };
+        }
+        if (errors.response.data.errors) {
+          const msgErr = [];
+          const errorsDB = errors.response.data.errors;
+          for (const error of errorsDB) {
+            msgErr.push(" " + error.msg);
+          }
+          errorsDelete.value = msgErr;
+          return { niceDelete, errorsDelete };
+        } else {
+          return { niceDelete, errorsDelete };
+        }
+      }
+    }
+  };
 
   return {
 
@@ -164,16 +152,16 @@ const dispatchPlacesCommand = () => {
 
     // UPDATE
 
-    // updateDestination,
-    // errorsUpdate,
-    // niceUpdate,
+    updateDispatchPlace,
+    errorsUpdate,
+    niceUpdate,
     
     // DELETE
     
-    // deleteDestination,
-    // errorsDelete,
-    // idDelete,
-    // niceDelete,
+    deleteDispatchPlace,
+    errorsDelete,
+    idDelete,
+    niceDelete,
 
   };
 };
