@@ -72,7 +72,6 @@ const createFile = () => {
 
       return { errors, excel, nice };
     } catch (error) {
-      console.log(error);
       errors.value = "Intente nuevamente";
       return { errors, excel, nice };
     }
@@ -142,7 +141,6 @@ const createFile = () => {
 
       return { usersExcelErrors, usersExcel, usersExcelOk };
     } catch (error) {
-      console.log(error);
       usersExcelErrors.value = "Intente nuevamente";
       return { usersExcelErrors, usersExcel, usersExcelOk };
     }
@@ -213,7 +211,6 @@ const createFile = () => {
 
       return { usersExcelErrorsCompleted, usersExcelCompleted, usersExcelOkCompleted };
     } catch (error) {
-      console.log(error);
       usersExcelErrorsCompleted.value = "Intente nuevamente";
       return { usersExcelErrorsCompleted, usersExcelCompleted, usersExcelOkCompleted };
     }

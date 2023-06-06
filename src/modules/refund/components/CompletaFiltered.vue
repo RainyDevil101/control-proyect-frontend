@@ -1,10 +1,8 @@
 <template>
-  <div class="completa-wrapper"
-  @click="$router.push({ name : 'completed-refund', params: { id: completaFiltered.id } })"
-  >
-    <span>ID: <b>{{completaFiltered.id}}</b> | </span>
-    <span>ESTADO: <b>{{completaFiltered.statusDelivery}}</b></span>
-  </div>
+  <tr class="completa-wrapper" @click="$router.push({ name: 'completed-refund', params: { id: completaFiltered.id } })">
+    <td>{{ completaFiltered.statusDelivery }}</td>
+    <td>{{ completaFiltered.id }}</td>
+  </tr>
 </template>
 
 <script>
@@ -30,16 +28,11 @@ export default {
 
 <style lang="scss" scoped>
 
-.completa-wrapper {
-    background-color: rgb(201, 201, 201);
-    padding: 10px;
-    margin: 4px;
-    border-radius: 4px;
-    transition: all .2s ease-in-out;
-}
-
-.completa-wrapper:hover {
-        background-color: rgb(155, 155, 155);
-    }
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  word-wrap: break-word;
+  background-color: rgb(201, 201, 201);
+};
 
 </style>

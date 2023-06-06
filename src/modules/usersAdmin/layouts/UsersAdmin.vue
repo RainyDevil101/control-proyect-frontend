@@ -22,11 +22,11 @@ export default {
     const { getDestinations, getDivisions, getUsers, reUsers, reDestinations } = useAuth();
 
 
-    onUpdated(() => {
-      getDestinations();
-      getDivisions();
-      getUsers();
-    })
+    // onUpdated(() => {
+    //   getDestinations();
+    //   getDivisions();
+    //   getUsers();
+    // })
 
     const users = JSON.parse(localStorage.getItem('aU'));
     reUsers(users);

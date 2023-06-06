@@ -1,15 +1,15 @@
 import { ref } from "vue";
 import { utils, writeFile } from "xlsx";
 
-const createFile = () => {
+const createFileFinished = () => {
   const errors = ref(false);
   const excel = ref(false);
   const nice = ref(false);
-  
 
-  const createExcelFile = async (refundsData, dates) => {
 
-    if (refundsData === false || refundsData.length === 0 || refundsData === "") {
+  const createExcelFileFinished = async (refundsData, refundStatus = "") => {
+
+    if (refundsData === false || refundsData.length === 0 || refundsData === "" || refundStatus.length === 0) {
       errors.value = "No hay datos para exportar";
       return { errors, excel, nice };
     }
@@ -17,6 +17,8 @@ const createFile = () => {
     const dataRenamed = [];
 
     for (const r of refundsData) {
+
+      console.log(r);
 
       dataRenamed.push({
         ID: r.id,
@@ -26,6 +28,7 @@ const createFile = () => {
         "Ubicación Final": r.possibleUbication,
         "Patente": r.patent,
         "Responsable de almacenamiento": r.fullname + " " + r.fulllastname,
+        "Conductor": r.driverName + " " + r.driverLastname,
         "Fecha de ingreso": new Date(r.date_in).toLocaleString(),
         "Fecha de almacenamiendo": new Date(r.finish_date).toLocaleString()
       })
@@ -34,17 +37,8 @@ const createFile = () => {
     // return;
 
     try {
-      const name = "Despachos finalizados";
+      const name = refundStatus;
       const excel = dataRenamed;
-      let { initDate, finDate } = dates;
-
-      if (initDate.length === 0) {
-        initDate = "INICIO"
-      };
-      
-      if (finDate.length === 0) {
-        finDate = new Date().toLocaleDateString();
-      };
 
       let objectMaxLength = [];
 
@@ -74,7 +68,7 @@ const createFile = () => {
 
       utils.book_append_sheet(workbook, worksheet, name);
 
-      let fileName = `INFORME_${name}_${initDate}_${finDate}.xlsx`;
+      let fileName = `INFORME_${refundStatus}.xlsx`;
 
       writeFile(workbook, fileName);
 
@@ -92,11 +86,11 @@ const createFile = () => {
 
 
   return {
-    createExcelFile,
+    createExcelFileFinished,
     errors,
     excel,
     nice,
   };
 };
 
-export default createFile;
+export default createFileFinished;

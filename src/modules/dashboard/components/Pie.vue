@@ -85,7 +85,6 @@ export default {
           align: 'center',
           datalabels: {
             formatter: (value, context) => {
-              // console.log(value);
               const datapoints = context.chart.data.datasets[0].data;
               function totalSum(total, datapoint) {
                 return total + datapoint;

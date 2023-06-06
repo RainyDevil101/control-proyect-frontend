@@ -78,10 +78,11 @@ const mutations = {
       return;
     }
 
+    
     localStorage.removeItem("aU");
-
+    
     localStorage.setItem("aU", JSON.stringify(users));
-
+    
     state.users = users;
     state.total = total[0];
     state.numberOfPages = numberOfPages;

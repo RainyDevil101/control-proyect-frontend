@@ -40,8 +40,6 @@ const sendMaterial = () => {
         return { errors, nice, materialId };
       } catch (error) {
 
-        console.log(error);
-
         if (error.response.data.msg) {
           errors.value = error.response.data.msg;
           materialId.value = null;

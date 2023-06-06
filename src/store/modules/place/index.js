@@ -173,7 +173,6 @@ const actions = {
     return { ok: true };
   },
   async changeDispatchPlaceId({ commit }, id) {
-    console.log(id);
     commit("changeDispatchPlaceId", { id });
     return { ok: true };
   },

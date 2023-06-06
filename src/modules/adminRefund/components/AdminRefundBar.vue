@@ -1,7 +1,7 @@
 <template>
     <div class="admin_bar-wrapper">
         <div class="admin_bar-header">
-            <h1>Administración</h1>
+            <h1>Base de datos y reportes</h1>
         </div>
         <div class="admin_bar-body">
             <ul class="options-wrapper">

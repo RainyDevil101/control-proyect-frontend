@@ -311,8 +311,7 @@ input[type="file"] {
 }
 
 .loader-wrapper {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
 }
 
 .not-wrapper h1 {

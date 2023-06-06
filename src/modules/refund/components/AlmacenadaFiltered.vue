@@ -1,9 +1,8 @@
 <template>
-  <div class="pendiente-wrapper"
-  @click="$router.push({ name : 'stored-refund', params: { id: almacenadaFiltered.id } })"
-  >
-    <span>ID: <b>{{almacenadaFiltered.id}}</b> | {{ almacenadaFiltered.statusDelivery }}</span>
-  </div>
+  <tr class="cursor-pointer" @click="$router.push({ name: 'stored-refund', params: { id: almacenadaFiltered.id } })">
+    <td>{{ almacenadaFiltered.statusDelivery }}</td>
+    <td>{{ almacenadaFiltered.id }}</td>
+  </tr>
 </template>
 
 <script>
@@ -29,19 +28,11 @@ export default {
 
 <style lang="scss" scoped>
 
-.pendiente-wrapper {
-  display: flex;
-    background-color: tomato;
-    padding: 10px;
-    margin: 4px;
-    border-radius: 4px;
-    transition: all .2s ease-in-out;
-    overflow: auto;
-    justify-content: space-between;
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  word-wrap: break-word;
+  background-color: tomato;
 }
-
-.pendiente-wrapper:hover {
-        background-color: rgb(255, 83, 52);
-    }
 
 </style>

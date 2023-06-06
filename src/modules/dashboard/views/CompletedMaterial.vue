@@ -178,6 +178,9 @@ export default {
   align-items: center;
   padding: 8px;
 }
+.loader {
+  width: 100%;
+}
 
 .body-wrapper h1 {
   margin: 4px 0;

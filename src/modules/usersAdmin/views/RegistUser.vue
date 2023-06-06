@@ -12,8 +12,7 @@
                 <input type="text" id="rut" v-model="userForm.rut" placeholder="Ej: 12.345.678-k" maxlength="12">
             </p>
             <p><label for="email">Email</label>
-                <input type="email" id="email" v-model="userForm.email" placeholder="ejemplo@gmail.com"
-                    maxlength="50">
+                <input type="email" id="email" v-model="userForm.email" placeholder="ejemplo@gmail.com" maxlength="50">
             </p>
             <p><label for="password">Contraseña</label>
                 <input type="password" id="password" v-model="userForm.passwordT" maxlength="70">
@@ -26,17 +25,13 @@
             </p>
             <p class="block"><label for="division">División</label>
                 <select v-model="userForm.users_divisions" id="division">
-                    <option
-                    v-for="division of divisions"
-                    :key="division.id"    
-                    :value="division.id"
-                        >{{ division.name }}</option>
+                    <option v-for="division of divisions" :key="division.id" :value="division.id">{{ division.name }}
+                    </option>
                 </select>
             </p>
             <p class="block"><label for="role">Rol de usuario</label>
                 <select v-model="userForm.role" id="role">
-                    <option v-for="role of roles"
-                    :key="role.name" :value="role.role">{{ role.name }}</option>
+                    <option v-for="role of roles" :key="role.name" :value="role.role">{{ role.name }}</option>
                 </select>
             </p>
             <button class="block" type="submit">Registrar</button>

@@ -79,13 +79,10 @@ const dispatchPlacesCommand = () => {
           { headers: { "x-token": localStorage.getItem("token") } }
         );
 
-        console.log(resp);
-
         niceUpdate.value = true;
 
         return { niceUpdate };
       } catch (errors) {
-        console.log(errors);
         if (errors.response.data.msg) {
           errorsUpdate.value = errors.response.data.msg;
           return { niceUpdate, errorsUpdate };

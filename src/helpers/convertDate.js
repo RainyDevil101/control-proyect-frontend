@@ -15,4 +15,4 @@ const convertDate = (time) => {
     }
 };
 
-export default convertDate
+export default convertDate;

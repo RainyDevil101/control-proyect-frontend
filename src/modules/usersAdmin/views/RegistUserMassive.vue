@@ -116,8 +116,6 @@ export default {
 
                 const { ok } = excelTemplateUsers();
 
-                console.log(ok);
-
             },
         };
     },

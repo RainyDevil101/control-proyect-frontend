@@ -127,8 +127,6 @@ const getters = {
 
     const pendings = getPendings.filter((refund) => refund.dispatchPlaces_id === filters);
 
-    console.log(pendings);
-
     return pendings;
   },
   getPendingRefundNeeded(state) {
@@ -168,8 +166,6 @@ const getters = {
     if (getAllStored.length === 0) return [];
 
     const allStored = getAllStored.filter((refund) => refund.dispatchPlaces_id === filters);
-
-    console.log(allStored);
 
     return allStored ;
   },

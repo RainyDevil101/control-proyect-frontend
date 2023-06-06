@@ -28,7 +28,6 @@ const getRefundByFilter = () => {
             return { errorsPost, ok, refunds, total };
 
         } catch (error) {
-            console.log(error);
             if (error.response.data.msg) {
                 errorsPost.value = error.response.data.msg;
                 refunds.value = "";

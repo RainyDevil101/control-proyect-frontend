@@ -1,120 +1,132 @@
 <template>
-    <loader v-if="status === 'CARGANDO'" />
-  
-    <div v-else class="wrapper">
-      <div class="alarm-wrapper">
-        <div class="header">
-          <h1>BULTOS ALMACENADOS</h1>
-        </div>
-        <div class="filter">
-          <p>Ubicación:</p>
-          <select v-model="filters.ubication">
-            <option value="">TODAS</option>
-            <option v-for="place of places" :key="place.name" :value="place.id">
-              {{ place.place }}
-            </option>
-          </select>
-        </div>
-        <div v-if="almacenadasFiltered.length > 0" class="body-wrapper">
-          <div class="pendiente-wrapper">
-            <almacenadaFiltered
-              v-for="almacenadaFiltered of almacenadasFiltered"
-              :key="almacenadaFiltered.id"
-              :almacenadaFiltered="almacenadaFiltered"
-            />
-          </div>
-        </div>
-  
-        <div v-else class="not-registers">
-          <h1>NO HAY REGISTROS</h1>
-        </div>
-        <div class="back-button">
-          <button
-            @click="$router.push({ name: 'menu-refunds' })"
-            type="button"
-            class="buttons-styles"
-          >
-            Volver
-          </button>
-        </div>
-      </div>
+  <loader v-if="status === 'CARGANDO'" />
+
+  <div v-else class="alarm-wrapper">
+    <h1>Materiales en ubicación</h1>
+    <div class="filter">
+      <p>Ubicación:</p>
+      <select v-model="filters.ubication">
+        <option value="">TODAS</option>
+        <option v-for="place of places" :key="place.name" :value="place.id">
+          {{ place.place }}
+        </option>
+      </select>
     </div>
-  </template>
+    <div class="overflow">
+      <table class="table-wrapper ">
+        <thead>
+          <tr>
+            <th>Estado de la devolución</th>
+            <th class="id">ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <almacenadaFiltered v-for="almacenadaFiltered of almacenadasFiltered" :key="almacenadaFiltered.id"
+            :almacenadaFiltered="almacenadaFiltered" />
+        </tbody>
+      </table>
+    </div>
+    <div class="button-container">
+      <button @click="$router.push({ name: 'menu-refunds' })" type="button" class="buttons-styles">
+        Volver
+      </button>
+      <button @click="onExportToExcel" type="button" class="buttons-styles">
+        Exportar a excel
+      </button>
+    </div>
+  </div>
+</template>
   
-  <script>
-  import { watch, ref } from "vue";
-  import Loader from "@/modules/components/Loader.vue";
-  import useRefunds from "../composables/refundsStore";
-  import AlmacenadaFiltered from "../../refund/components/AlmacenadaFiltered.vue";
-  import getPlaces from "@/modules/get/getPlace";
-  
-  export default {
-    components: { AlmacenadaFiltered, Loader },
-    setup() {
-      const { getStoredRefundsFilteredByplace, almacenadasFiltered, status } = useRefunds();
-  
-      const filters = ref({
-        ubication: ""
-      });
-  
-      const { places } = getPlaces();
-  
-      watch(
-        () => [
-          filters.value.ubication,
-        ],
-        () => {
-          getStoredRefundsFilteredByplace(filters.value.ubication)
+<script>
+import { watch, ref } from "vue";
+import Swal from "sweetalert2";
+import Loader from "@/modules/components/Loader.vue";
+import useRefunds from "../composables/refundsStore";
+import createFileFinished from "@/modules/adminRefund/composables/createExcelFileFinished";
+import AlmacenadaFiltered from "../../refund/components/AlmacenadaFiltered.vue";
+import getPlaces from "@/modules/get/getPlace";
+
+export default {
+  components: { AlmacenadaFiltered, Loader },
+  setup() {
+    const { getStoredRefundsFilteredByplace, almacenadasFiltered, status } = useRefunds();
+
+    const { places } = getPlaces();
+    const refundStatus = "Material_en_Ubicación";
+
+    const filters = ref({
+      ubication: ""
+    });
+
+
+    watch(
+      () => [
+        filters.value.ubication,
+      ],
+      () => {
+        getStoredRefundsFilteredByplace(filters.value.ubication)
+      }
+    );
+
+    getStoredRefundsFilteredByplace();
+
+    const { createExcelFileFinished } = createFileFinished();
+
+    return {
+      getStoredRefundsFilteredByplace,
+      almacenadasFiltered,
+      filters,
+      status,
+      places,
+      onExportToExcel: async () => {
+        new Swal({
+          title: "Generando archivo, espere por favor",
+          allowOutsideClick: false,
+        });
+        Swal.showLoading();
+
+        const refundsData = almacenadasFiltered.value;
+
+        const { errors, nice } = await createExcelFileFinished(refundsData, refundStatus);
+
+        if (nice.value === false) {
+          Swal.fire("Error", `${errors.value}.`, "error");
+          return;
+        } else {
+          Swal.fire(
+            "Exportado a excel"
+          );
         }
-      );
+
+      },
+    };
+  },
+};
+</script>
   
-      getStoredRefundsFilteredByplace();
-  
-      return {
-        getStoredRefundsFilteredByplace,
-        almacenadasFiltered,
-        filters,
-        status,
-        places,
-      };
-    },
-  };
-  </script>
-  
-  <style lang="scss" scoped>
+<style lang="scss" scoped>
   
   .alarm-wrapper {
-    min-height: 400px;
-    margin-top: 70px;
-    margin-bottom: 70px;
-    background-color: #fff;
-    border-radius: 4px;
-    min-width: 338px;
-    border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
-  }
+  margin: auto;
+  background-color: #fff;
+}
+
+.alarm-wrapper h1 {
+  text-align: center;
+}
   
-  .body-wrapper {
-    cursor: default;
-    height: 500px;
-    overflow: auto;
-    margin: auto;
-  }
-  
-  .back-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .not-registers {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: auto;
-    margin: auto;
-    height: 500px;
-  }
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.overflow {
+  height: 60vh;
+  overflow: auto;
+}
+
   
   .filter {
     display: flex;
@@ -127,10 +139,24 @@
   .filter p {
     width: 150px;
   }
+
+  .table-wrapper {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.table-wrapper th {
+    color: white;
+    background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+    text-align: left;
+    padding: 12px 8px;
+}
+
+.id {
+    width: 80px;
+}
   
   @media screen and (min-width: 768px) {
-    .alarm-wrapper {
-      max-width: 600px;
-    }
   }
   </style>

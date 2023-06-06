@@ -189,7 +189,6 @@ const actions = {
     return { ok: true };
   },
   async changeDestinationId({ commit }, id) {
-    console.log(id, 2);
     commit("changeDestinationId", { id });
     return { ok: true };
   },

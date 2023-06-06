@@ -6,118 +6,112 @@
     <img-two :imageTwo="imageTwo" @on:close="onShowImageTwo" />
   </div>
 
-  <div v-if="refundCompletedIdStatus === 'CARGANDO'" class="loader">
-    <loader />
-  </div>
+  <loader v-if="refundCompletedIdStatus === 'CARGANDO'" class="loader-wrapper" />
 
-  <div v-else class="wrapper">
-    <div class="body-wrapper">
-      <div v-if="refundIdCompleted !== 'none'">
-          <h1 class="refund-title">Despachos Gestionados</h1>
-        <div class="body-item">
+  <div v-else>
+    <div v-if="refundIdCompleted !== 'none'">
+      <div class="wrapper-form">
+        <h1>Material contabilizado</h1>
+        <div class="forum-data">
           <p>Fecha de ingreso:</p>
           <p>
             <b>{{ refundIdCompletedDate.date }}</b>
           </p>
         </div>
-        <div class="body-item">
+        <div class="forum-data">
           <p>Hora de ingreso:</p>
           <p>
             <b>{{ refundIdCompletedDate.hour }}</b>
           </p>
         </div>
-        <div class="body-item">
+        <div class="forum-data">
           <p>Fecha de despacho:</p>
           <p>
             <b>{{ refundIdCompletedDate.outDate }}</b>
           </p>
         </div>
-        <div class="body-item">
+        <div class="forum-data">
           <p>Hora de despacho:</p>
           <p>
             <b>{{ refundIdCompletedDate.outHour }}</b>
           </p>
         </div>
-        <hr>
-        <div class="body-item">
+        <div class="forum-data">
           <p>Código:</p>
           <p>
             <b>{{ refundIdCompleted.code }}</b>
           </p>
         </div>
-        <div class="body-item">
+        <div class="forum-data">
           <p>Cantidad:</p>
           <p>
             <b>{{ refundIdCompleted.quantity }}</b>
           </p>
         </div>
-        <div class="body-item">
+        <div class="forum-data">
           <p>Cantidad de bultos:</p>
           <p>
             <b>{{ refundIdCompleted.packageQuantity }}</b>
           </p>
         </div>
-        <div class="body-item">
+        <div class="forum-data">
           <p>Nombre del conductor:</p>
           <p>
             <b>{{ refundIdCompleted.driverName }}</b>
           </p>
         </div>
-        <div class="body-item">
+        <div class="forum-data">
           <p>Apellido del conducto:</p>
           <p>
             <b>{{ refundIdCompleted.driverLastname }}</b>
           </p>
         </div>
-        <div class="body-item">
+        <div class="forum-data">
           <p>Patente:</p>
           <p>
             <b>{{ refundIdCompleted.patent }}</b>
           </p>
         </div>
-        <div class="body-item">
+        <div class="forum-data">
           <p>Ubicación final:</p>
           <p>
             <b>{{ refundIdCompleted.possibleUbication }}</b>
           </p>
         </div>
-        <div class="body-item">
+        <div class="forum-data">
           <p>Estado:</p>
           <p>
-            <b>{{ completedPendiente }}</b>
+            <b>{{ refundIdCompleted.statusDelivery }}</b>
           </p>
         </div>
-        <div class="body-item">
+        <div class="forum-data">
           <p>N° de reserva:</p>
           <p>
             <b>{{ refundIdCompleted.reserve }}</b>
           </p>
         </div>
-        <div class="body-item">
+        <div class="forum-data">
           <p>N° de entrega:</p>
           <p>
             <b>{{ refundIdCompleted.delivery }}</b>
           </p>
         </div>
-        <div class="button-wrapper">
+        <div class="forum-button">
           <button @click="onShowImageOne" class="buttons-styles">
             Ver imagen ingreso
           </button>
           <button @click="onShowImageTwo" class="buttons-styles">
             Ver imagen despacho
           </button>
-          <button
-            @click="$router.push({ name: 'get-completed-refund' })"
-            class="buttons-styles"
-          >
+          <button @click="$router.push({ name: 'get-completed-refund' })" class="buttons-styles">
             Volver
           </button>
         </div>
       </div>
-      <div v-else>
-        <div class="not-wrapper">
-          <h1>No existe registro</h1>
-        </div>
+    </div>
+    <div v-else>
+      <div class="not-wrapper">
+        <h1>No existe registro</h1>
       </div>
     </div>
   </div>
@@ -185,45 +179,56 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.body-wrapper {
+.wrapper-form {
   background-color: #fff;
-  margin:70px auto;
-  border-radius: 4px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   padding: 8px;
-  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
+  width: 100%;
 }
 
-.refund-title {
+.wrapper-form h1 {
   text-align: center;
+  margin: 4px 0;
 }
 
-.body-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 8px 4px 8px;
-}
-
-.body-item p {
-  word-wrap: break-word;
-  max-width: 10rem;
-}
-
-.button-wrapper {
+.forum-button {
   margin-top: 10px;
   margin-bottom: 10px;
-  display: grid;
-  grid-gap: 10px;
-  align-items: center;
+  display: flex;
   justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
 }
 
+.forum-data {
+  margin: 5px;
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+
+.forum-data p {
+  word-wrap: break-word;
+  max-width: 90%;
+}
+
+.not-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.not-wrapper h1 {
+  margin: auto;
+}
+
+
 @media screen and (min-width: 768px) {
-  .button-wrapper {
-    display: flex;
+  .forum-button {
+    flex-direction: row;
   }
 }
 </style>

@@ -29,8 +29,6 @@ const sendData = () => {
         { headers: { "x-token": localStorage.getItem("token") } }
       );
 
-      console.log(data);
-
        errors.value = false;
        excel.value = data.fileName;
        nice.value = true;
@@ -50,8 +48,6 @@ const sendData = () => {
         { fileName },
         { headers: { "x-token": localStorage.getItem("token") } }
       );
-
-      console.log(data);
 
        file.value = data;
 

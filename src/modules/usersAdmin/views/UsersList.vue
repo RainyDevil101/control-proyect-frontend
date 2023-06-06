@@ -6,7 +6,7 @@
         <loading />
     </div>
     <div v-else class="userList-wrapper">
-        <table v-if="users.length > 0" class="table-wrapper">
+        <table class="table-wrapper">
             <thead>
                 <tr>
                     <th class="id">ID</th>

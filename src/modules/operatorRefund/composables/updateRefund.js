@@ -77,6 +77,7 @@ const updateRefund = () => {
 
         return { errors, nice, code };
       } catch (error) {
+        console.log(error);
         if (error.response.data.msg) {
           errors.value = error.response.data.msg;
           code.value = null;

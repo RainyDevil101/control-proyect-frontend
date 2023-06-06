@@ -60,7 +60,6 @@ const updateDestination = () => {
 
                 return { niceUpdate, errorsUpdate };
             } catch (errors) {
-                console.log(errors);
                 if (errors.response.data.msg) {
                     errorsUpdate.value = errors.response.data.msg;
                     return { niceUpdate, errorsUpdate };

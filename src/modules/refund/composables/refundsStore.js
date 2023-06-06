@@ -63,9 +63,9 @@ const useRefunds = () => {
         refundIdCompleted: computed(() => store.getters['refunds/getRefundCompletedNeeded']),
         refundIdCompletedDate: computed(() => store.getters['refunds/getRefundCompletedNeededDate']),
         refundStoredIdStatus: computed(() => store.getters['refunds/getStoredRefundIdStatus']),
-        refundCompletedIdStatus: computed(() => store.getters['refunds/getRefundCompletedIdStatus']),
+        refundCompletedIdStatus: computed(() => store.getters['refunds/getCompletedRefundIdStatus']),
         almacenada: computed(() => store.getters['refunds/getAlmacenada']),
     };
 };
 
-export default useRefunds
+export default useRefunds;

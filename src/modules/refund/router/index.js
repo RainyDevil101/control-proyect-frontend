@@ -39,5 +39,18 @@ export default {
             name: 'create-refund',
             component: () => import(/* webpackChunkName: "create-refund" */ '@/modules/refund/views/CreateRefund.vue'),
         },
+        {
+            path: 'get-dispatch-refund-admin',
+            name: 'get-dispatch-refund-admin',
+            component: () => import(/* webpackChunkName: "get-dispatch-refund-admin" */ '@/modules/refund/views/GetDispatchRefundAdmin.vue'),
+        },
+        {
+            path: 'dispatch-refunds-admin/:id',
+            name: 'dispatch-dash-refund-admin',
+            component: () => import(/* webpackChunkName: "dispath-refund-admin" */ '@/modules/refund/views/DispatchRefundAdmin.vue'),
+            props: (route) => {
+                id: route.params.id
+            },
+        },
     ]
 }

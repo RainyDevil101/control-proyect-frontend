@@ -25,8 +25,6 @@ const uploadUsers = () => {
         }
       );
 
-      console.log(data);
-
       nice.value = true;
       errors.value = false;
       message.value = data.msg;
@@ -36,7 +34,6 @@ const uploadUsers = () => {
       if (error.response.data.msg) {
         errors.value = error.response.data.msg
         nice.value = false;
-        console.log(errors.value);
         return { errors, nice, message };
       } else if (error.response.data.errors) {
         const msgErr = [];

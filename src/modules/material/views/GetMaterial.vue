@@ -5,17 +5,17 @@
     <h1>Despachos Pendientes</h1>
     <div class="overflow">
       <table class="table-wrapper ">
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Número de transporte</th>
-          <th class="id">ID</th>
-        </tr>
-      </thead>
-      <tbody>
-        <pendiente v-for="pendiente of pendientes" :key="pendientes.id" :pendiente="pendiente" />
-      </tbody>
-    </table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Número de transporte</th>
+            <th class="id">ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <pendiente v-for="pendiente of pendientes" :key="pendientes.id" :pendiente="pendiente" />
+        </tbody>
+      </table>
     </div>
 
     <div class="back-button">

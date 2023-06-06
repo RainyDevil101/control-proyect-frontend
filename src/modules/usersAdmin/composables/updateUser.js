@@ -76,14 +76,11 @@ const updateUser = () => {
                     { headers: { "x-token": localStorage.getItem("token") } }
                 );
 
-                console.log(data);
-
                 niceUpdate.value = true;
                 errorsUpdate.value = false;
 
                 return { niceUpdate, errorsUpdate };
             } catch (errors) {
-                console.log(errors);
                 if (errors.response.data.msg) {
                     errorsUpdate.value = errors.response.data.msg;
                     return { niceUpdate, errorsUpdate };

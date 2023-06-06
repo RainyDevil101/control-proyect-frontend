@@ -53,8 +53,6 @@ export default {
 
         let category = "DESPACHOS_COMPLETADOS";
 
-        console.log(completas.value);
-
         let {
           usersExcelErrorsCompleted,
           usersExcelCompleted,

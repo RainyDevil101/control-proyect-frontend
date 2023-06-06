@@ -38,8 +38,6 @@ const destinationsCommand = () => {
           { headers: { "x-token": localStorage.getItem("token") } }
         );
 
-        console.log(resp.data);
-
         destination.value = resp.data.destination;
         nicePost.value = true;
         errorsPost.value = false;

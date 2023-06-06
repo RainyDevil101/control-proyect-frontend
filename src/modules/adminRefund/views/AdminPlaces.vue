@@ -32,7 +32,7 @@
                         :key="dispatchPlace.id" :dispatchPlace="dispatchPlace" @on:open="onShowUpdateDispatchPlace" />
                 </tbody>
             </table>
-            <div class="page_section-wrapper">
+            <div v-if="dispatchPlacesByTerm.length > 0" class="page_section-wrapper">
                 <div class="page_button-wrapper">
                     <button class="button-page" @click="prevPage">Atrás</button>
                     <button class="button-page" @click="nextPage">Siguiente</button>

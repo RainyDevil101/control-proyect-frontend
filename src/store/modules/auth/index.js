@@ -62,6 +62,7 @@ const mutations = {
       localStorage.removeItem('aD');
       localStorage.removeItem('aU');
       localStorage.removeItem('aM');
+      localStorage.removeItem('aR');
   },
 };
 
@@ -93,6 +94,7 @@ const actions = {
       commit("destinations/logOut", null, { root: true });
       commit("clients/logOut", null, { root: true });
       commit("users/logOut", null, { root: true });
+      commit("places/logOut", null, { root: true });
       commit("refunds/logOut", null, { root: true });
       return { ok: false, message: "No hay token" };
     }

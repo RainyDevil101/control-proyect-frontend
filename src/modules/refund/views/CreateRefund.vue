@@ -1,92 +1,81 @@
 <template>
     <div v-if="createClient === true">
-        <create-client @on:close="onShowCreateClient"/>
+        <create-client @on:close="onShowCreateClient" />
     </div>
 
-    <loader v-if="placeStatus === 'CARGANDO' || clientStatus === 'CARGANDO'" class="loader-wrapper" />
+    <loader v-if="placeStatus === 'CARGANDO' || clientStatus === 'CARGANDO'" class="loader-wrapper fixed" />
 
-    <div v-else class="refund_form-wrapper">
-        <div class="refund-form">
-            <div class="header">
-                <h1>Registro</h1>
-            </div>
-            <div class="body body-form">
-                <form @submit.prevent="onSubmit">
-                    <div class="item-form">
-                        <p>Código</p>
-                        <input v-model="refundForm.code" type="text" maxlength="45" />
-                    </div>
-                    <div class="item-form">
-                        <p>Cantidad</p>
-                        <input v-model="refundForm.quantity" type="number" maxlength="2" />
-                    </div>
-                    <div class="item-form">
-                        <p>Cantidad de bultos</p>
-                        <input v-model="refundForm.packageQuantity" type="number" maxlength="2" />
-                    </div>
-                    <div class="item-form">
-                        <p>Nombre del Chofer</p>
-                        <input v-model="refundForm.driverName" type="text" maxlength="45">
-                    </div>
-                    <div class="item-form">
-                        <p>Apellido del Chofer</p>
-                        <input v-model="refundForm.driverLastname" type="text" maxlength="45">
-                    </div>
-                    <div class="item-form">
-                        <p>Patente</p>
-                        <input v-model="refundForm.patent" type="text" maxlength="6">
-                    </div>
-                    <div class="item-form">
-                        <p>Destino</p>
-                        <select v-model="refundForm.dispatchPlaces">
-                            <option v-for="place of places" :key="place.id" :value="place.id">
-                                {{ place.place }}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="item-form">
-                        <p>Ubicación teórica</p>
-                        <input v-model="refundForm.possibleUbication" type="text" maxlength="30">
-                    </div>
-                    <div class="item-form">
-                        <p>Cliente</p>
-                        <select v-model="refundForm.client">
-                            <option selected disabled value="">--Seleccione un cliente--</option>
-                            <option v-for="client of clients" :key="client.id" :value="client.id">
-                                {{ client.name }}
-                            </option>
-                        </select>
-                        <div class="new-client" @click="onShowCreateClient">Crear nuevo cliente</div>
-                    </div>
-                    <div class="item-form">
-                        <p>Observaciones</p>
-                        <textarea v-model="refundForm.observations" maxlength="70"></textarea>
-                    </div>
+    <div v-else class="refund-form">
+        <h1>Registro de devolución</h1>
+        <form @submit.prevent="onSubmit">
+            <p class="item-form">
+                <label for="code">Código</label>
+                <input id="code" v-model="refundForm.code" type="text" maxlength="45" />
+            </p>
+            <p class="item-form">
+                <label for="quantity">Cantidad</label>
+                <input id="quantity" v-model="refundForm.quantity" type="number" maxlength="2" />
+            </p>
+            <p class="item-form">
+                <label for="package">Cantidad de bultos</label>
+                <input id="package" v-model="refundForm.packageQuantity" type="number" maxlength="2" />
+            </p>
+            <p class="item-form">
+                <label for="driverName">Nombre del Chofer</label>
+                <input id="driverName" v-model="refundForm.driverName" type="text" maxlength="45">
+            </p>
+            <p class="item-form">
+                <label for="driverLastname">Apellido del Chofer</label>
+                <input id="driverLastname" v-model="refundForm.driverLastname" type="text" maxlength="45">
+            </p>
+            <p class="item-form">
+                <label for="patent">Patente</label>
+                <input id="patent" v-model="refundForm.patent" type="text" maxlength="6">
+            </p>
+            <p class="item-form">
+                <label for="ubication">Ubicación teórica</label>
+                <input id="ubication" v-model="refundForm.possibleUbication" type="text" maxlength="30">
+            </p>
+            <p class="item-form">
+                <label>Destino</label>
+                <select v-model="refundForm.dispatchPlaces">
+                    <option v-for="place of places" :key="place.id" :value="place.id">
+                        {{ place.place }}
+                    </option>
+                </select>
+            </p>
+            <p class="item-form-client">
+                <select v-model="refundForm.client">
+                    <option selected disabled value="">--Seleccione un cliente--</option>
+                    <option v-for="client of clients" :key="client.id" :value="client.id">
+                        {{ client.name }}
+                    </option>
+                </select>
+            </p>
+            <p class="button-form-client" @click="onShowCreateClient">Crear nuevo cliente</p>
+            <p class="item-form block">
+                <label for="observations">Observaciones</label>
+                <textarea id="observations" v-model="refundForm.observations" maxlength="70"></textarea>
+            </p>
 
-                    <div class="item-form image-form">
-                        <input type="file" @change="onImageOne" id="imageOne" accept="image/png, image/jpg, image/jpeg" />
-                        <div class="image-label">
-                            <label for="imageOne">Seleccione la imagen</label>
-                        </div>
-                        <div v-if="localImageOne" class="confirmation">
-                            <p>{{ imgOneName }}</p>
-                        </div>
-                    </div>
-                    <div class="submit-button">
-                        <button class="buttons-styles" type="submit">Finalizar</button>
-                        <button type="button" @click="$router.push({ name: 'menu-refunds' })" class="buttons-styles">
-                            Volver
-                        </button>
-                    </div>
-                </form>
+            <div class="buttons-form block">
+                <button type="button" @click="$router.push({ name: 'menu-refunds' })" class="button-form">
+                    Volver
+                </button>
+                <input class="button-form" type="file" @change="onImageOne" id="imageOne"
+                    accept="image/png, image/jpg, image/jpeg" />
+                    <p class="button-form" v-if="localImageOne"><label for="imageOne">{{ imgOneName }}</label></p>
+                    <p v-if="!localImageOne" class="button-form"><label for="imageOne">Seleccione la imagen</label></p>
+                <button class="button-form" type="submit">Finalizar</button>
             </div>
-        </div>
+        </form>
     </div>
 </template>
 
 <script>
 import { ref } from "@vue/reactivity";
 import { watch } from "@vue/runtime-core";
+import { useStore } from "vuex";
 
 import Swal from "sweetalert2";
 import Loader from "@/modules/components/Loader.vue";
@@ -97,7 +86,6 @@ import useAuth from "@/modules/auth/composables/useAuth";
 import getClients from "@/modules/get/getClient";
 import CreateClient from "../components/CreateClient.vue";
 import getTerm from "@/helpers/searchByTerm";
-import { useStore } from "vuex";
 
 export default {
     components: { Loader, CreateClient },
@@ -110,15 +98,15 @@ export default {
         const imgOne = ref(null);
 
         const refundForm = ref({
-            code: "11113333",
-            quantity: "12",
-            packageQuantity: "12",
-            driverName: "Chofer de prueba",
-            driverLastname: "Apellido de prueba",
-            patent: "123345",
+            code: "",
+            quantity: "",
+            packageQuantity: "",
+            driverName: "",
+            driverLastname: "",
+            patent: "",
             dispatchPlaces: "",
-            possibleUbication: "Ubicación de prueba",
-            observations: "Registro de prueba",
+            possibleUbication: "",
+            observations: "",
             client: ""
         });
 
@@ -249,104 +237,121 @@ export default {
 
 <style lang="scss" scoped>
 
-.item-form p {
-  margin: 2px 0;
-}
-
-.refund_form-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .refund-form {
-  border-radius: 4px;
-  padding: 8px;
-  margin: 70px auto;
-  width: 90%;
-  max-width: 500px;
-  background-color: #fff;
-  border: 1px solid rgba($color: rgb(0, 65, 127), $alpha: 1);
+    background-color: white;
+    padding: 1em;
 }
 
-.body-form {
-  padding: 2px;
+.refund-form h1 {
+    text-align: center;
+    margin: 4px 0;
+    padding: 4px 0;
+    background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
+    color: white;
+    text-transform: uppercase;
 }
 
-.image-form {
-  display: block;
+.refund-form form {
+    display: flex;
+    flex-direction: column;
 }
 
-.item-form input {
-  width: 100%;
+.refund-form form .block, .hr-grid {
+    grid-column: 1/3;
 }
 
-.submit-button {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+.refund-form form p {
+    margin: 0;
+    padding: .5rem;
+}
+
+.refund-form form p label {
+    font-size: .8rem;
+    padding: 4px 6px;
+    margin: 2px 0;
+}
+
+
+.refund-form form input,
+.refund-form form select {
+    width: 100%;
+    padding: .4rem;
+}
+
+.item-form-client select {
+    margin: 4px 0;
+}
+
+// .image-form {
+//   display: block;
+// }
+
+// .item-form input {
+//   width: 100%;
+// }
+
+.buttons-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: .4rem;
 }
 
 .loader-wrapper {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
 }
 
-.new-client {
+.button-form, .button-form-client {
     background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
     color: white;
-    border-radius: 4px;
     padding: 2px;
-    margin: 8px auto;
-    width: 100%;
+    margin: 8px 0;
+    width: 200px;
+    height: 50px;
     text-align: center;
     cursor: default;
-
+    border: none;
     &:hover {
         background-color: rgba(0, 0, 0, 0.827);
     }
+}
+
+textarea {
+    height: 75%;
+
+}
+
+.button-form-client {
+    width: 100%;
+    height: 38px;
+    margin: auto;
+    align-self: center;
 }
 
 input[type="file"] {
   display: none;
 }
 
-.image-label {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@media screen and (min-width: 768px) {
+    
+    .refund-form form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .refund-form form .block {
+        grid-column: 1 / 3;
+    }
+
+    .buttons-form {
+    flex-direction: row;
+
 }
 
-.confirmation {
-  margin: 4px 0 4px 0;
+.button-form-client {
+    margin: auto;
 }
 
-.confirmation p {
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  border-radius: 4px;
-  color: white;
-  text-align: center;
-  overflow: hidden;
-  max-width: 200px;
-  margin: auto;
-  cursor: default;
-}
-
-label {
-  width: 100%;
-  height: 30px;
-  font-size: 12px;
-  color: white;
-  background-color: rgba($color: rgb(0, 65, 127), $alpha: 1);
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  border-radius: 4px;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.827);
-  }
 }
 
 </style>

@@ -24,15 +24,12 @@ const deleteUser = () => {
           headers: { "x-token": localStorage.getItem("token") },
         });
 
-        console.log(resp);
-
         idDelete.value = resp.data;
         niceDelete.value = true;
         errorsDelete.value = false;
 
         return { errorsDelete, niceDelete, idDelete };
       } catch (errors) {
-        console.log(errors);
         if (errors.response.data.msg) {
           errorsDelete.value = errors.response.data.msg;
           return { niceDelete, errorsDelete };

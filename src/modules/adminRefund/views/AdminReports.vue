@@ -97,7 +97,7 @@ export default {
             },
             onExportToExcel: async () => {
                 new Swal({
-                    title: "Exportando, espere por favor",
+                    title: "Generando archivo, espere por favor",
                     allowOutsideClick: false,
                 });
                 Swal.showLoading();
@@ -108,16 +108,16 @@ export default {
 
                 const { errors, excel, nice } = await createExcelFile(refundsData, dates);
 
-               if (nice.value === false) {
-                Swal.fire("Error", `${errors.value}.`, "error");
-                return;
-               } else {
-                Swal.fire(
-                    "Exportado a excel"
-                );
-               }
+                if (nice.value === false) {
+                    Swal.fire("Error", `${errors.value}.`, "error");
+                    return;
+                } else {
+                    Swal.fire(
+                        "Exportado a excel"
+                    );
+                }
 
-            }
+            },
         };
     },
 }

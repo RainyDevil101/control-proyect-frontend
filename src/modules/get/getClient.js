@@ -8,9 +8,9 @@ const getClients = () => {
     
     const searchClients = async () => {
 
-        const page = 1;
+        const all = true;
 
-        const {data} = await backendConnect.get(`/api/client?page=${page}`, {
+        const {data} = await backendConnect.get(`/api/client?all=${all}`, {
             headers: { 'x-token': localStorage.getItem('token') }
         });
         const clientsArray = [];
