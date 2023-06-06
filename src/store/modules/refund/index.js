@@ -430,8 +430,8 @@ const mutations = {
   createClient(state, {onUpdate}) {
     state.createClient = onUpdate;
   },
-  deleteForumR(state, { id }) {
-    state.pendingRefunds = state.pendingRefunds.filter(u => u.uid !== id);
+  deleteRefundR(state, { id }) {
+    state.pendingRefunds = state.pendingRefunds.filter(r => r.id !== id);
     return;
   },
   logOut(state) {
@@ -482,6 +482,8 @@ const actions = {
 
   async loadRefunds({ commit }) {
 
+    state.status = "CARGANDO";
+    
     try {
 
       const { data } = await backendConnect.get('/api/refund/', { headers: { 'x-token': localStorage.getItem('token') } });

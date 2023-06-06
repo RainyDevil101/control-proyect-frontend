@@ -1,5 +1,4 @@
 import backendConnect from "../../../api/backend";
-import user from "../user";
 
 const state = {
   status: "AUTHENTICATING",
@@ -84,7 +83,8 @@ const actions = {
 
       return { ok: true, errors: false };
     } catch (errors) {
-      return { ok: false, errors: errors.response.data.msg };
+      console.log(errors);
+      return { ok: false, errors: errors.response.data.errors[0].msg };
     }
   },
   async readToken({ commit }) {

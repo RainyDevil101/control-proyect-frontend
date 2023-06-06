@@ -4,7 +4,7 @@
       <h4 class="login-header-wrapper">Iniciar sesión</h4>
       <form class="login-forum" @submit.prevent="onSubmit">
         <div class="forum-mail" data-validate="Enter username">
-          <input v-model="userForm.rut" type="text" class="input-forum" placeholder="Rut Ej: 12.345.678-9" required />
+          <input v-model="userForm.rut" type="text" class="input-forum" placeholder="Rut Ej: 12.345.678-9" required maxlength="12"/>
           <div class="change-forum mt-5">
             <p>Ingrese su RUT con puntos y guión.</p>
 
@@ -42,7 +42,7 @@ export default {
     const { loginUser } = useAuth();
 
     const userForm = ref({
-      rut: "13.689.671-7",
+      rut: "19.268.695-4",
       passwordT: "administrador",
     });
 

@@ -27,7 +27,7 @@
             <tbody>
               <pendientesFiltered v-for="pendienteFiltered of pendientesFiltered" :key="pendienteFiltered.id"
                 :pendienteFiltered="pendienteFiltered" />
-            </tbody>
+              </tbody>
           </table>
         </div>
       </div>
@@ -56,7 +56,8 @@ export default {
   components: { PendientesFiltered, Loader },
   setup() {
 
-    const { getRefundsFilteredByplace, pendientesFiltered, status } = useRefunds();
+    const { getRefundsFilteredByplace, pendientesFiltered, status, pendientes } = useRefunds();
+    const { createExcelFileFinished } = createFileFinished();
 
     const refundStatus = "En_proceso_ingreso";
 
@@ -69,6 +70,7 @@ export default {
     watch(
       () => [
         filters.value.ubication,
+        pendientes.value
       ],
       () => {
         getRefundsFilteredByplace(filters.value.ubication)
@@ -77,14 +79,13 @@ export default {
 
     getRefundsFilteredByplace();
 
-    const { createExcelFileFinished } = createFileFinished();
-
     return {
       filters,
       pendientesFiltered,
       getRefundsFilteredByplace,
       status,
       places,
+      pendientes,
       onExportToExcel: async () => {
         new Swal({
           title: "Generando archivo, espere por favor",
