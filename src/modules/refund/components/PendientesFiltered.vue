@@ -3,40 +3,49 @@
     <td @click="$router.push({ name: 'dispatch-dash-refund-admin', params: { id: pendienteFiltered.id } })">{{
       pendienteFiltered.code }}</td>
     <td>{{ pendienteFiltered.id }}</td>
-    <td @click="onDeleteImage" class="delete">Eliminar</td>
+    <td class="icon-td">
+      <div class="icon-container">
+        <button :disabled="deletingRefund" class="btn btn-danger button-i" @click="onDeleteRefund"><i
+            class="fa-solid fa-trash"></i></button>
+        <button :disabled="updatingRefund" class="btn btn-warning button-i"
+        @click="$router.push({ name: 'update-refund', params: {id: pendienteFiltered.id}})"><i class="fa-solid fa-pen-to-square"></i></button>
+      </div>
+    </td>
   </tr>
 </template>
 
 <script>
 import { useStore } from 'vuex';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import Swal from 'sweetalert2';
+import updateRefundData from '../composables/updateRefundData';
 import deleteRefund from '../helpers/deleteRefund';
 
+
 export default {
+  emits: ['on:update'],
   props: {
     pendienteFiltered: {
       type: Object,
       required: true,
     },
   },
-
   setup(props) {
 
     const store = useStore();
     const pendienteFiltered = ref(props.pendienteFiltered);
+    const { updatingRefund, deletingRefund } = updateRefundData();
+
     const id = props.pendienteFiltered.id;
-    const deletingRefund = ref(false);
 
     return {
       pendienteFiltered,
       id,
       deletingRefund,
-      onDeleteImage: async () => {
+      updatingRefund,
+      onDeleteRefund: async () => {
 
-        if (deletingRefund.value === true) return;
-
-        deletingRefund.value = true;
+        store.dispatch('refunds/deleteRefundData');
 
         const { isConfirmed } = await Swal.fire({
           title: "¿Estás seguro?",
@@ -44,31 +53,27 @@ export default {
           showDenyButton: true,
           confirmButtonText: "Estoy seguro",
         });
-
         if (!isConfirmed) {
-          deletingRefund.value = false;
+          store.dispatch('refunds/deleteRefundData');
           return;
         }
-
         new Swal({
           title: "Espere por favor",
           allowOutsideClick: false,
         });
         Swal.showLoading();
-
         const { ok } = await deleteRefund(id);
-
         if (!ok) {
+          store.dispatch('refunds/deleteRefundData');
           return Swal.fire("Error", "Comuniquese con el administrador", "error");
-        };
-
-        await store.dispatch('refunds/deleteRefund', id);
-
-        return Swal.fire("Eliminado", "", "success")
-
+        }
+        ;
+        await store.dispatch("refunds/deleteRefund", id);
+        store.dispatch('refunds/deleteRefundData');
+        return Swal.fire("Eliminado", "", "success");
       },
-    }
-  }
+    };
+  },
 }
 </script>
 
@@ -78,19 +83,30 @@ td {
   border: 1px solid #ddd;
   padding: 8px;
   word-wrap: break-word;
-  background-color: tomato;
+  margin: 0;
 }
 
-td.delete {
-  background-color: crimson;
-  text-align: center;
-  color: white;
-  font-weight: bold;
-
-  &:hover {
-    background-color: white;
-    color: crimson;
-  }
-
+.icon-td {
+  margin: 0;
+  padding: 0;
 }
+
+.icon-container {
+  display: flex;
+  // background-color: red;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.button-i {
+  margin: 1px;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+@media screen and (min-width: 768px) {
+
+};
+
 </style>

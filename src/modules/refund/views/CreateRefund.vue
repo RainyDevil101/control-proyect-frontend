@@ -64,8 +64,8 @@
                 </button>
                 <input class="button-form" type="file" @change="onImageOne" id="imageOne"
                     accept="image/png, image/jpg, image/jpeg" />
-                    <p class="button-form" v-if="localImageOne"><label for="imageOne">{{ imgOneName }}</label></p>
-                    <p v-if="!localImageOne" class="button-form"><label for="imageOne">Seleccione la imagen</label></p>
+                <p class="button-form" v-if="localImageOne"><label for="imageOne">{{ imgOneName }}</label></p>
+                <p v-if="!localImageOne" class="button-form"><label for="imageOne">Seleccione la imagen</label></p>
                 <button class="button-form" type="submit">Finalizar</button>
             </div>
         </form>
@@ -104,10 +104,10 @@ export default {
             driverName: "",
             driverLastname: "",
             patent: "",
-            dispatchPlaces: "",
             possibleUbication: "",
+            dispatchPlaces: "",
+            client: "",
             observations: "",
-            client: ""
         });
 
         const { userDivision, userId } = useAuth();
@@ -256,7 +256,7 @@ export default {
     flex-direction: column;
 }
 
-.refund-form form .block, .hr-grid {
+.refund-form form .block {
     grid-column: 1/3;
 }
 
@@ -281,14 +281,6 @@ export default {
 .item-form-client select {
     margin: 4px 0;
 }
-
-// .image-form {
-//   display: block;
-// }
-
-// .item-form input {
-//   width: 100%;
-// }
 
 .buttons-form {
     display: flex;
@@ -344,13 +336,12 @@ input[type="file"] {
     }
 
     .buttons-form {
-    flex-direction: row;
+        flex-direction: row;
+    }
 
-}
-
-.button-form-client {
-    margin: auto;
-}
+    .button-form-client {
+        margin: auto;
+    }
 
 }
 

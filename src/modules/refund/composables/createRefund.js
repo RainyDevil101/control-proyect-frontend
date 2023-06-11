@@ -8,6 +8,15 @@ const sendRefund = () => {
 
   const sendForum = async (refundForm, imgOne, userDivision, id) => {
 
+    const trimmedObj = {};
+    for (let key in refundForm) {
+      if (typeof refundForm[key] === "string") {
+        trimmedObj[key] = refundForm[key].trim();
+      } else {
+        trimmedObj[key] = refundForm[key];
+      }
+    }
+
     if (!userDivision) {
       errors.value = "Error usuario logeado";
       return { errors, nice, refundId };
@@ -26,14 +35,16 @@ const sendRefund = () => {
       refundForm.observations === ""
     ) {
       errors.value = "Debe llenar los campos";
-      return {errors, refundId, nice};
+      return { errors, refundId, nice };
     } else {
+
+
 
       try {
 
         const resp = await backendConnect.post(
           "/api/refund",
-          { refundForm, imgOne, userDivision, id },
+          { refundForm: trimmedObj, imgOne, userDivision, id },
           { headers: { "x-token": localStorage.getItem("token") } }
         );
 
@@ -63,7 +74,7 @@ const sendRefund = () => {
           nice.value = false;
           return { errors, nice, refundId };
         } else {
-            refundId.value = resp.data.id;
+          refundId.value = resp.data.id;
           errors.value = false;
           nice.value = true;
           return { errors, nice, refundId };

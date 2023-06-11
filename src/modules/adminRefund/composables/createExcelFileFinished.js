@@ -18,8 +18,6 @@ const createFileFinished = () => {
 
     for (const r of refundsData) {
 
-      console.log(r);
-
       dataRenamed.push({
         ID: r.id,
         Código: r.code,
@@ -30,7 +28,7 @@ const createFileFinished = () => {
         "Responsable de almacenamiento": r.fullname + " " + r.fulllastname,
         "Conductor": r.driverName + " " + r.driverLastname,
         "Fecha de ingreso": new Date(r.date_in).toLocaleString(),
-        "Fecha de almacenamiendo": new Date(r.finish_date).toLocaleString()
+        "Fecha de almacenamiento": (!r.finish_date) ? 'Pendiente' : new Date(r.finish_date).toLocaleString()
       })
     }
 

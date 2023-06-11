@@ -42,8 +42,8 @@ export default {
     const { loginUser } = useAuth();
 
     const userForm = ref({
-      rut: "19.268.695-4",
-      passwordT: "administrador",
+      rut: "",
+      passwordT: "",
     });
 
     const loading = ref(false);

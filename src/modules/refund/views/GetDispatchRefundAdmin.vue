@@ -26,8 +26,9 @@
             </thead>
             <tbody>
               <pendientesFiltered v-for="pendienteFiltered of pendientesFiltered" :key="pendienteFiltered.id"
-                :pendienteFiltered="pendienteFiltered" />
-              </tbody>
+                :pendienteFiltered="pendienteFiltered" @on:update="onUpdatingRefund" />
+            </tbody>
+
           </table>
         </div>
       </div>
@@ -44,13 +45,14 @@
 </template>
     
 <script>
-import { watch, ref } from "vue";
+import { watch, ref, onUpdated } from "vue";
 import Swal from "sweetalert2";
 import Loader from "@/modules/components/Loader.vue";
 import useRefunds from "../../operatorRefund/composables/operatorRefundsStore";
 import createFileFinished from "@/modules/adminRefund/composables/createExcelFileFinished";
 import PendientesFiltered from "../components/PendientesFiltered.vue";
 import getPlaces from "@/modules/get/getPlace";
+import updateRefundData from "../composables/updateRefundData";
 
 export default {
   components: { PendientesFiltered, Loader },
@@ -58,6 +60,7 @@ export default {
 
     const { getRefundsFilteredByplace, pendientesFiltered, status, pendientes } = useRefunds();
     const { createExcelFileFinished } = createFileFinished();
+    const { onUpdatingRefund, updatingRefund, onResetUpdate } = updateRefundData();
 
     const refundStatus = "En_proceso_ingreso";
 
@@ -79,6 +82,10 @@ export default {
 
     getRefundsFilteredByplace();
 
+    onUpdated(() => {
+      onResetUpdate();
+    })
+
     return {
       filters,
       pendientesFiltered,
@@ -86,7 +93,11 @@ export default {
       status,
       places,
       pendientes,
+      onUpdatingRefund,
+      updatingRefund,
+      onResetUpdate,
       onExportToExcel: async () => {
+
         new Swal({
           title: "Generando archivo, espere por favor",
           allowOutsideClick: false,
@@ -168,7 +179,5 @@ export default {
     width: 150px;
   }
   
-  @media screen and (min-width: 768px) {
-    
-  }
+
     </style>

@@ -24,7 +24,7 @@ const getters = {
     return state.pathWanted;
   },
   getUserRole(state) {
-    if(state.user === null) {
+    if (state.user === null) {
       return "null"
     } else {
       return state.user[0].role;
@@ -42,7 +42,7 @@ const mutations = {
     state.user = user;
     state.status = "authenticated";
   },
-  savePathState(state, {pathToStore}) {
+  savePathState(state, { pathToStore }) {
     if (pathToStore) {
       state.pathWanted = pathToStore;
     } else {
@@ -50,18 +50,18 @@ const mutations = {
     }
   },
   logOut(state) {
-      state.user = null;
-      state.token = null;
-      state.status = "AUTHENTICATING";
-      state.pathWanted = false;
-      localStorage.removeItem("token");
-      localStorage.removeItem('mP');
-      localStorage.removeItem('mC');
-      localStorage.removeItem('aDi');
-      localStorage.removeItem('aD');
-      localStorage.removeItem('aU');
-      localStorage.removeItem('aM');
-      localStorage.removeItem('aR');
+    state.user = null;
+    state.token = null;
+    state.status = "AUTHENTICATING";
+    state.pathWanted = false;
+    localStorage.removeItem("token");
+    localStorage.removeItem('mP');
+    localStorage.removeItem('mC');
+    localStorage.removeItem('aDi');
+    localStorage.removeItem('aD');
+    localStorage.removeItem('aU');
+    localStorage.removeItem('aM');
+    localStorage.removeItem('aR');
   },
 };
 
@@ -82,9 +82,24 @@ const actions = {
       commit("loginUser", { user, token });
 
       return { ok: true, errors: false };
-    } catch (errors) {
-      console.log(errors);
-      return { ok: false, errors: errors.response.data.errors[0].msg };
+    } catch (error) {
+
+      if (error.response.data.msg) {
+        ;
+
+        return { ok: false, errors: error.response.data.msg };
+      }
+      if (error.response.data.errors) {
+        const msgErr = [];
+        const errorsDB = error.response.data.errors;
+        for (const error of errorsDB) {
+          msgErr.push(" " + error.msg);
+        }
+        return { ok: false, errors: msgErr };
+      } 
+      
+      return { ok: false, errors: 'Error'}
+
     }
   },
   async readToken({ commit }) {
@@ -114,7 +129,7 @@ const actions = {
   },
   async savePathWanted({ commit }, pathToStore) {
 
-    commit("savePathState", {pathToStore});
+    commit("savePathState", { pathToStore });
     return { ok: true };
   },
 };

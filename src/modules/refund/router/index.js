@@ -35,6 +35,14 @@ export default {
             },
         },
         {
+            path: 'update-refund/:id',
+            name: 'update-refund',
+            component: () => import(/* webpackChunkName: "update-refund" */ '@/modules/refund/views/UpdatePendienteFiltered.vue'),
+            props: (route) => {
+                id: route.params.id
+            },
+        },
+        {
             path: 'create-refund',
             name: 'create-refund',
             component: () => import(/* webpackChunkName: "create-refund" */ '@/modules/refund/views/CreateRefund.vue'),

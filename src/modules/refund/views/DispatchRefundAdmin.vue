@@ -129,10 +129,10 @@ import ImgOne from '@/modules/operatorRefund/components/ImgOne.vue';
 export default {
   components: { Loader, ImgOne },
   setup() {
+    
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
-
 
     const image_label_selected = ref("image_label_selected");
     const image_label_unSelected = ref("image_label_unSelected");
@@ -154,6 +154,7 @@ export default {
     } = useRefunds();
 
     const possibleUbication = ref('');
+    const ubication = ref(null);
 
     const changeFinalUbication = ref("no");
 
@@ -186,6 +187,7 @@ export default {
       imageOne,
       imageOneCompleted,
       changeFinalUbication,
+      ubication,
 
       onSubmit: async () => {
         new Swal({
@@ -195,9 +197,6 @@ export default {
         Swal.showLoading();
 
         const checkUbication = possibleUbication.value;
-
-        const originalUbication = refundPendingId.value.possibleUbication;
-
 
         if (checkUbication === "" && changeFinalUbication.value === 'yes') {
           return Swal.fire({
@@ -225,11 +224,19 @@ export default {
 
         const pictureTwo = await uploadTwo(imgTwo.value);
 
+
+        if (changeFinalUbication.value === 'yes') {
+          ubication.value = possibleUbication.value;
+        }
+
+        if (changeFinalUbication.value === 'no') {
+          ubication.value = refundPendingId.value.possibleUbication;
+        }
+
         const { errors, nice, code } = await dispatchRefund(
-          checkUbication,
+          ubication.value,
           pictureTwo,
           route.params.id,
-          originalUbication
         );
 
         if (nice.value === false) {

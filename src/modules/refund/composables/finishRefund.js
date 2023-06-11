@@ -21,8 +21,6 @@ const finishRefund = () => {
           { headers: { "x-token": localStorage.getItem("token") } }
         );
 
-        console.log(resp);
-
         code.value = id;
         nice.value = true;
         errors.value = false;

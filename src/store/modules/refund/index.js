@@ -4,6 +4,7 @@ import backendConnect from "../../../api/backend";
 const state = {
   status: "CARGANDO",
   imageOne: '',
+  actualImageOne: '',
   imageTwo: '',
   // REFUNDS PENDIENTES
   pendingRefunds: '',
@@ -40,7 +41,15 @@ const state = {
   pendingImageOne: false,
   pendingImageTwo: false,
   // MOSTRAR MODAL
-  createClient: false
+  createClient: false,
+
+  // Actualizar refund
+  refundToUpdate: '',
+  updateRefundBoolean: false,
+  showUpdate: false,
+  // Eliminar refund
+  deleteRefundBoolean: false,
+
 };
 
 const getters = {
@@ -107,6 +116,9 @@ const getters = {
   },
   getImageOne(state) {
     return state.imageOne;
+  },
+  getActualImageOne(state) {
+    return state.actualImageOne;
   },
   getImageTwo(state) {
     return state.imageTwo;
@@ -187,7 +199,19 @@ const getters = {
   },
   getPendingStored(state) {
     return state.pendingStored;
-  }
+  },
+  getUpdateRefundBoolean(state) {
+    return state.updateRefundBoolean;
+  },
+  getDeleteRefundBoolean(state) {
+    return state.deleteRefundBoolean;
+  },
+  getRefundToUpdate(state) {
+    return state.refundToUpdate[0];
+  },
+  getShowUpdate(state) {
+    return state.showUpdate;
+  },
 };
 
 const mutations = {
@@ -434,10 +458,28 @@ const mutations = {
     state.pendingRefunds = state.pendingRefunds.filter(r => r.id !== id);
     return;
   },
+  dataRefundToUpdate(state, { id }) {
+    state.showUpdate === false
+    state.refundToUpdate = state.allRefunds.filter(r => r.id == id);
+    state.actualImageOne = state.refundToUpdate[0].image_one;
+    state.showUpdate === true;
+    return;
+  },
+  resetUpdateRefundData(state) {
+    state.updateRefundBoolean = false;
+    state.actualImageOne = '';
+  },
+  updateRefundData(state) {
+    state.updateRefundBoolean = !state.updateRefundBoolean;
+  },
+  deleteRefundData(state) {
+    state.deleteRefundBoolean = !state.deleteRefundBoolean;
+  },
   logOut(state) {
     state.status = "CARGANDO";
 
     state.imageOne = '';
+    state.actualImageOne = '';
     state.imageTwo = '';
 
     state.pendingRefunds = '';
@@ -471,6 +513,11 @@ const mutations = {
     state.pending = '';
     state.pendingImageOne = false;
     state.pendingImageTwo = false;
+
+    state.refundToUpdate = '';
+    state.updateRefundBoolean = false;
+    state.showUpdate = false;
+    state.deleteRefundBoolean = false;
 
     localStorage.removeItem('aR');
     return;
@@ -521,6 +568,10 @@ const actions = {
     commit('getCompletedRefundById', { id });
     return { ok: true };
   },
+  async refundToUpdateData({ commit }, id) {
+    commit('dataRefundToUpdate', { id });
+    return { ok: true };
+  },
   async changeImageOne({ commit }, onImageOne) {
     commit('changeImageOne', { onImageOne })
     return { ok: true }
@@ -538,8 +589,16 @@ const actions = {
     commit('saveRefunds', { refunds });
     return { ok: true };
   },
-  async updateRefund({ commit }, id) {
-    commit('updateRefundR', { id });
+  async updateRefundData({ commit }) {
+    commit('updateRefundData');
+    return { ok: true };
+  },
+  async resetUpdateRefundData({ commit }) {
+    commit('resetUpdateRefundData');
+    return { ok: true };
+  },
+  async deleteRefundData({ commit }) {
+    commit('deleteRefundData');
     return { ok: true };
   }
 };
